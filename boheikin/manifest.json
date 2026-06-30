@@ -1,0 +1,38 @@
+{
+  "name": "母平均（回転数・TY）記録・区間推定アプリ",
+  "short_name": "回転数推定",
+  "description": "パチンコの回転数・スロットのTYを統計分析。±1σ・±2σの統計的なブレ幅を可視化する無料Webアプリ。",
+  "lang": "ja",
+  "start_url": "/boheikin/",
+  "scope": "/boheikin/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080a0f",
+  "theme_color": "#080a0f",
+  "icons": [
+    {
+      "src": "/boheikin/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/boheikin/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/boheikin/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/boheikin/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

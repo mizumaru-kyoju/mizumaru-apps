@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-01E4RXEDFT");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>AT平均獲得枚数（TY）計算・記録アプリ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+:root {
+  --bg:#0e0900;
+  --panel:#1a1100;
+  --panel2:#211800;
+  --border:#332200;
+  --border2:#4a3300;
+  --accent:#ffaa00;
+  --accent2:#ff6600;
+  --green:#aaff44;
+  --red:#ff4444;
+  --blue:#44aaff;
+  --text:#f0ddb0;
+  --muted:#5a4422;
+  --muted2:#886633;
+  --glow:0 0 14px rgba(255,170,0,0.45);
+  --glow-g:0 0 10px rgba(170,255,68,0.35);
+  --row-alt:#150f00;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;max-width:520px;margin:0 auto;padding-bottom:60px}
+
+/* TOPBAR */
+.topbar{background:rgba(14,9,0,0.97);border-bottom:2px solid var(--accent);padding:10px 14px;text-align:center}
+.topbar-title{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--accent);text-shadow:var(--glow)}
+
+/* MEMO */
+.memo-wrap{padding:8px 10px 0}
+.memo-input{width:100%;background:var(--panel);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;padding:7px 10px;outline:none;resize:none}
+.memo-input::placeholder{color:var(--muted2)}
+.memo-input:focus{border-color:var(--accent)}
+
+.main{padding:10px}
+
+/* SECTION */
+.section{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
+.section-title{font-size:9px;color:var(--muted2);letter-spacing:2px;margin-bottom:10px}
+
+/* COMMON */
+.common-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field label{display:block;font-size:8px;color:var(--muted2);letter-spacing:1px;margin-bottom:3px}
+.field input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:5px;color:var(--accent);font-family:'Orbitron',sans-serif;font-size:16px;text-align:center;padding:7px 4px;outline:none;-webkit-appearance:none}
+.field input:focus{border-color:var(--accent);box-shadow:var(--glow)}
+.field input::placeholder{color:var(--muted);font-size:11px;font-family:'Noto Sans JP',sans-serif}
+
+/* UNIFIED TABLE */
+.unified-table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.unified-table th{font-size:8px;color:var(--muted2);letter-spacing:1px;padding:5px 2px;border-bottom:1px solid var(--border2);text-align:center;white-space:nowrap}
+.unified-table col.col-s   {width:38px}
+.unified-table col.col-in  {width:calc((100% - 38px) / 5)}
+.unified-table col.col-rtp {width:calc((100% - 38px) / 5)}
+.unified-table col.col-x   {width:calc((100% - 38px) / 5)}
+.unified-table col.col-ty  {width:calc((100% - 38px) / 5)}
+.unified-table col.col-diff{width:calc((100% - 38px) / 5)}
+
+.unified-table td{padding:5px 2px;text-align:center;border-bottom:1px solid var(--border)}
+.unified-table tr:last-child td{border-bottom:none}
+.unified-table tr.row-alt td{background:var(--row-alt)}
+.unified-table tr.row-alt input{background:#0a0700}
+
+.tbl-label{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:var(--text)}
+.tbl-input{background:var(--bg);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'Orbitron',sans-serif;font-size:11px;text-align:center;padding:4px 1px;outline:none;width:100%;-webkit-appearance:none;min-width:0}
+.tbl-input:focus{border-color:var(--accent)}
+.tbl-input::placeholder{color:var(--muted);font-size:9px;font-family:'Noto Sans JP',sans-serif}
+.tbl-x{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--blue)}
+.tbl-ty{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--accent);text-shadow:var(--glow)}
+.tbl-diff-pos{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--green)}
+.tbl-diff-neg{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--red)}
+.tbl-empty{color:var(--muted);font-size:10px}
+
+/* CALC BUTTON */
+.btn-calc{width:100%;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:12px;padding:13px;cursor:pointer;letter-spacing:2px;transition:all .15s;margin-bottom:10px}
+.btn-calc:active{transform:scale(.97);opacity:.85}
+
+/* BAR */
+.bar-chart{margin-top:4px}
+.bar-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.bar-lbl{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;width:20px;text-align:center;color:var(--text);flex-shrink:0}
+.bar-track{flex:1;height:20px;background:var(--bg);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;transition:width .5s ease}
+.bar-num{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;white-space:nowrap}
+.bar-out{font-family:'Orbitron',sans-serif;font-size:10px;width:52px;text-align:right;flex-shrink:0}
+
+.note{font-size:9px;color:var(--muted2);line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.btn-reset{background:transparent;border:1px solid var(--muted);color:var(--muted2);border-radius:6px;font-size:10px;padding:6px 14px;cursor:pointer;margin-top:8px;width:100%;letter-spacing:1px}
+.empty-msg{text-align:center;color:var(--muted);font-size:11px;padding:16px 0}
+
+/* SAVE BUTTON */
+.btn-save{width:100%;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:8px;font-family:'Orbitron',sans-serif;font-size:11px;padding:10px;cursor:pointer;letter-spacing:2px;transition:all .15s;margin-bottom:10px}
+.btn-save:active{opacity:.7}
+
+/* TOPBAR WITH MENU */
+.topbar{background:rgba(14,9,0,0.97);border-bottom:2px solid var(--accent);padding:10px 14px;display:flex;align-items:center;gap:10px}
+.topbar-title{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--accent);text-shadow:var(--glow);flex:1;text-align:left;display:flex;align-items:center}
+.btn-menu{background:var(--panel);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:5px 9px;font-size:12px;cursor:pointer;flex-shrink:0}
+
+/* OVERLAY / SIDEBAR */
+.overlay{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,0.7);display:none;align-items:flex-start;justify-content:flex-end}
+.overlay.open{display:flex}
+.sidebar{width:82%;max-width:320px;height:100%;background:var(--panel);border-left:1px solid var(--border2);display:flex;flex-direction:column;animation:slideIn .2s ease}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.sidebar-head{padding:14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.sidebar-head h2{font-size:10px;letter-spacing:2px;color:var(--muted2)}
+.sidebar-body{flex:1;overflow-y:auto;padding:10px}
+.saved-item{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--panel2);cursor:pointer;transition:all .15s}
+.saved-item:hover{border-color:var(--accent)}
+.saved-info{flex:1;min-width:0}
+.saved-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.saved-meta{font-size:10px;color:var(--muted2);margin-top:2px}
+.btn-del-saved{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;flex-shrink:0;padding:4px}
+.btn-del-saved:hover{color:var(--red)}
+.saved-empty{text-align:center;color:var(--muted);font-size:11px;padding:30px 0}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* SITE FOOTER */
+.site-footer{text-align:center;padding:20px 0 10px;border-top:1px solid var(--border);margin-top:8px}
+.site-footer a{font-size:11px;color:var(--muted2);text-decoration:none;letter-spacing:1px;margin:0 6px}
+.site-footer a:hover{color:var(--accent)}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8753924001045572" crossorigin="anonymous"></script>
+<link rel="apple-touch-icon" href="/heikinkakutoku/icon-192.png">
+<link rel="manifest" href="/heikinkakutoku/manifest.json">
+<meta name="theme-color" content="#0e0900">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="平均獲得枚数計算">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="canonical" href="https://mizumaru-apps.com/heikinkakutoku/">
+  <meta name="description" content="スロットの初当り確率・機械割・AT純増・ベースG数から、設定1〜6のAT平均消化G数とTY（差枚数）を一括計算する無料Webアプリ。">
+<meta property="og:title" content="AT平均獲得枚数（TY）計算・記録アプリ">
+<meta property="og:description" content="スロットの初当り確率・機械割・AT純増・ベースG数から、設定1〜6のAT平均消化G数とTYを一括計算。設定差を統計的に可視化する無料Webアプリ。">
+<meta property="og:image" content="https://mizumaru-apps.com/heikinkakutoku/og-image.png">
+<meta property="og:url" content="https://mizumaru-apps.com/heikinkakutoku/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mizumaru-apps.com/heikinkakutoku/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AT平均獲得枚数（TY）計算・記録アプリ",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web, iOS, Android",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  }
+}
+</script>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-title"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAA4ADgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD50VSzYFTLa5/j/SmQ9Wq0hrczGCwz/wAtP/HaX+zj/wA9f/Ha17HRdRv9OvNStrSWWzstv2iZR8sW44Xce2TxWppvg691PQJNbW5tYLWOYRN5rkMF/ik2gElFyNxHSs5Vqcd35FqnJ7I5I2OP+Wn/AI7UbW4X+P8ASvUfDng/RLq41O4nSW9sINLku4BDcAO2xPmlJKjCBvlxjljgbsEjzOZlLEqMDtU068ajaj0HOm4pNlVlKnBop0nb8aK2MwjOM1MjDIzVfOKlt1M80cIODI6oD6ZOP60gPdNA8M6VH4fhTSdW1C5tb60N0xFrEkY2MBMJGeYAsuQGBBAXGMA5rUj0nwpFC2mr4hvERilypRrNfKMeVVVIn+VcMflzzkk5yTXDeGfFUfhDUVsbkTNpl7LlfJQPJaTKoCzIp4b5HCMnR13A9qi8SfZtFtr+9s7DTna2mijCFS8axzIzRvC/DbQyFlznCvsYHbXzzozc+WT31T76nqqpaN10OxHh61u7Sa1stbma4mgntAwhtnWQyZKLI0UxK7vLVV+XavCgV4I5KnB4I7V6Kb+70CLWbvRbsafJBaWV9bGFFBEc23fGeOcFlOTz+7FebTztNI8jtudyWY+pPJr0MBTlFybd1p/n+py4qSaXcRjnFFNU5FFekcgkhwBSJKyMGU4ZSCD6HtSTfdH1qNX2sCQDg5wehpAex+Go7K10G416+WY31xG0kCxrue1t+jOo/wCesjfu09FVn7Vyk839pWQsZ4L61jKKwjigZuE3+WuSOFBkYk8nAUdTWcvxB1ESmU2lhvYKpZUdTheAOGHQcfStkfGO/C4/sPR9+zZu2y5xnP8Az0rxVhsRGTly3b89j1HWotct9PQfo+h3Hiqa7t5bxdJgn8iATXUT4WKJTtXAGckIXPoF56iuBn2JK6RyCRFYhXAxuGeDj3rev/HmpXsEsXk2sXmo0ZkRXLhW6gFmOMjj6cVzRau/C06sW3PRaWRyYiVN25CeI5U/Wikg+6frRXYcw8gMMHpTPIX1NFFAB5I9TR5I9TRRQAeQPU0nkL6miigCQAKMDpRRRQB//9k=" style="height:28px;width:28px;object-fit:cover;border-radius:6px;margin-right:8px;vertical-align:middle;flex-shrink:0;">AT 平均獲得枚数（TY） 計算・記録アプリ</div>
+  <button class="btn-menu" onclick="openSidebar()">☰</button>
+</div>
+
+<!-- SIDEBAR -->
+<div class="overlay" id="overlay" onclick="closeSidebar(event)">
+  <div class="sidebar">
+    <div class="sidebar-head">
+      <h2>▸ 保存済み機種一覧</h2>
+      <button class="btn-menu" onclick="closeSidebar()">✕</button>
+    </div>
+    <div class="sidebar-body" id="savedList"></div>
+  </div>
+</div>
+
+<!-- メモ欄 -->
+<div class="memo-wrap">
+  <textarea class="memo-input" id="memoText" rows="1" placeholder="機種名・メモを入力（例: L東京喰種）"></textarea>
+</div>
+
+<div class="main">
+
+  <!-- 共通 -->
+  <div class="section">
+    <div class="section-title">▸ 全設定共通パラメータ</div>
+    <div class="common-grid">
+      <div class="field">
+        <label>AT純増（枚/G）</label>
+        <input type="number" id="pureIncrease" placeholder="例: 4.0" step="0.1" min="0" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>ベース（G/50枚）</label>
+        <input type="number" id="baseG" placeholder="例: 31" step="0.1" min="0" inputmode="decimal">
+      </div>
+    </div>
+  </div>
+
+  <!-- 統合テーブル -->
+  <div class="section">
+    <div class="section-title">▸ 設定別入力 ＋ 計算結果</div>
+    <table class="unified-table">
+      <colgroup>
+        <col class="col-s">
+        <col class="col-in">
+        <col class="col-rtp">
+        <col class="col-x">
+        <col class="col-ty">
+        <col class="col-diff">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>設定</th>
+          <th>初当り<br>確率</th>
+          <th>機械割<br>(%)</th>
+          <th>AT消化<br>G (X)</th>
+          <th>TY<br>(枚)</th>
+          <th>期待<br>差枚</th>
+        </tr>
+      </thead>
+      <tbody id="unifiedBody"></tbody>
+    </table>
+  </div>
+
+  <button class="btn-calc" onclick="calculate()">▶ 計算する</button>
+
+  <!-- グラフ -->
+  <div class="section" id="chartSection" style="display:none">
+    <div class="section-title">▸ TY 設定差グラフ</div>
+    <div class="bar-chart" id="barChart"></div>
+    <div class="note" id="resultNote"></div>
+    <button class="btn-reset" onclick="resetAll()">入力をリセット</button>
+  </div>
+
+  <!-- 保存ボタン（計算後に表示） -->
+  <button class="btn-save" id="btnSave" style="display:none" onclick="saveEntry()">💾 この機種を保存</button>
+
+</div>
+<footer class="site-footer">
+  <a href="/">TOP</a>
+  <a href="/heikinkakutoku/guide.html">使い方ガイド</a>
+  <a href="/privacy.html">プライバシーポリシー</a>
+</footer>
+<script>
+function buildTable(){
+  const tbody=document.getElementById('unifiedBody');
+  tbody.innerHTML='';
+  for(let s=1;s<=6;s++){
+    const tr=document.createElement('tr');
+    if(s%2===0) tr.className='row-alt';
+    const placeholders = [
+      ['394.4','97.5'],
+      ['380.5','99.0'],
+      ['357.0','101.6'],
+      ['325.9','105.6'],
+      ['291.2','110.3'],
+      ['261.3','114.9']
+    ];
+    tr.innerHTML=`
+      <td class="tbl-label">設定${s}</td>
+      <td><input class="tbl-input" id="prob${s}" type="number" placeholder="${placeholders[s-1][0]}" step="0.1" min="0" inputmode="decimal"></td>
+      <td><input class="tbl-input" id="rtp${s}" type="number" placeholder="${placeholders[s-1][1]}" step="0.1" min="0" inputmode="decimal"></td>
+      <td class="tbl-x" id="rx${s}">—</td>
+      <td class="tbl-ty" id="rty${s}">—</td>
+      <td id="rdiff${s}" class="tbl-empty">—</td>`;
+    tbody.appendChild(tr);
+  }
+}
+buildTable();
+
+function calculate(){
+  const C=parseFloat(document.getElementById('pureIncrease').value);
+  const G=parseFloat(document.getElementById('baseG').value);
+  if(isNaN(C)||C<=0||isNaN(G)||G<=0){
+    alert('AT純増とベースG数を入力してください');return;
+  }
+  const results=[];
+  for(let s=1;s<=6;s++){
+    const B=parseFloat(document.getElementById('prob'+s).value);
+    const A=parseFloat(document.getElementById('rtp'+s).value);
+    document.getElementById('rx'+s).textContent='—';
+    document.getElementById('rty'+s).textContent='—';
+    document.getElementById('rty'+s).style.color='';
+    document.getElementById('rty'+s).style.textShadow='';
+    document.getElementById('rdiff'+s).textContent='—';
+    document.getElementById('rdiff'+s).className='tbl-empty';
+    if(isNaN(B)||B<=0||isNaN(A)||A<=0){results.push(null);continue;}
+    const rtpD=A/100;
+    const num=B*(3-50/G-rtpD*3);
+    const den=rtpD*3-3-C;
+    if(Math.abs(den)<0.0001){results.push({error:true});continue;}
+    const X=num/den;
+    const TY=X*C;
+    const investCoins=B/G*50;
+    const diff=TY-investCoins;
+    if(X<0||TY<0){results.push({error:true});continue;}
+    results.push({s,B,A,X,TY,investCoins,diff});
+    document.getElementById('rx'+s).textContent=X.toFixed(1)+'G';
+    document.getElementById('rty'+s).textContent=TY.toFixed(1);
+    const diffEl=document.getElementById('rdiff'+s);
+    diffEl.textContent=(diff>=0?'+':'')+diff.toFixed(1);
+    diffEl.className=diff>=0?'tbl-diff-pos':'tbl-diff-neg';
+  }
+  renderChart(results,C,G);
+}
+
+function getBarColor(value,values){
+  if(values.length<2) return{fill:'#ffaa00',text:'#000'};
+  const mean=values.reduce((a,b)=>a+b,0)/values.length;
+  const sd=Math.sqrt(values.reduce((s,v)=>s+(v-mean)**2,0)/values.length);
+  if(sd<1) return{fill:'#ffaa00',text:'#000'};
+  const z=(value-mean)/sd;
+  if(z>1.0)  return{fill:'#aaff44',text:'#000'};
+  if(z<-1.0) return{fill:'#ff4444',text:'#fff'};
+  return{fill:'#ffaa00',text:'#000'};
+}
+
+function renderChart(results,C,G){
+  const valid=results.filter(r=>r&&!r.error);
+  if(valid.length===0){document.getElementById('chartSection').style.display='none';return;}
+  const tyVals=valid.map(r=>r.TY);
+  const maxTY=Math.max(...tyVals);
+
+  // TYセルの色をグラフと同期
+  valid.forEach(r=>{
+    const col=getBarColor(r.TY,tyVals);
+    const el=document.getElementById('rty'+r.s);
+    el.style.color=col.fill;
+    el.style.textShadow=`0 0 10px ${col.fill}88`;
+  });
+
+  let html='';
+  results.forEach((r,i)=>{
+    if(!r||r.error) return;
+    const pct=Math.max(4,(r.TY/maxTY)*100);
+    const col=getBarColor(r.TY,tyVals);
+    html+=`<div class="bar-row">
+      <div class="bar-lbl">${r.s}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${pct}%;background:${col.fill}">
+          <span class="bar-num" style="color:${col.text}">${r.TY.toFixed(0)}</span>
+        </div>
+      </div>
+      <div class="bar-out" style="color:${col.fill}">${r.TY.toFixed(1)}</div>
+    </div>`;
+  });
+  document.getElementById('barChart').innerHTML=html;
+  const minTY=Math.min(...tyVals),maxTYv=Math.max(...tyVals);
+  document.getElementById('resultNote').innerHTML=
+    `AT純増 ${C}枚/G・ベース ${G}G/50枚で計算<br>`+
+    `TY範囲: ${minTY.toFixed(1)} ～ ${maxTYv.toFixed(1)}枚（差 ${(maxTYv-minTY).toFixed(1)}枚）<br>`+
+    `🟢 平均+1σ超、🔴 平均-1σ未満を強調表示`;
+  document.getElementById('chartSection').style.display='block';
+  document.getElementById('btnSave').style.display='block';
+}
+
+function resetAll(){
+  document.getElementById('pureIncrease').value='';
+  document.getElementById('baseG').value='';
+  document.getElementById('memoText').value='';
+  for(let s=1;s<=6;s++){
+    document.getElementById('prob'+s).value='';
+    document.getElementById('rtp'+s).value='';
+    document.getElementById('rx'+s).textContent='—';
+    const tyEl=document.getElementById('rty'+s);
+    tyEl.textContent='—';
+    tyEl.style.color='';
+    tyEl.style.textShadow='';
+    document.getElementById('rdiff'+s).textContent='—';
+    document.getElementById('rdiff'+s).className='tbl-empty';
+  }
+  document.getElementById('chartSection').style.display='none';
+  document.getElementById('btnSave').style.display='none';
+}
+
+// ── 保存・読み込み ──
+function loadSaved(){
+  try{ return JSON.parse(localStorage.getItem('at_saved')||'[]'); }
+  catch(e){ return []; }
+}
+function saveSaved(list){ localStorage.setItem('at_saved', JSON.stringify(list)); }
+
+function saveEntry(){
+  const memo=document.getElementById('memoText').value.trim();
+  const name=memo||'名称未設定';
+  const C=document.getElementById('pureIncrease').value;
+  const G=document.getElementById('baseG').value;
+  const probs=[],rtps=[];
+  for(let s=1;s<=6;s++){
+    probs.push(document.getElementById('prob'+s).value);
+    rtps.push(document.getElementById('rtp'+s).value);
+  }
+  const entry={id:Date.now().toString(36),name,memo,C,G,probs,rtps};
+  const list=loadSaved();
+  // 同名があれば上書き確認
+  const idx=list.findIndex(e=>e.name===name);
+  if(idx>=0){
+    list[idx]=entry;
+  } else {
+    list.push(entry);
+  }
+  // あいうえお順ソート
+  list.sort((a,b)=>a.name.localeCompare(b.name,'ja'));
+  saveSaved(list);
+  document.getElementById('btnSave').textContent='✅ 保存しました';
+  setTimeout(()=>{ document.getElementById('btnSave').textContent='💾 この機種を保存'; },1500);
+}
+
+function loadEntry(id){
+  const list=loadSaved();
+  const e=list.find(e=>e.id===id); if(!e) return;
+  document.getElementById('memoText').value=e.memo||e.name;
+  document.getElementById('pureIncrease').value=e.C;
+  document.getElementById('baseG').value=e.G;
+  for(let s=1;s<=6;s++){
+    document.getElementById('prob'+s).value=e.probs[s-1]||'';
+    document.getElementById('rtp'+s).value=e.rtps[s-1]||'';
+  }
+  closeSidebar();
+  calculate();
+}
+
+function deleteEntry(id){
+  let list=loadSaved();
+  list=list.filter(e=>e.id!==id);
+  saveSaved(list);
+  renderSidebar();
+}
+
+function renderSidebar(){
+  const list=loadSaved();
+  const el=document.getElementById('savedList');
+  if(list.length===0){
+    el.innerHTML='<div class="saved-empty">保存済みの機種はありません</div>';
+    return;
+  }
+  el.innerHTML=list.map(e=>`
+    <div class="saved-item" onclick="loadEntry('${e.id}')">
+      <div class="saved-info">
+        <div class="saved-name">${escH(e.name)}</div>
+        <div class="saved-meta">純増 ${e.C}枚 / ベース ${e.G}G</div>
+      </div>
+      <button class="btn-del-saved" onclick="event.stopPropagation();deleteEntry('${e.id}')">🗑</button>
+    </div>`).join('');
+}
+
+function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function openSidebar(){ renderSidebar(); document.getElementById('overlay').classList.add('open'); }
+function closeSidebar(e){
+  if(!e||e.target===document.getElementById('overlay'))
+    document.getElementById('overlay').classList.remove('open');
+}
+
+// Service Worker登録（PWA対応）
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/heikinkakutoku/sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>

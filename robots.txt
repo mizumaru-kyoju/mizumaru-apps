@@ -1,0 +1,29 @@
+# robots.txt
+# mizumaru-apps.com
+# 最終更新：2026年6月22日
+
+# ── 一般クローラー ──
+User-agent: *
+Allow: /
+
+# ── AIクローラー（明示的に許可） ──
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# ── サイトマップ ──
+Sitemap: https://mizumaru-apps.com/sitemap.xml

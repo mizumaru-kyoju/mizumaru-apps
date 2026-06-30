@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-01E4RXEDFT");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水丸教授とは｜パチスロ期待値算出補助アプリ集〜確率統計〜</title>
+<meta name="description" content="パチスロ専業10年以上・確率統計による実践攻略をまとめるサイト「mizumaru-apps.com」の運営者・水丸教授のプロフィールと、サイトの目的・統計方針について。">
+<meta property="og:title" content="水丸教授とは｜パチスロ期待値算出補助アプリ集〜確率統計〜">
+<meta property="og:description" content="パチスロの確率統計を軸に期待値分析を行う研究サイトの運営方針について。">
+<meta property="og:image" content="https://mizumaru-apps.com/og-image.png">
+<meta property="og:url" content="https://mizumaru-apps.com/about/">
+<meta property="og:type" content="profile">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="canonical" href="https://mizumaru-apps.com/about/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "水丸教授",
+    "alternateName": "Mizumarukyoju",
+    "url": "https://mizumaru-apps.com/about/",
+    "image": "https://mizumaru-apps.com/og-image.png",
+    "sameAs": [
+      "https://x.com/Mizumarukyoju",
+      "https://note.com/mizumarukyouju/"
+    ],
+    "description": "パチスロ専業10年以上。統計は独学だが、実戦での収支管理に確率統計を活用し続けてきた実践者。実戦データに基づく計算モデルの構築と無料Webアプリの開発・公開を行う。",
+    "knowsAbout": ["確率統計（独学）", "パチンコ期待値計算", "スロット期待値計算", "区間推定", "標準偏差"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+  "url": "https://mizumaru-apps.com",
+  "founder": {
+    "@type": "Person",
+    "name": "水丸教授"
+  },
+  "description": "パチンコ・スロットの確率事象を統計学の視点から分析し、無料Webアプリと解説記事として公開する個人研究サイト。"
+}
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+:root{
+  --bg:#f5f7fa; --white:#ffffff; --panel:#ffffff;
+  --border:#e2e8f0; --border2:#cbd5e1;
+  --accent:#1a56db; --accent2:#0e7490; --accent3:#047857;
+  --text:#1e293b; --muted:#64748b; --muted2:#94a3b8;
+  --header-bg:#0f2057;
+  --shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
+  --shadow-hover:0 8px 24px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;font-size:14px}
+
+/* HEADER（TOPと統一） */
+.header{background:var(--header-bg);padding:0}
+.header-inner{max-width:860px;margin:0 auto;padding:28px 24px 24px}
+.breadcrumb{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:14px}
+.breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none}
+.breadcrumb a:hover{color:rgba(255,255,255,0.8)}
+.header-label{
+  display:inline-block;background:rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.8);font-size:10px;letter-spacing:2px;
+  padding:3px 10px;border-radius:20px;margin-bottom:12px;
+}
+.page-title{
+  font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;
+  color:#ffffff;line-height:1.4;margin-bottom:6px;
+}
+.page-sub{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7}
+
+.main{max-width:720px;margin:0 auto;padding:36px 20px 80px}
+
+/* PROFILE CARD */
+.profile-card{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:12px;padding:28px 24px;margin-bottom:28px;
+  box-shadow:var(--shadow);text-align:center;
+}
+.profile-icon{
+  width:84px;height:84px;border-radius:50%;
+  background:#ffffff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;margin:0 auto 14px;color:#fff;
+  overflow:hidden;border:3px solid var(--border2);box-shadow:var(--shadow);
+}
+.profile-icon img{width:100%;height:100%;object-fit:contain;padding:0}
+.profile-name{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px}
+.profile-handle{font-size:12px;color:var(--muted2);margin-bottom:14px}
+.profile-links{display:flex;justify-content:center;gap:8px}
+.profile-link{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#f1f5f9;border:1px solid var(--border);
+  color:var(--text);border-radius:6px;padding:6px 14px;
+  font-size:11px;text-decoration:none;transition:all .2s;
+}
+.profile-link:hover{border-color:var(--border2);background:#e2e8f0}
+
+/* SECTION */
+.section{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:10px;padding:22px;margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.section-icon-title{
+  display:flex;align-items:center;gap:8px;margin-bottom:14px;
+}
+.section-icon{font-size:16px}
+.section-title{font-size:15px;font-weight:700;color:var(--text)}
+.section-body{font-size:13px;color:var(--muted);line-height:1.9}
+.section-body strong{color:var(--text);font-weight:700}
+
+.note-box{
+  background:#f8fafc;border-left:3px solid var(--border2);
+  border-radius:0 6px 6px 0;padding:12px 16px;
+  margin-top:14px;font-size:11px;color:var(--muted2);line-height:1.8;
+}
+
+/* 免責事項 */
+.disclaimer{
+  background:#fff7ed;border:1px solid #fed7aa;
+  border-radius:10px;padding:18px 20px;margin-top:24px;
+}
+.disclaimer-title{font-size:12px;font-weight:700;color:#c2410c;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.disclaimer-body{font-size:11px;color:#9a3412;line-height:1.8}
+
+/* BACK */
+.back-row{margin-top:32px;text-align:center}
+.back-btn{
+  display:inline-block;background:var(--header-bg);color:#fff;
+  border-radius:8px;padding:11px 28px;font-size:12px;
+  text-decoration:none;letter-spacing:1px;
+}
+.back-btn:hover{opacity:.85}
+
+/* FOOTER */
+.footer{background:var(--header-bg);padding:24px 20px;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:10px}
+.footer-link{font-size:11px;color:rgba(255,255,255,0.5);text-decoration:none}
+.footer-link:hover{color:rgba(255,255,255,0.8)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,0.3)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="breadcrumb"><a href="/">TOP</a> ／ 水丸教授とは</div>
+    <div class="header-label">ABOUT</div>
+    <h1 class="page-title">水丸教授とは</h1>
+    <p class="page-sub">本サイトの運営方針と、研究者プロフィールについて</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- プロフィールカード -->
+  <div class="profile-card">
+    <div class="profile-icon"><img src="/logo-master-1024.png" alt="水丸教授"></div>
+    <div class="profile-name">水丸教授</div>
+    <div class="profile-handle">パチスロ専業・確率統計による実践攻略</div>
+    <div class="profile-links">
+      <a class="profile-link" href="https://x.com/Mizumarukyoju" target="_blank" rel="noopener">𝕏 @Mizumarukyoju</a>
+      <a class="profile-link" href="https://note.com/mizumarukyouju/" target="_blank" rel="noopener">📝 note</a>
+    </div>
+  </div>
+
+  <!-- サイトの目的 -->
+  <div class="section">
+    <div class="section-icon-title">
+      <span class="section-icon">🎯</span>
+      <h2 class="section-title">サイトの目的：パチスロ統計学の「標準化」</h2>
+    </div>
+    <div class="section-body">
+      当サイトは、パチスロという確率事象を統計の視点から整理し、実戦で使える計算やツールを公開することを目的としています。「スマスロの条件別挙動」や「設定差の統計的な読み方」など、断片化しがちな情報を、根拠のある形でまとめることを目指しています。
+    </div>
+  </div>
+
+  <!-- 運営者プロフィール -->
+  <div class="section">
+    <div class="section-icon-title">
+      <span class="section-icon">📖</span>
+      <h2 class="section-title">運営者プロフィール：水丸教授</h2>
+    </div>
+    <div class="section-body">
+      「水丸教授」は自称であり、統計学の資格や学術的な権威があるわけではない。念のため最初に言っておく。<br><br>
+      学生時代、数学だけは得意だった。パチスロに出会ってからはその確率構造に取り憑かれ、気づけば計算と検証が日課になっていた。卒業後は大企業に就職したが、勤務中も兼業で打ち続け、統計的なアプローチで収支を管理していた。5年程の勤続を経て退職し、以来10年以上、パチスロ専業として生活している。<br><br>
+      統計は独学。ただ、自分の生活を成立させ続けてきた計算は、たぶん間違っていない。そのノウハウをツールと記事の形で整理したのが、このサイトです。
+    </div>
+    <div class="note-box">
+      ※記事の解釈に誤りや補足があればご指摘いただけると助かります。用語の広義・狭義については諸説あるものも多く、ユーザー目線での解釈を基本としています。
+    </div>
+  </div>
+
+  <!-- 解決したい課題 -->
+  <div class="section">
+    <div class="section-icon-title">
+      <span class="section-icon">🔍</span>
+      <h2 class="section-title">当サイトが解決したい課題</h2>
+    </div>
+    <div class="section-body">
+      当サイトでは「機械割の定義」「ボーダー理論」といった誤った理解をされがちな用語・計算の土台を、根拠を示しながら整理することを意識しています。権威ある情報源ではなく、<strong>現場で使ってきた計算を言語化したもの</strong>として参照してもらえると幸いです。
+    </div>
+  </div>
+
+  <!-- 統計方針 -->
+  <div class="section">
+    <div class="section-icon-title">
+      <span class="section-icon">⚖️</span>
+      <h2 class="section-title">水丸教授の統計方針（「理論」より「実践」を）</h2>
+    </div>
+    <div class="section-body">
+      学術的に厳密な数式よりも、実戦の期待値分析に使える近似値と実用的な計算モデルを優先します。<br><br>
+      「理論上は正しいが、現場では使いにくい」を排除し、実際に収支管理で使ってきた考え方を、再現性のある形に落とし込む。それが当サイトのスタンスです。統計の資格も権威もないぶん、「現場で機能するか」という基準だけで取捨選択しています。
+    </div>
+  </div>
+
+  <!-- 免責事項 -->
+  <div class="disclaimer">
+    <div class="disclaimer-title">⚠️ 免責事項</div>
+    <div class="disclaimer-body">
+      当サイトの情報は統計に基づいた推計値であり、いかなる結果も保証するものではありません。遊技は自己責任でお願いいたします。
+    </div>
+  </div>
+
+  <div class="back-row">
+    <a class="back-btn" href="/">← TOPページに戻る</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-links">
+    <a class="footer-link" href="/">TOP</a>
+    <a class="footer-link" href="/guides/">使い方ガイド</a>
+    <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© <span id="copyYear"></span> パチスロ期待値算出補助アプリ集〜確率統計〜 / mizumaru-apps.com</div>
+</div>
+
+<script>
+document.getElementById('copyYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>逮捕されたら勾留は「当たり前」なのか？全国50地検データで人質司法の実態を検証した｜mizumaru-apps.com</title>
+  <meta name="description" content="兵庫の障害者施設元従業員死亡事件を起点に、法務省の検察統計（2022〜2024年度）から全国50地検の逮捕・勾留データを集計。逮捕送致率・勾留不成立率・勾留延長率・延長却下率の4指標で人質司法の地域格差を可視化した。統計でわかること・わからないことを整理する。">
+  <meta property="og:title" content="逮捕されたら勾留は「当たり前」なのか？全国50地検データで人質司法の実態を検証した">
+  <meta property="og:description" content="法務省の検察統計（2022〜2024年度）から全国50地検の逮捕・勾留データを集計。4指標で人質司法の地域格差を可視化し、統計にできること・できないことを整理した。">
+  <meta property="og:image" content="https://mizumaru-apps.com/column/og-image-hostage-justice.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mizumaru-apps.com/column/og-image-hostage-justice.png">
+  <meta property="og:url" content="https://mizumaru-apps.com/column/hostage-justice-stats.html">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://mizumaru-apps.com/column/hostage-justice-stats.html">
+  <link rel="stylesheet" href="/assets/article-style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "逮捕されたら勾留は「当たり前」なのか？全国50地検データで人質司法の実態を検証した",
+    "description": "法務省の検察統計（2022〜2024年度）から全国50地検の逮捕・勾留データを集計。4指標で人質司法の地域格差を可視化し、統計にできること・できないことを整理した。",
+    "author": {
+      "@type": "Person",
+      "name": "水丸教授",
+      "url": "https://x.com/Mizumarukyoju"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+      "url": "https://mizumaru-apps.com"
+    },
+    "datePublished": "2026-06-30",
+    "dateModified": "2026-06-30",
+    "mainEntityOfPage": "https://mizumaru-apps.com/column/hostage-justice-stats.html"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "TOP", "item": "https://mizumaru-apps.com/"},
+      {"@type": "ListItem", "position": 2, "name": "コラム・時事", "item": "https://mizumaru-apps.com/column/"},
+      {"@type": "ListItem", "position": 3, "name": "逮捕されたら勾留は「当たり前」なのか？", "item": "https://mizumaru-apps.com/column/hostage-justice-stats.html"}
+    ]
+  }
+  </script>
+
+  <style>
+  /* ===== グラフ埋め込み用スタイル ===== */
+  .viz-section {
+    margin: 40px 0;
+    border: 1px solid #d0d7e4;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0b0f1a;
+  }
+  .viz-inner {
+    padding: 24px 20px;
+  }
+  .viz-eyebrow {
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #e05c3a;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .viz-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f0f4ff;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .viz-sub {
+    color: #7a8299;
+    font-size: 11px;
+    margin-bottom: 20px;
+  }
+  .viz-kobe { color: #ff9e3b; }
+
+  /* KPI */
+  .viz-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  @media(max-width:600px){ .viz-kpi-row { grid-template-columns: repeat(2,1fr); } }
+  .viz-kpi {
+    background: #141824;
+    border: 1px solid #252d42;
+    border-radius: 8px;
+    padding: 11px 13px;
+    position: relative;
+    overflow: hidden;
+  }
+  .viz-kpi::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+  .viz-kpi.a::before{background:#e05c3a;} .viz-kpi.b::before{background:#3a9e8f;} .viz-kpi.c::before{background:#c9a62b;}
+  .viz-kpi-label { font-size:10px; color:#7a8299; margin-bottom:3px; line-height:1.4; }
+  .viz-kpi-val { font-size:20px; font-weight:700; line-height:1; }
+  .viz-kpi.a .viz-kpi-val{color:#e05c3a;} .viz-kpi.b .viz-kpi-val{color:#3a9e8f;} .viz-kpi.c .viz-kpi-val{color:#c9a62b;}
+  .viz-kpi-sub { font-size:10px; color:#7a8299; margin-top:2px; }
+
+  /* Tabs */
+  .viz-tabs { display:flex; gap:6px; margin-bottom:18px; overflow-x:auto; flex-wrap:wrap; }
+  .viz-tab { padding:9px 16px; background:#1c2235; border:1px solid #353d58; border-radius:6px; color:#9aa3b8; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:inherit; transition:all .18s; letter-spacing:.02em; }
+  .viz-tab:hover{background:#252d42;color:#dde3f0;border-color:#4a5470;} .viz-tab.active{background:#2a1f3d;color:#fff;border-color:#7b6fe0;box-shadow:0 0 0 1px #7b6fe0,0 2px 8px rgba(123,111,224,0.25);}
+  .viz-panel { display:none; } .viz-panel.active { display:block; }
+
+  /* Chart cards */
+  .viz-chart-card { background:#141824; border:1px solid #252d42; border-radius:8px; padding:18px; margin-bottom:12px; }
+  .viz-chart-label { font-size:10px; color:#7a8299; letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px; }
+  .viz-chart-desc { font-size:11px; color:#7a8299; margin-bottom:12px; line-height:1.6; }
+  .viz-chart-wrap { position:relative; width:100%; height:480px; }
+  .viz-chart-wrap.bar50 { height:980px; }
+  @media(max-width:480px){
+    .viz-chart-wrap.bar50 { height:1300px; }
+  }
+  .viz-note { font-size:11px; color:#7a8299; margin-top:10px; padding-top:10px; border-top:1px solid #252d42; line-height:1.7; }
+  .viz-note-avg { display:inline-block; width:12px; height:2px; background:#ff6b6b; margin-right:4px; vertical-align:middle; }
+
+  /* Scatter legend */
+  .viz-scatter-legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:10px; font-size:11px; color:#7a8299; }
+  .viz-leg-item { display:flex; align-items:center; gap:5px; }
+  .viz-leg-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+  /* Rank */
+  .viz-rank-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  @media(max-width:540px){ .viz-rank-grid{grid-template-columns:1fr;} }
+  .viz-rank-block { background:#141824; border:1px solid #252d42; border-radius:8px; overflow:hidden; }
+  .viz-rank-head { padding:8px 13px; font-size:10px; letter-spacing:.07em; text-transform:uppercase; font-weight:600; border-bottom:1px solid #252d42; }
+  .viz-rank-item { display:flex; align-items:center; gap:7px; padding:7px 13px; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .viz-rank-item:last-child{border-bottom:none;}
+  .viz-rn { font-size:10px; color:#7a8299; width:15px; text-align:center; flex-shrink:0; }
+  .viz-rname { flex:1; font-size:11px; font-weight:600; color:#dde3f0; }
+  .viz-rbar-w { width:50px; height:3px; background:#252d42; border-radius:2px; overflow:hidden; flex-shrink:0; }
+  .viz-rbar { height:100%; border-radius:2px; }
+  .viz-rval { font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; min-width:44px; text-align:right; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="site-title">パチスロ期待値算出補助アプリ集〜確率統計〜</a>
+  </header>
+
+  <main class="article-main">
+
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <ol>
+        <li><a href="/">TOP</a></li>
+        <li><a href="/column/">コラム・時事</a></li>
+        <li>逮捕されたら勾留は「当たり前」なのか？</li>
+      </ol>
+    </nav>
+
+    <article>
+
+      <div class="meta-row">
+        <span class="category-badge">コラム・時事</span>
+        <time datetime="2026-06-30">2026年6月30日</time>
+      </div>
+
+      <h1>逮捕されたら勾留は「当たり前」なのか？<br>全国50地検データで「人質司法」の実態を検証した</h1>
+
+      <div class="lead-box">
+        <p>法務省の検察統計（2022〜2024年度・3年合算）から全国50地方検察庁の逮捕・勾留データを集計し、4つの指標で「人質司法」の実態を数値化した。逮捕されても勾留されない割合の全国平均は約6.8%。勾留された場合、10日を超えて延長される割合は平均68.4%にのぼる。一方、裁判所が延長を却下する割合は平均わずか0.36%だった。地域差は存在するが、「逮捕→長期勾留→延長ほぼ自動承認」という構造は全国共通で確認できる。本稿は係争中の個別事案の是非を論じるものではなく、公開統計から読み取れる構造的傾向を整理することを目的とする。</p>
+      </div>
+
+      <h2>きっかけは兵庫の一件</h2>
+
+      <p>これから確率・統計をパチスロの期待値算出へ実践的に適用させることについての手法を追求していく予定の当サイトですが、初回は少し趣向を変えて、社会的な関心を集めている「刑事司法の統計データ」を本気で分析してみようと思います。</p>
+
+      <p>その原動力となったのは、直近のニュースに覚えたある種の違和感と、私の記憶にある一つの「繋がり」でした。</p>
+
+      <p>2026年6月、兵庫県内の障害者施設で起きた暴行容疑での逮捕・長期勾留をきっかけに、16歳の元従業員の女性が後に悲劇的な結末を迎えたという提訴ニュースが流れました。この痛ましい事件を目にしたとき、私の脳裏には別の「兵庫」「勾留延長」「人質司法」にまつわる事案が連想されました。政治活動家・立花孝志氏を巡る一連の報道です。</p>
+
+      <p>彼の政治的な主張や手法についてここで論じるつもりはありません。しかし、立花氏はかつて「パチスロで生計を立てていた時期がある」と公言している人物でもあります。確率の偏りや期待値を追う「パチプロ」としてのバックボーンを持つ彼が、兵庫という土地の司法によって長期の身柄拘束を受けたという事実は、同じくパチスロに深い関心のある人間として妙に印象に残っていました。</p>
+
+      <p>解明が進まないまま「兵庫の司法は」といった主語の大きな噂話や、特定の地域に対する不信感だけで終わらせてよいのだろうか。パチスロの台選びと同じように、感情を排除し、公開されている「数字（統計）」だけを見てみれば、それが局所的な問題なのか、それとも日本全国に共通する構造的な問題なのかが見えてくるはずだ。</p>
+
+      <p>そう考えた私は、法務省が公開している「検察統計」の生データを自ら集計・検証してみることにしました。本稿は係争中の個別事案の是非を論じるものではなく、公開統計から読み取れる構造的傾向を整理することを目的とします。</p>
+
+      <h2>「人質司法」とは何か</h2>
+
+      <p>人質司法（じんしちしほう）とは、被疑者を長期間勾留することで自白や供述を引き出す日本の刑事司法の慣行を批判的に表現した言葉だ。弁護人以外との接見を禁止する「接見禁止」と組み合わせることで、外部との連絡を完全に遮断した状態での取り調べが可能になる。</p>
+
+      <p>日本の刑事手続きでは、逮捕後72時間以内に検察官が勾留を請求し、裁判所が許可すれば最長10日間の勾留が認められる。さらに検察が延長を請求すれば、裁判所の判断で最大10日間の延長が可能で、合計最長23日間の身柄拘束が法律上許容されている。</p>
+
+      <p>批判の核心は、長期勾留の中で精神的・肉体的に追い詰め、実際には行っていないことを認めさせてしまう「自白の強要」リスクが指摘されている点にある。今回の兵庫の事件で問題とされているのも、まさにこの長期拘束の運用についてだ。</p>
+
+      <h2>4つの関門——逮捕から釈放までを数値で見る</h2>
+
+      <p>法務省が毎年公表している「検察統計年報」には、地検ごとに逮捕・勾留・延長の件数が掲載されている。2022年度（令和4年）から2024年度（令和6年）の3年分を合算し、以下の4指標を算出した。</p>
+
+      <div class="term-box">
+        <dl>
+          <dt>①逮捕送致率</dt>
+          <dd>逮捕人員 ÷ 既済人員総数。検察に送致された全事件のうち、逮捕（身柄拘束）付きだった割合。在宅捜査で送致されたケースは分母に含まれる。</dd>
+          <dt>②勾留不成立率</dt>
+          <dd>（逮捕人員 − 勾留総数）÷ 逮捕人員。逮捕されたにもかかわらず勾留されなかった割合。検察官が勾留請求しなかったケース、裁判所が請求を却下したケースなどを含む。</dd>
+          <dt>③勾留延長率</dt>
+          <dd>10日を超えた人員 ÷ 勾留総数。いったん勾留された後、さらに延長された割合。</dd>
+          <dt>④延長却下率</dt>
+          <dd>却下数 ÷（延長許可数＋却下数）。検察が延長を請求した件のうち、裁判所が却下した割合。</dd>
+        </dl>
+      </div>
+
+      <h3>① 逮捕送致率——そもそも逮捕するか</h3>
+
+      <p>全国平均は31.3%。検察に送致された人の約3人に1人が逮捕（身柄付き送致）だった計算になる。ワーストは前橋（46.7%）、静岡（43.1%）、東京（42.1%）と関東〜東海の大都市圏が並ぶ。最も低いのは松山（17.6%）、秋田（20.5%）など地方の小規模地検だ。</p>
+
+      <p>ただしこの指標は、地域の犯罪構成の違いに大きく左右される。殺人や強盗のような重大事件が多い地域は必然的に逮捕率が上がる。単純な地検間比較には限界があり、あくまで参考指標として読む必要がある。</p>
+
+      <p><strong>神戸地検は32.6%で全国平均とほぼ同水準。</strong>特段に高い地検ではない。</p>
+
+      <h3>② 勾留不成立率——逮捕後にブレーキはかかるか</h3>
+
+      <p>この指標が今回の分析で最も注目したい数字だ。全国平均は6.8%。つまり逮捕された人の約93%は、そのまま勾留される。</p>
+
+      <p>ワーストは甲府（1.5%）、釧路（2.1%）、宇都宮（2.1%）など地方の小規模地検が並ぶ。逮捕されたらほぼ確実に勾留、という運用が常態化している地域の存在が浮かぶ。</p>
+
+      <p>一方、勾留不成立率が高い（＝ブレーキが利いている）地検の上位は那覇（15.0%）、広島（14.3%）、東京（13.8%）、神戸（12.8%）、静岡（12.4%）だ。</p>
+
+      <p><strong>神戸地検は全国4位で「ブレーキが利いている側」の地検に位置する。</strong>今回の事件は、統計的に勾留を通しやすい地検で起きたわけではない。これは「神戸は問題ない」という結論ではなく、「どの地検でも個別に問題が起きうる」という構造的問題として読むべき数字だ。</p>
+
+      <div class="voice-box">
+        <p>統計と個別事案は別物だ、というのをデータを見て改めて実感した。勾留不成立率が全国4位という数字は、神戸地検管轄の裁判所が平均よりブレーキを利かせている側であることを示している。にもかかわらず今回の事案では勾留が認められた。おそらく罪状や否認の有無といった個別の事情が判断に影響しているのだろう。一般論として、否認事件では捜査機関が慎重な姿勢を取る傾向があると言われており、そうした要因が絡んでいた可能性も否定できない。統計はあくまで全体の傾向を映すものであり、個別の判断の妥当性まで語る力はない。</p>
+      </div>
+
+      <h3>③ 勾留延長率——いったん勾留したら長期化させるか</h3>
+
+      <p>全国平均は68.4%。勾留された人の約3分の2が、10日を超えて延長される。ワーストは仙台（80.9%）、東京（78.5%）、山形（78.5%）、青森（78.3%）、新潟（77.9%）と東北・関東が上位を占める。最も低いのは旭川（55.9%）、函館（57.3%）、京都（56.8%）だ。</p>
+
+      <p>神戸地検は58.1%で全国5位（低い側）。関西全体として延長率が低い傾向が読み取れる。大阪（63.3%）、京都（56.8%）、神戸（58.1%）はいずれも全国平均を大幅に下回っている。</p>
+
+      <h3>④ 延長却下率——裁判所は検察にブレーキをかけているか</h3>
+
+      <p>全国平均は0.36%。検察が延長を請求した件のうち、裁判所が却下するのは約278件に1回にすぎない。甲府・函館・釧路・高松は3年間の却下数がゼロだった。宇都宮（0.07%）、仙台（0.10%）、水戸（0.11%）と続く。延長を請求されれば裁判所がほぼ自動的に許可するという構造は、全国共通で確認できる。</p>
+
+      <p>最も却下率が高いのは秋田（1.45%）、長野（1.31%）、富山（1.24%）。「高い」と言っても1〜2%に過ぎないことは忘れてはいけない。</p>
+
+      <div class="voice-box">
+        <p>0.36%という数字は、確率に置き換えると約1/278だ。それほどの確率でしか「ノー」が出ないとなると、延長を認めることが事実上のデフォルトになっているとも読める。</p>
+        <p>個人的な印象として、日本の司法は先例を重視する傾向が強く、その積み重ねが制度のアップデートを難しくしている側面があるのではないかと感じている。もちろん司法の専門家ではないため断言はできないが、延長却下率がこれほど低い水準で安定しているという事実は、運用の硬直化を示唆しているように見える。</p>
+        <p>証拠保全の手段が多様化した現代において、長期勾留の必要性を一律に認め続けることへの疑問は、統計の外側にある話ではあるが、数字を眺めていると自然と頭に浮かぶ。</p>
+      </div>
+
+      <h2>データが示す「地域格差」と「構造的傾向」</h2>
+
+      <p>4指標を並べて俯瞰すると、単純な「西高東低」や「都市vs地方」という構図は見えにくい。むしろ2つのパターンが浮かぶ。</p>
+
+      <p>ひとつは<strong>「逮捕しやすい大都市型」</strong>。東京・さいたま・名古屋などは逮捕送致率が高い一方、勾留不成立率も比較的高く、逮捕後に一定のふるい分けが機能している。事件数が多い分、弁護士資源も豊富で初期段階での勾留阻止が図られやすい側面があるかもしれない。</p>
+
+      <p>もうひとつは<strong>「延長が常態化する地方型」</strong>。仙台・山形・青森・新潟など東北〜甲信越では勾留延長率が突出して高い。逮捕率は必ずしも高くないが、いったん勾留されると長期化しやすいという傾向が出ている。</p>
+
+      <p>そして最も構造的な問題を示しているのが延長却下率の低さだ。どの地域でも裁判所はほぼ延長を認める。「もう10日閉じ込めてよいか」という問いに対して、裁判所が「ノー」と言う確率が全国どこでも1%未満というのは、刑事司法における司法チェックの機能が形骸化し、自動承認がデフォルトになっている運用の硬直化を示唆している。</p>
+
+      <!-- ===== グラフ埋め込み ===== -->
+      <div class="viz-section">
+        <div class="viz-inner">
+          <div class="viz-eyebrow">データ可視化 ／ 検察統計</div>
+          <div class="viz-title">全国50地検・3指標比較（2022〜2024年度・3年合算）</div>
+          <div class="viz-sub">出典：法務省「検察統計年報」令和4〜6年度 第39表・第40表。<span class="viz-kobe">■ オレンジ色 = 神戸地検</span></div>
+
+          <div class="viz-kpi-row">
+            <div class="viz-kpi a"><div class="viz-kpi-label">全国平均｜①逮捕送致率</div><div class="viz-kpi-val">31.3%</div><div class="viz-kpi-sub">逮捕÷既済人員</div></div>
+            <div class="viz-kpi b"><div class="viz-kpi-label">全国平均｜②勾留不成立率</div><div class="viz-kpi-val">6.8%</div><div class="viz-kpi-sub">（逮捕−勾留）÷逮捕</div></div>
+            <div class="viz-kpi c"><div class="viz-kpi-label">全国平均｜③勾留延長率</div><div class="viz-kpi-val">68.4%</div><div class="viz-kpi-sub">10日超÷勾留総数</div></div>
+          </div>
+
+          <div class="viz-tabs">
+            <button class="viz-tab active" onclick="vsw(0)">総合比較（散布図）</button>
+            <button class="viz-tab" onclick="vsw(1)">① 逮捕送致率</button>
+            <button class="viz-tab" onclick="vsw(2)">② 勾留不成立率</button>
+            <button class="viz-tab" onclick="vsw(3)">③ 勾留延長率</button>
+          </div>
+
+          <!-- 散布図 -->
+          <div id="vp0" class="viz-panel active">
+            <div class="viz-chart-card">
+              <div class="viz-chart-label">逮捕送致率（X軸）× 勾留延長率（Y軸）× 勾留不成立率（バブルサイズ）</div>
+              <div class="viz-chart-desc">右上ほど「逮捕しやすく、長期勾留しやすい」地検。バブルが大きいほど逮捕後にブレーキが機能している（勾留不成立率が高い）。右上かつバブルが小さい地検は、被疑者にとって最も厳しい環境といえる。<br>神戸地検（オレンジ）は全国平均の交点よりやや右の下方に位置し、「逮捕率は平均程度・延長率は平均以下」という統計上は被疑者に比較的有利な地域に分類される。</div>
+              <div class="viz-scatter-legend">
+                <div class="viz-leg-item"><div class="viz-leg-dot" style="background:#e05c3a;opacity:.7"></div>逮捕率高め（35%超）</div>
+                <div class="viz-leg-item"><div class="viz-leg-dot" style="background:#6488c8;opacity:.5"></div>その他</div>
+                <div class="viz-leg-item"><div class="viz-leg-dot" style="background:#ff9e3b"></div>神戸地検</div>
+                <div class="viz-leg-item">● バブル大 = 勾留不成立率が高い（ブレーキあり）</div>
+              </div>
+              <div class="viz-chart-wrap"><canvas id="vc-scatter"></canvas></div>
+              <div class="viz-note">延長却下率（全国平均0.36%）は地検間の差が小さいため本図では除外。各地検にカーソルを当てると数値を確認できる。</div>
+            </div>
+          </div>
+
+          <!-- ① -->
+          <div id="vp1" class="viz-panel">
+            <div class="viz-rank-grid"><div class="viz-rank-block" id="vr1w"></div><div class="viz-rank-block" id="vr1b"></div></div>
+            <div class="viz-chart-card">
+              <div class="viz-chart-label">① 逮捕送致率（高い順）——全国平均 31.3%</div>
+              <div class="viz-chart-wrap bar50"><canvas id="vc1"></canvas></div>
+              <div class="viz-note"><span class="viz-note-avg"></span>赤点線 = 全国平均（31.3%）｜地域の犯罪構成の影響を受けやすい補助指標として参照。</div>
+            </div>
+          </div>
+
+          <!-- ② -->
+          <div id="vp2" class="viz-panel">
+            <div class="viz-rank-grid"><div class="viz-rank-block" id="vr2w"></div><div class="viz-rank-block" id="vr2b"></div></div>
+            <div class="viz-chart-card">
+              <div class="viz-chart-label">② 勾留不成立率（低い順＝ブレーキが少ない）——全国平均 6.8%</div>
+              <div class="viz-chart-wrap bar50"><canvas id="vc2"></canvas></div>
+              <div class="viz-note"><span class="viz-note-avg"></span>赤点線 = 全国平均（6.8%）｜低いほど逮捕後の勾留がほぼ自動化されている。高いほど検察・裁判所のブレーキが機能。</div>
+            </div>
+          </div>
+
+          <!-- ③ -->
+          <div id="vp3" class="viz-panel">
+            <div class="viz-rank-grid"><div class="viz-rank-block" id="vr3w"></div><div class="viz-rank-block" id="vr3b"></div></div>
+            <div class="viz-chart-card">
+              <div class="viz-chart-label">③ 勾留延長率（高い順）——全国平均 68.4%</div>
+              <div class="viz-chart-wrap bar50"><canvas id="vc3"></canvas></div>
+              <div class="viz-note"><span class="viz-note-avg"></span>赤点線 = 全国平均（68.4%）｜いったん勾留されると約3分の2が10日を超えて延長される。</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- ===== グラフここまで ===== -->
+
+      <h2>統計にできないこと——統計が隠してしまう「個人の文脈」</h2>
+
+      <p>ここまでデータの傾向を見てきたが、統計データには決定的な限界が存在する。</p>
+
+      <p>まず、逮捕送致率や勾留延長率は地域の事件種別の構成（殺人・強盗や、薬物・組織犯罪など証拠隠滅リスクが高い事件の割合）に左右されるため、単純な数値だけで組織の善悪を断言することはできない。</p>
+
+      <p>そして何より、今回のデータが示した通り、「兵庫（神戸地検）」の数値は決して全国ワーストではなく、むしろ平均よりブレーキが利いている側だった。しかし、その「比較的マシ」とされる数字の裏側で、16歳の少女が過酷な取り調べの末に命を落とすという最悪の悲劇が起きてしまっている。</p>
+
+      <p>ここに、統計学の決定的な限界がある。法務省がこのような「検察統計」を一般に発表しているのは、公権力である捜査機関が適正に機能しているかを、主権者である国民が「監視」するためであるはずだ。しかし、こうしてデータを分析してみて改めて突きつけられるのは、「数字をいくら集計しても、そこに介在する個々の人間の感情、密室での意思決定、あるいは具体的な文脈は一切見えない」という不都合な事実だ。</p>
+
+      <p>本当に恐ろしいのは、そのパーセンテージの内側で起きている、警察署の取り調べ室の空気感、接見禁止による孤独、留置所という通信も遮断された特殊な環境が被疑者に与える精神的破壊力といった「定性的（数値化できない）な性質」だ。それらが最悪の形で噛み合ったとき、統計上の「平均的な地域」であっても、局所的かつ致命的な悲劇が引き起こされてしまう。</p>
+
+      <p>現在公開されている定量的な統計データだけでは、あの密室で何が起きたのかという「真相」には辿り着けない。だからこそ、今後の裁判や情報開示請求などを通じて、数値の隙間に埋もれた「定性的な事実」が白日の下に晒され、真相が解明されることを切に願わざるを得ない。</p>
+
+      <h2>まとめ</h2>
+
+      <p>法務省の検察統計（2022〜2024年度）から全国50地検のデータを集計した。逮捕されても勾留されない割合（勾留不成立率）の全国平均は6.8%で、逮捕された人の約93%はそのまま勾留される。勾留された場合の延長率は68.4%、裁判所による延長却下率は0.36%だった。</p>
+
+      <p>地域差は存在する。勾留不成立率・延長率・却下率のいずれも、地検間で数倍の開きがある。ただし「逮捕されたら長期勾留、延長は裁判所がほぼ通す」という大きな構造は、全国どこでも共通して確認できた。</p>
+
+      <p>数字は強力な武器だが、万能ではない。パチスロの確率がどれだけ収束しようとも、目の前の一打に一喜一憂するプレイヤーの感情や文脈を数字だけで語り尽くせないように、社会の統計もまた、個人の命や人生の重さまではカウントしてくれない。「数字の持つ客観性」を信頼しつつも、「数字がこぼしてしまう個人の文脈」への想像力を忘れないこと。そのスタンスを当サイト『パチスロ期待値算出補助アプリ集〜確率統計〜』の哲学として、今後の期待値算出・確率統計の検証を進めていく。</p>
+
+      <div class="disclaimer">
+        <p>本記事のデータは法務省「検察統計年報」（令和4〜6年度）より水丸教授が独自に集計・算出したものです。数値は統計上の傾向を示すものであり、特定の捜査機関・事案の違法性や適否を評価するものではありません。係争中の事案については裁判所の判断を待つ立場をとります。</p>
+      </div>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <nav>
+      <a href="/" target="_blank" rel="noopener noreferrer">TOP</a>
+      <a href="/column/">コラム・時事</a>
+      <a href="/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+    </nav>
+  </footer>
+
+<script>
+const VD = {"東京":{"逮捕送致率":42.12,"勾留不成立率":13.83,"勾留延長率":78.54},"横浜":{"逮捕送致率":31.07,"勾留不成立率":9.14,"勾留延長率":69.48},"さいたま":{"逮捕送致率":41.53,"勾留不成立率":9.0,"勾留延長率":68.25},"千葉":{"逮捕送致率":36.83,"勾留不成立率":5.77,"勾留延長率":76.13},"水戸":{"逮捕送致率":38.14,"勾留不成立率":2.32,"勾留延長率":76.43},"宇都宮":{"逮捕送致率":36.6,"勾留不成立率":2.11,"勾留延長率":73.49},"前橋":{"逮捕送致率":46.69,"勾留不成立率":4.14,"勾留延長率":72.08},"静岡":{"逮捕送致率":43.06,"勾留不成立率":12.42,"勾留延長率":65.85},"甲府":{"逮捕送致率":32.25,"勾留不成立率":1.47,"勾留延長率":77.29},"長野":{"逮捕送致率":25.55,"勾留不成立率":6.4,"勾留延長率":68.84},"新潟":{"逮捕送致率":27.33,"勾留不成立率":3.26,"勾留延長率":77.89},"大阪":{"逮捕送致率":28.86,"勾留不成立率":10.65,"勾留延長率":63.25},"京都":{"逮捕送致率":30.16,"勾留不成立率":10.28,"勾留延長率":56.82},"神戸":{"逮捕送致率":32.6,"勾留不成立率":12.78,"勾留延長率":58.08},"奈良":{"逮捕送致率":28.01,"勾留不成立率":2.9,"勾留延長率":64.09},"大津":{"逮捕送致率":27.83,"勾留不成立率":3.73,"勾留延長率":61.63},"和歌山":{"逮捕送致率":29.12,"勾留不成立率":4.74,"勾留延長率":68.02},"名古屋":{"逮捕送致率":39.2,"勾留不成立率":9.61,"勾留延長率":68.72},"津":{"逮捕送致率":33.82,"勾留不成立率":3.71,"勾留延長率":76.65},"岐阜":{"逮捕送致率":34.42,"勾留不成立率":4.45,"勾留延長率":67.28},"福井":{"逮捕送致率":33.05,"勾留不成立率":10.6,"勾留延長率":58.87},"金沢":{"逮捕送致率":31.31,"勾留不成立率":11.89,"勾留延長率":69.84},"富山":{"逮捕送致率":25.6,"勾留不成立率":8.46,"勾留延長率":64.06},"広島":{"逮捕送致率":29.83,"勾留不成立率":14.32,"勾留延長率":62.16},"山口":{"逮捕送致率":27.75,"勾留不成立率":6.44,"勾留延長率":65.97},"岡山":{"逮捕送致率":31.51,"勾留不成立率":4.12,"勾留延長率":67.54},"鳥取":{"逮捕送致率":32.42,"勾留不成立率":9.76,"勾留延長率":62.58},"松江":{"逮捕送致率":31.95,"勾留不成立率":5.0,"勾留延長率":68.76},"福岡":{"逮捕送致率":36.69,"勾留不成立率":9.73,"勾留延長率":66.54},"佐賀":{"逮捕送致率":29.87,"勾留不成立率":9.42,"勾留延長率":67.37},"長崎":{"逮捕送致率":28.08,"勾留不成立率":10.19,"勾留延長率":59.2},"大分":{"逮捕送致率":27.06,"勾留不成立率":5.97,"勾留延長率":67.75},"熊本":{"逮捕送致率":27.28,"勾留不成立率":3.01,"勾留延長率":65.06},"鹿児島":{"逮捕送致率":25.83,"勾留不成立率":6.2,"勾留延長率":64.55},"宮崎":{"逮捕送致率":34.39,"勾留不成立率":9.17,"勾留延長率":63.35},"那覇":{"逮捕送致率":41.22,"勾留不成立率":15.03,"勾留延長率":62.28},"仙台":{"逮捕送致率":36.1,"勾留不成立率":7.21,"勾留延長率":80.88},"福島":{"逮捕送致率":32.06,"勾留不成立率":5.86,"勾留延長率":69.92},"山形":{"逮捕送致率":23.91,"勾留不成立率":4.12,"勾留延長率":78.52},"盛岡":{"逮捕送致率":36.35,"勾留不成立率":3.78,"勾留延長率":75.79},"秋田":{"逮捕送致率":20.53,"勾留不成立率":5.24,"勾留延長率":69.58},"青森":{"逮捕送致率":30.41,"勾留不成立率":7.19,"勾留延長率":78.29},"札幌":{"逮捕送致率":28.2,"勾留不成立率":6.72,"勾留延長率":62.73},"函館":{"逮捕送致率":25.73,"勾留不成立率":3.92,"勾留延長率":57.25},"旭川":{"逮捕送致率":26.63,"勾留不成立率":5.42,"勾留延長率":55.89},"釧路":{"逮捕送致率":26.64,"勾留不成立率":2.06,"勾留延長率":68.04},"高松":{"逮捕送致率":23.8,"勾留不成立率":4.15,"勾留延長率":77.78},"徳島":{"逮捕送致率":21.56,"勾留不成立率":3.69,"勾留延長率":77.48},"高知":{"逮捕送致率":34.98,"勾留不成立率":5.08,"勾留延長率":70.15},"松山":{"逮捕送致率":17.61,"勾留不成立率":3.16,"勾留延長率":73.59}};
+
+const VN = Object.keys(VD);
+
+document.addEventListener('DOMContentLoaded', function() {
+
+Chart.defaults.color = "#7a8299";
+Chart.defaults.borderColor = "rgba(255,255,255,0.05)";
+Chart.defaults.font.family = "'Helvetica Neue','Hiragino Sans',sans-serif";
+
+const LABEL_NAMES = ["前橋","東京","仙台","神戸","京都","旭川","函館","那覇","水戸","甲府","静岡","秋田","山形","高松"];
+
+new Chart(document.getElementById("vc-scatter"),{
+  type:"bubble",
+  data:{ datasets: VN.map(n=>{
+    const d=VD[n], isK=n==="神戸", hi=d["逮捕送致率"]>35;
+    return {
+      label:n,
+      data:[{x:d["逮捕送致率"],y:d["勾留延長率"],r:4+(d["勾留不成立率"]/15.03)*16}],
+      backgroundColor: isK?"rgba(255,158,59,0.85)":hi?"rgba(224,92,58,0.60)":"rgba(100,136,200,0.40)",
+      borderColor: isK?"#ff9e3b":"transparent",
+      borderWidth: isK?2:0
+    };
+  })},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>{const n=c.dataset.label,d=VD[n];return `${n}｜逮捕 ${d["逮捕送致率"]}%  延長率 ${d["勾留延長率"]}%  不成立率 ${d["勾留不成立率"]}%`;}}}
+    },
+    scales:{
+      x:{title:{display:true,text:"① 逮捕送致率（%）",color:"#7a8299",font:{size:11}},grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#7a8299",font:{size:10}},min:14,max:52},
+      y:{title:{display:true,text:"③ 勾留延長率（%）",color:"#7a8299",font:{size:11}},grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#7a8299",font:{size:10}},min:50,max:86}
+    }
+  },
+  plugins:[{afterDraw(chart){
+    const {ctx,scales:{x,y},chartArea:ca}=chart;
+    ctx.save();
+    ctx.strokeStyle="#ff6b6b"; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+    const ax=x.getPixelForValue(31.27), ay=y.getPixelForValue(68.41);
+    ctx.beginPath(); ctx.moveTo(ax,ca.top); ctx.lineTo(ax,ca.bottom); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ca.left,ay); ctx.lineTo(ca.right,ay); ctx.stroke();
+    ctx.setLineDash([]); ctx.font="10px sans-serif";
+    const pad=8;
+    ctx.fillStyle="rgba(224,92,58,0.55)"; ctx.textAlign="right";  ctx.fillText("逮捕率高・延長率高",ca.right-pad,ca.top+14);
+    ctx.fillStyle="rgba(100,136,200,0.45)"; ctx.textAlign="left"; ctx.fillText("逮捕率低・延長率高",ca.left+pad,ca.top+14);
+    ctx.fillStyle="rgba(100,136,200,0.45)"; ctx.textAlign="left"; ctx.fillText("逮捕率低・延長率低",ca.left+pad,ca.bottom-8);
+    ctx.fillStyle="rgba(201,166,43,0.55)"; ctx.textAlign="right"; ctx.fillText("逮捕率高・延長率低",ca.right-pad,ca.bottom-8);
+    ctx.textAlign="left";
+    chart.data.datasets.forEach(ds=>{
+      if(!LABEL_NAMES.includes(ds.label)) return;
+      const meta=chart.getDatasetMeta(chart.data.datasets.indexOf(ds));
+      if(!meta.data[0]) return;
+      const pt=meta.data[0];
+      ctx.fillStyle=ds.label==="神戸"?"#ff9e3b":"#9aa3b8";
+      ctx.fillText(ds.label,pt.x+pt.options.radius+3,pt.y+3);
+    });
+    ctx.restore();
+  }}]
+});
+
+const VCFG=[
+  {key:"逮捕送致率", col:"rgba(224,92,58,0.8)", avg:31.27, wh:true,  wl:["▲ ワースト10（高い順）","▽ ベスト5（低い順）"]},
+  {key:"勾留不成立率",col:"rgba(58,158,143,0.8)",avg:6.79,  wh:false, wl:["▼ ワースト10（低い順＝勾留がほぼ自動化）","△ ベスト5（高い順＝ブレーキが機能）"]},
+  {key:"勾留延長率", col:"rgba(201,166,43,0.8)", avg:68.41, wh:true,  wl:["▲ ワースト10（高い順）","▽ ベスト5（低い順）"]},
+];
+
+function vsortBy(key,desc){return [...VN].sort((a,b)=>desc?VD[b][key]-VD[a][key]:VD[a][key]-VD[b][key]);}
+
+function vbuildRank(elId,names,cfg,isWorst){
+  const {key,col,wh,wl}=cfg;
+  // 100%固定を分母にして絶対値でバー幅を決める（バー長さ＝パーセンテージそのもの）
+  const globalMax = 100;
+  const hc=col.replace("0.8","1");
+  const lbl=isWorst?wl[0]:wl[1];
+  document.getElementById(elId).innerHTML=
+    `<div class="viz-rank-head" style="color:${isWorst?hc:'#3a9e8f'}">${lbl}</div>`+
+    names.map((n,i)=>{
+      const v=VD[n][key],isK=n==="神戸";
+      const vc=isK?"#ff9e3b":(isWorst?hc:"#3a9e8f");
+      const pct=(v/globalMax)*100;
+      return `<div class="viz-rank-item">
+        <div class="viz-rn">${i+1}</div>
+        <div class="viz-rname" style="${isK?'color:#ff9e3b':''}">${n}</div>
+        <div class="viz-rbar-w"><div class="viz-rbar" style="width:${Math.max(pct,3)}%;background:${vc}"></div></div>
+        <div class="viz-rval" style="color:${vc}">${v.toFixed(2)}%</div>
+      </div>`;
+    }).join("");
+}
+
+function vmakeBar(canvasId,cfg){
+  const {key,col,avg,wh}=cfg;
+  const sorted=vsortBy(key,wh);
+  new Chart(document.getElementById(canvasId),{
+    type:"bar",
+    data:{labels:sorted,datasets:[{data:sorted.map(n=>VD[n][key]),backgroundColor:sorted.map(n=>n==="神戸"?"#ff9e3b":col),borderWidth:0,barThickness:12}]},
+    options:{
+      indexAxis:"y",responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x.toFixed(2)}%`}}},
+      scales:{
+        x:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#7a8299",font:{size:10}},afterDataLimits(s){s.max*=1.1;}},
+        y:{ticks:{color:ctx=>sorted[ctx.index]==="神戸"?"#ff9e3b":"#9aa3b8",font:{size:9},autoSkip:false,maxRotation:0},grid:{color:"rgba(0,0,0,0)"}}
+      }
+    },
+    plugins:[{afterDraw(chart){
+      const {ctx,chartArea:{top,bottom},scales:{x}}=chart;
+      const px=x.getPixelForValue(avg);
+      ctx.save(); ctx.beginPath(); ctx.strokeStyle="#ff6b6b"; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
+      ctx.moveTo(px,top); ctx.lineTo(px,bottom); ctx.stroke(); ctx.restore();
+    }}]
+  });
+}
+
+VCFG.forEach((cfg,i)=>{
+  const ci=i+1;
+  vbuildRank(`vr${ci}w`,vsortBy(cfg.key,cfg.wh).slice(0,10),cfg,true);
+  vbuildRank(`vr${ci}b`,vsortBy(cfg.key,!cfg.wh).slice(0,5),cfg,false);
+  vmakeBar(`vc${ci}`,cfg);
+});
+
+}); // DOMContentLoaded終了
+
+function vsw(idx){
+  document.querySelectorAll(".viz-tab").forEach((t,i)=>t.classList.toggle("active",i===idx));
+  document.querySelectorAll(".viz-panel").forEach((p,i)=>p.classList.toggle("active",i===idx));
+}
+</script>
+
+</body>
+</html>

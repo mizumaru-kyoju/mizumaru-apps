@@ -1,0 +1,433 @@
+/*
+ * article-style.css
+ * mizumaru-apps.com 記事ページ共通スタイル
+ * 対象：kiso / pachinko / slot / kyoshitsu / column 配下の記事ページ
+ * 最終更新：2026-06-22
+ *
+ * 含まれるコンポーネント：
+ *   リセット・ベース / ヘッダー / パンくず / 記事メタ情報 / カテゴリバッジ
+ *   lead-box / term-box / voice-box / formula-box / example-box / disclaimer
+ *   related-section / フッター
+ */
+
+/* ═══════════════════════════════════════
+   0. Google Fonts
+═══════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap');
+
+/* ═══════════════════════════════════════
+   1. CSS カスタムプロパティ
+═══════════════════════════════════════ */
+:root {
+  --bg:           #f5f7fa;
+  --white:        #ffffff;
+  --border:       #e2e8f0;
+  --border2:      #cbd5e1;
+  --accent:       #1a56db;
+  --accent-light: #eff6ff;
+  --text:         #1e293b;
+  --muted:        #64748b;
+  --muted2:       #94a3b8;
+  --header-bg:    #0f2057;
+
+  --shadow:       0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.06);
+
+  --font-sans:    'Noto Sans JP', sans-serif;
+  --font-serif:   'Noto Serif JP', serif;
+}
+
+/* ═══════════════════════════════════════
+   2. リセット・ベース
+═══════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 15px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; }
+
+/* ═══════════════════════════════════════
+   3. ヘッダー
+═══════════════════════════════════════ */
+.article-header {
+  background: var(--header-bg);
+  padding: 0;
+}
+.article-header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 24px 32px;
+}
+
+/* ═══════════════════════════════════════
+   4. パンくずリスト
+═══════════════════════════════════════ */
+.breadcrumb {
+  font-size: 11px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.breadcrumb a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+}
+.breadcrumb a:hover { color: rgba(255,255,255,0.85); }
+.breadcrumb .sep {
+  color: rgba(255,255,255,0.25);
+  margin: 0 2px;
+}
+.breadcrumb .current {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ═══════════════════════════════════════
+   5. カテゴリバッジ・記事メタ情報
+═══════════════════════════════════════ */
+.category-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8);
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.article-title {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}
+.meta-row time { letter-spacing: 0.5px; }
+.meta-author { letter-spacing: 0.3px; }
+
+/* ═══════════════════════════════════════
+   6. 記事本文エリア
+═══════════════════════════════════════ */
+.article-body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* 見出し */
+.article-body h2 {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--header-bg);
+  margin: 52px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border2);
+  line-height: 1.45;
+}
+.article-body h2:first-child { margin-top: 0; }
+
+.article-body h3 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 32px 0 12px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+  line-height: 1.5;
+}
+
+.article-body h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 24px 0 8px;
+}
+
+/* 本文テキスト */
+.article-body p {
+  margin-bottom: 16px;
+  color: #374151;
+  line-height: 1.9;
+}
+
+.article-body ul,
+.article-body ol {
+  padding-left: 22px;
+  margin-bottom: 16px;
+}
+.article-body li {
+  margin-bottom: 6px;
+  color: #374151;
+  line-height: 1.85;
+}
+
+/* ═══════════════════════════════════════
+   7. lead-box（結論ファースト）
+═══════════════════════════════════════ */
+.lead-box {
+  background: var(--accent-light);
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 18px 20px;
+  margin: 0 0 36px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #1e3a8a;
+}
+.lead-box strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════
+   8. term-box（専門用語の定義）
+═══════════════════════════════════════ */
+.term-box {
+  background: #f8fafc;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 20px 0;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.term-box .term-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 1px 7px;
+  margin-bottom: 8px;
+}
+.term-box dt {
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.term-box dd {
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+.term-box dd:last-child { margin-bottom: 0; }
+
+/* ═══════════════════════════════════════
+   9. voice-box（運営者の見解・コメント）
+═══════════════════════════════════════ */
+.voice-box {
+  background: #fefce8;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #f59e0b;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 18px;
+  margin: 24px 0;
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: #78350f;
+}
+.voice-box .voice-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #b45309;
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════
+   10. formula-box（数式・計算式）
+═══════════════════════════════════════ */
+.formula-box {
+  background: #0f2057;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+.formula-box .formula-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+  display: block;
+}
+.formula-box .formula-content {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+  color: #7dd3fc;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.formula-box .formula-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   11. example-box（具体例）
+═══════════════════════════════════════ */
+.example-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #16a34a;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 18px;
+  margin: 24px 0;
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: #14532d;
+}
+.example-box .example-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #16a34a;
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════
+   12. disclaimer（免責・注意事項）
+═══════════════════════════════════════ */
+.disclaimer {
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 32px 0 0;
+  font-size: 11.5px;
+  color: var(--muted2);
+  line-height: 1.8;
+}
+
+/* ═══════════════════════════════════════
+   13. related-section（関連記事）
+═══════════════════════════════════════ */
+.related-section {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 2px solid var(--border2);
+}
+.related-section h2 {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  /* h2共通スタイルの上書き防止 */
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-top: 0;
+}
+.related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.related-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+  box-shadow: var(--shadow);
+  transition: all .2s;
+}
+.related-card:hover {
+  border-color: var(--border2);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.related-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+.related-card-excerpt {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════
+   14. フッター
+═══════════════════════════════════════ */
+.article-footer {
+  background: var(--header-bg);
+  padding: 24px 20px;
+  text-align: center;
+}
+.article-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.article-footer-link {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+.article-footer-link:hover { color: rgba(255,255,255,0.85); }
+.article-footer-copy {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════
+   15. レスポンシブ
+═══════════════════════════════════════ */
+@media (max-width: 600px) {
+  .article-header-inner { padding: 20px 16px 24px; }
+  .article-body { padding: 28px 16px 60px; }
+  .article-body h2 { font-size: 17px; }
+  .formula-box { padding: 16px; }
+  .formula-box .formula-content { font-size: 13px; }
+}

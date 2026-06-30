@@ -1,0 +1,38 @@
+{
+  "name": "AT平均獲得枚数（TY）計算・記録アプリ",
+  "short_name": "平均獲得枚数アプリ",
+  "description": "スロットのスペック数値から設定1〜6のAT平均獲得枚数（TY）を一括計算する無料アプリ",
+  "start_url": "/heikinkakutoku/",
+  "scope": "/heikinkakutoku/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0e0900",
+  "theme_color": "#0e0900",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/heikinkakutoku/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/heikinkakutoku/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/heikinkakutoku/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/heikinkakutoku/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

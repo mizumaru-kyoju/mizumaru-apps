@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-01E4RXEDFT");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>使い方ガイド｜母平均（回転数・TY）記録・区間推定アプリ</title>
+<link rel="canonical" href="https://mizumaru-apps.com/boheikin/guide.html">
+  <meta name="description" content="パチンコの回転数・スロットのTYを「点推定」ではなく「区間推定」で評価する理由と、母平均（回転数・TY）記録・区間推定アプリの基本的な使い方・注意事項をまとめたガイドです。">
+<meta property="og:title" content="使い方ガイド｜母平均（回転数・TY）記録・区間推定アプリ">
+<meta property="og:description" content="パチンコの回転数・スロットのTYを「点推定」ではなく「区間推定」で評価する理由と、アプリの基本的な使い方をまとめたガイドです。">
+<meta property="og:image" content="https://mizumaru-apps.com/boheikin/og-image-guide.png">
+<meta property="og:url" content="https://mizumaru-apps.com/boheikin/guide.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mizumaru-apps.com/boheikin/og-image-guide.png">
+<link rel="apple-touch-icon" href="/boheikin/logo.png">
+<link rel="manifest" href="/boheikin/manifest.json">
+<meta name="theme-color" content="#080a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="回転数推定">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "母平均（回転数・TY）記録・区間推定アプリの使い方ガイド",
+  "description": "パチンコの回転数・スロットのTYを統計的な区間推定で評価する理由と、アプリの基本操作・データ保存の注意点をまとめたガイド。",
+  "author": {
+    "@type": "Person",
+    "name": "水丸教授",
+    "url": "https://x.com/Mizumarukyoju"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+    "url": "https://mizumaru-apps.com"
+  },
+  "datePublished": "2026-06-22",
+  "dateModified": "2026-06-22",
+  "mainEntityOfPage": "https://mizumaru-apps.com/boheikin/guide.html"
+}
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+:root {
+  --bg:#080a0f; --panel:#0f1319; --panel2:#141a24;
+  --border:#1c2333; --border2:#263044;
+  --accent:#00d4ff; --accent2:#ff6b35;
+  --green:#00ff88; --red:#ff3366; --yellow:#ffd700;
+  --purple:#c084fc;
+  --text:#c8d6e8; --muted:#3d4f6a; --muted2:#5a7094;
+  --glow:0 0 14px rgba(0,212,255,0.35);
+  --glow-p:0 0 10px rgba(192,132,252,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:15px;line-height:1.85;max-width:680px;margin:0 auto;padding:0 18px 60px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(8,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);padding:12px 0;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.topbar img{width:32px;height:32px;border-radius:8px;flex-shrink:0}
+.topbar-title{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--accent);text-shadow:var(--glow)}
+
+h1{font-size:22px;line-height:1.5;margin:18px 0 14px;color:#fff;font-weight:700}
+h1 .badge{display:block;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--purple);text-shadow:var(--glow-p);margin-bottom:8px}
+
+.lead{background:var(--panel);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:8px;padding:16px 16px;margin-bottom:28px;font-size:14.5px;color:var(--text)}
+.lead strong{color:var(--accent)}
+
+h2{font-size:18px;color:#fff;margin:36px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:8px}
+h2::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px;box-shadow:var(--glow)}
+h3{font-size:15.5px;color:var(--accent);margin:22px 0 10px}
+
+p{margin-bottom:14px}
+ul,ol{margin:0 0 16px 20px}
+li{margin-bottom:6px}
+
+.note-box{background:rgba(255,107,53,0.07);border:1px solid rgba(255,107,53,0.3);border-radius:8px;padding:14px 16px;margin:18px 0;font-size:14px}
+.note-box strong{color:var(--accent2)}
+
+.tip-box{background:rgba(0,212,255,0.06);border:1px solid var(--border2);border-radius:8px;padding:14px 16px;margin:18px 0;font-size:14px}
+
+figure{margin:18px 0;text-align:center}
+figure img{max-width:100%;border-radius:8px;border:1px solid var(--border2)}
+figcaption{font-size:12px;color:var(--muted2);margin-top:6px}
+
+.example-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0}
+
+.cta{display:block;text-align:center;background:linear-gradient(135deg, var(--accent), var(--purple));color:#000;font-family:'Orbitron',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-decoration:none;border-radius:10px;padding:16px;margin:40px 0 20px}
+
+
+.disclaimer{font-size:12px;color:var(--muted2);background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-top:40px}
+
+/* FOOTER */
+.site-footer{text-align:center;padding:24px 0 10px;border-top:1px solid var(--border);margin-top:30px}
+.site-footer a{font-size:11px;color:var(--muted2);text-decoration:none;letter-spacing:1px;margin:0 10px}
+.site-footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="/boheikin/logo.png" alt="母平均記録・区間推定アプリ ロゴ">
+  <div class="topbar-title">USAGE GUIDE</div>
+</div>
+
+<h1>
+  <span class="badge">HOW TO USE</span>
+  母平均（回転数・TY）記録・区間推定アプリの使い方
+</h1>
+
+<div class="lead">
+  このアプリは、パチンコの回転数やスロットのTYを記録していくことで、<strong>「平均◯回転」という1つの数字（点推定）ではなく、「約68%の確率で◯〜◯回転に収まる」という幅（区間推定）</strong>で台の実力を評価できるWebアプリです。同じ台を打ち続けたとき、平均回転数がどの範囲に収まりそうかを、より早い段階で察知できるようになります。
+</div>
+
+<h2>このアプリでできること</h2>
+<p>
+  普段、表計算ソフトで行っていた回転数の記録管理をそのままアプリ化したものです。125玉や250玉（推奨）など、ある一定の貸し玉を打ち終わるごとに回転数を入力していくだけで、平均値はもちろん、統計的なブレ幅（信頼区間）まで自動で計算してくれます。
+</p>
+<p>
+  台ごとや機種ごとにブックを作り、日付や各台ごとにシートを分けて記録できます。総合タブでは、すべてのシートを合算した統計結果も確認できます。
+</p>
+
+<h2>データ保存に関する重要な注意事項</h2>
+<p>
+  本アプリのデータは、お使いのブラウザの<strong>localStorage</strong>（端末・ブラウザ内に保存される領域）に保存されます。以下のような操作・状況により、入力したデータが消えてしまう場合があります。
+</p>
+<ul>
+  <li>ブラウザのキャッシュ・サイトデータの削除</li>
+  <li>X（旧Twitter）やInstagramなどアプリ内ブラウザでの利用（リンクから開いた場合は、SafariやChromeなど通常のブラウザで開き直すことを推奨します）</li>
+  <li>スマートフォンの初期化・機種変更</li>
+  <li>異なるブラウザでのアクセス（SafariとChromeはデータの保存場所が別々です）</li>
+</ul>
+
+<div class="note-box">
+  <strong>⚠️ 特にご注意ください：</strong>iPhone／iPadのSafariには、一定期間（条件次第で約7日間）アプリ（サイト）にアクセスしないと、ブラウザが「使われていないデータ」と判断してlocalStorageの中身を自動的に削除してしまう仕様があります。せっかく数ヶ月分貯めた稼働データが、1週間開かなかっただけで消えてしまう、ということが起こり得ます。
+</div>
+
+<p>
+  対策として、以下の2点を推奨します。
+</p>
+<ul>
+  <li>iPhone／iPadはSafariで本アプリを「ホーム画面に追加」して、そこから直接アクセスする（安定性が上がります）</li>
+  <li>定期的にCSVエクスポート機能でバックアップを取る（エクスポートしたCSVは、本アプリのCSVインポート機能で再読込できます）</li>
+</ul>
+<p>推奨ブラウザ：iPhone／iPadはSafari（ホーム画面に追加）、AndroidはChrome、PCはChromeまたはEdge。</p>
+
+<h2>なぜ「点推定」ではなく「区間推定」なのか</h2>
+<p>
+  パチンコを打つとき、「1万円で154回転だったから15.4回転の台」というように、回転数を1つの数字だけで評価していませんか。これは統計学でいう<strong>点推定</strong>（母平均＝その台を打ち続けたときに収束していく真の回転数を、1つの代表値だけで推定する方法）にあたりますが、得られる情報量としては最小限です。
+</p>
+<p>
+  たとえば「21回転以上回る台に座りたい」という目標を立てたとします。朝一の1万円で22.1回転と好調でも、次の1万円で18.0回転、その次も17.6回転……と振れて、3万円トータルでは19.23回転まで落ち込む、というのはよくある話です。いつまで「21回転以上」への期待を持ち続けていいのか、点推定だけでは判断しにくいのです。
+</p>
+<p>
+  本アプリで記録方法をひと手間かけることで、期待していた回転数に届く見込みが薄いことを早めに察知して見切ったり、逆に下振れただけで実力のある台を早まって見限ってしまうことを防いだりできます。
+</p>
+
+<h3>実例A：回転数の区間推定</h3>
+<div class="example-card">
+  <p>
+    1,000円（250玉）ごとに回転数を記録し、「追加」ボタンを押すだけで自動集計されます。たとえば1万円分（10回入力）の合計が195回転（24+17+30+13+12+20+21+16+24+18）だった場合、点推定では19.5回転/1kですが、本アプリでは<strong>約68％の確率で17.7〜21.3回転、約95％の確率で15.5〜23.5回転</strong>という区間まで自動算出されます。
+  </p>
+  <p>
+    同じ195回転でも、19+20+19+20…のように毎回の振れ幅が小さいデータなら、信頼区間は<strong>約68％で19.3〜19.7回転、約95％で19.1〜19.9回転</strong>と大きく狭まります。区間の幅そのものが「この台のブレやすさ」を示す情報になるわけです。
+  </p>
+  <p>
+    サンプル数（記録した本数）が増えるほど、この区間はどんどん絞り込まれていきます。同じ傾向のデータをもう1万円分追加すると、約95％の区間が15.5〜23.5回転から16.9〜22.1回転まで狭くなる、といった具合です。
+  </p>
+</div>
+
+<h3>実例B：日をまたいだ台の変化を比較する</h3>
+<div class="example-card">
+  <p>
+    シート（セッション）は「各日付」「平日」「休日」「7のつく日」など自由に名前を付けて追加できます。各シートの結果は個別に、総合タブではすべてのシートを合算した結果を確認できるため、特定の日が本当に強い傾向にあるのか、前日との変化はどうかといった比較・記録に活用できます。
+  </p>
+</div>
+
+<h3>実例C：店の傾向や機種ごとの合算管理</h3>
+<div class="example-card">
+  <p>
+    1台専用ではなく、同一機種が複数台設置されている状況で、1つのブックに台番号ごとのシートを作って管理する使い方もできます。この場合、総合タブがそのまま「その機種・その店の平均的な回転数」として見えるため、遊タイムの天井狙いなど、サンプル数が少なくなりがちな場面での目安作りに役立ちます。
+  </p>
+</div>
+
+<h3>応用編：スロットのTY（１回のAT平均獲得枚数）区間推定（非推奨の使い方）</h3>
+<p>
+  本来は回転数を記録する欄ですが、回転数の代わりに「ATの獲得枚数」などの数値を入力すれば、同じ仕組みでTYの区間推定にも応用できます。ただし、スロットのデータ分析は件数が膨大になりやすく、差枚やその他の情報も合わせて記録・分析する方が合理的なため、表計算ソフトの関数を使う方法が本来はスマートです。<strong>本アプリでの代用はあくまで非推奨の応用例</strong>としてご理解ください。
+</p>
+<div class="tip-box">
+  サンプル数が少ないうちは信頼区間がかなり広くなります。たとえば数十件程度のサンプルでは、95％信頼区間の幅が数百枚規模に及ぶこともあり、結論を出すにはまだ早い、という判断材料にもなります。逆算すると、信頼区間の幅を実用的な精度（たとえば±1σを10〜20枚程度）に収めるには、数千件規模のサンプルが必要になるケースもあります。
+</div>
+
+<h2>基本的な操作方法</h2>
+
+<h3>1. 新規ブックの作成</h3>
+<p>
+  右上のメニューボタン（三本線）から「新しい台を追加」を選択します。最初に玉単価と、1回あたりの打ち出し玉数（何玉ごとに回転数を記録するか）を設定してください。実際の貸し玉条件に近いものを選ぶと見やすくなります。
+</p>
+
+<h3>2. セッションの追加・削除</h3>
+<p>
+  シート（セッション）の追加は「＋」ボタンから行えます。セッション名をダブルクリック（スマホはダブルタップ）するとそのシートを削除できます。入力ミスは履歴内の「✕」マーク、またはクリアボタンで修正できます。
+</p>
+
+<h3>3. 台上カウンターの使い方</h3>
+<p>
+  「台上カウンター」パネルを開くと、実際の台のカウンター値をアプリ内に常時表示させておくことができます。打ち始めの時点で台上の回転数カウンターの値を初期値として入力・確定すると、黄色の数字で表示されます。以降、一定の貸し玉を打ち切るたびに回転数を追加入力するのと同時に、アプリ内のカウンター表示も同じ分だけ加算されます。そのため「実際の台上カウンター」と「アプリ内カウンター」の差分を見ながら入力できるようになり、入力ミスや漏れを素早く気づけるのがこの機能のメリットです。
+</p>
+<p>
+  大当たりなどで実際の台上カウンターがリセットされた場合は、パネル内のリセットボタンを押してから改めて初期値を入力し直してください。このリセットはカウンター表示のみに作用するもので、<strong>入力済みの回転数データは一切消えません</strong>。カウンター表示はあくまで補助的な表示のため、不要な方はパネルを閉じたままご利用ください。
+</p>
+
+<h3>4. 詳細設定（回転単価の計算）</h3>
+<p>
+  各シートの詳細設定で「1Rトータル確率・1R出玉・交換率・持ち球比率」の4項目をすべて入力すると、統計分析の欄に<strong>回転単価（通常時1回転あたりの期待値）の区間推定</strong>が表示されるようになります。回転数の区間推定だけでなく、実際のコスト感まで踏み込んだ分析がしたい方向けの機能です。4項目すべてを入力しないと表示されないため、使わない場合は空欄のままで問題ありません。
+</p>
+
+<h3>5. 収支の入力</h3>
+<p>
+  画面下部の区切り線の下に収支入力欄があります。各セッションで入力した収支は、総合タブで自動的に合算されます。収支管理に特化したアプリではないため、最低限の機能のみとなっています。
+</p>
+
+<h3>6. CSVのエクスポート・インポート</h3>
+<p>
+  バックアップや機種変更時のデータ移行のため、CSVの入出力に対応しています。エクスポートしたファイルはExcelなどでそのまま開けるほか、本アプリに再インポートすることも可能です。前述の「データ消失」を防ぐためにも、定期的なエクスポートを推奨します。
+</p>
+
+<h2>さいごに</h2>
+<p>
+  この記録方法は、回らない台に対する評価をどう数値化するかという課題意識から生まれたもので、まだあまり一般的には知られていない手法だと思います。すでにご自身の期待値計算の方法を確立されている方でも、回転数の変化をより早く・正確に察知するという点では、入力の手間が少し増えても現在ご利用中の他のツール等と併用するメリットは十分あると考えています。
+</p>
+<p>
+  ご意見・不具合報告などのフィードバックは、X（<a href="https://x.com/Mizumarukyoju" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">@Mizumarukyoju</a>）、またはアプリ内のプライバシーポリシーに記載のお問い合わせ先までお寄せください。
+</p>
+
+<div class="disclaimer">
+  当サイト・本アプリの情報は統計に基づいた推計値であり、いかなる結果も保証するものではありません。遊技は自己責任でお願いします。
+</div>
+
+<a class="cta" href="index.html">▶ アプリに戻って使ってみる</a>
+
+<footer class="site-footer">
+  <a href="https://mizumaru-apps.com/" target="_blank" rel="noopener noreferrer">TOP</a>
+  <a href="https://mizumaru-apps.com/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+</footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/boheikin/sw.js', { scope: '/boheikin/' });
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-01E4RXEDFT");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パチンコ理論｜mizumaru-apps.com</title>
+<meta name="description" content="パチンコに特化した確率統計の理論や計算をまとめたカテゴリページです。回転数・出玉・トータル確率を使った期待値計算やその考え方を、実際の数値例を交えながら解説していきます。">
+<meta property="og:title" content="パチンコ理論｜mizumaru-apps.com">
+<meta property="og:description" content="パチンコに特化した確率統計の理論や計算をまとめたカテゴリページです。回転数・出玉・トータル確率を使った期待値計算の考え方を解説します。">
+<meta property="og:image" content="https://mizumaru-apps.com/og-image.png">
+<meta property="og:url" content="https://mizumaru-apps.com/pachinko/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="canonical" href="https://mizumaru-apps.com/pachinko/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "パチンコ理論",
+  "description": "パチンコに特化した確率統計の理論や計算をまとめたカテゴリページです。",
+  "url": "https://mizumaru-apps.com/pachinko/",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+    "url": "https://mizumaru-apps.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+    "url": "https://mizumaru-apps.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "TOP",
+      "item": "https://mizumaru-apps.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "パチンコ理論",
+      "item": "https://mizumaru-apps.com/pachinko/"
+    }
+  ]
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+:root{
+  --bg:#f5f7fa;--panel:#ffffff;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --accent:#1a56db;--text:#1e293b;
+  --muted:#64748b;--muted2:#94a3b8;
+  --header-bg:#0f2057;
+  --tag-blue-bg:#eff6ff;--tag-blue:#1d4ed8;
+  --shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
+  --shadow-hover:0 8px 24px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;font-size:14px}
+.header{background:var(--header-bg)}
+.header-inner{max-width:860px;margin:0 auto;padding:28px 24px}
+.breadcrumb{font-size:11px;margin-bottom:14px}
+.breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none}
+.breadcrumb a:hover{color:rgba(255,255,255,0.8)}
+.breadcrumb span{color:rgba(255,255,255,0.3);margin:0 6px}
+.header-label{display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);font-size:10px;letter-spacing:2px;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+h1.page-title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:14px}
+.lead{font-size:13px;color:rgba(255,255,255,0.78);line-height:1.9;max-width:580px}
+.main{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+h2{font-size:16px;font-weight:700;color:var(--text);letter-spacing:0.5px;display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--border2)}
+.article-list{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+.article-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-decoration:none;display:block;box-shadow:var(--shadow);transition:all .2s}
+.article-card:hover{border-color:var(--border2);box-shadow:var(--shadow-hover);transform:translateY(-1px)}
+.article-date{font-size:10px;color:var(--muted2);margin-bottom:6px;letter-spacing:0.5px}
+.article-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.5}
+.article-excerpt{font-size:12px;color:var(--muted);line-height:1.8}
+.article-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.tag{font-size:10px;padding:3px 9px;border-radius:4px;font-weight:500;background:var(--tag-blue-bg);color:var(--tag-blue)}
+.empty-state{background:var(--panel);border:1px dashed var(--border2);border-radius:10px;padding:36px 24px;text-align:center}
+.empty-icon{font-size:26px;margin-bottom:12px;opacity:.5}
+.empty-title{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.empty-desc{font-size:11.5px;color:var(--muted2);line-height:1.8;max-width:420px;margin:0 auto}
+.about-box{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px 22px;box-shadow:var(--shadow)}
+.about-box p{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:10px}
+.about-box p:last-child{margin-bottom:0}
+.related-cats{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.related-cat-link{font-size:11px;color:var(--accent);text-decoration:none;background:var(--tag-blue-bg);padding:6px 12px;border-radius:6px}
+.related-cat-link:hover{text-decoration:underline}
+.footer{background:var(--header-bg);padding:24px 20px;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:10px;flex-wrap:wrap}
+.footer-link{font-size:11px;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:0.5px}
+.footer-link:hover{color:rgba(255,255,255,0.8)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.5px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">TOP</a><span>/</span>パチンコ理論
+    </nav>
+    <div class="header-label">PACHINKO / THEORY</div>
+    <h1 class="page-title">パチンコ理論</h1>
+    <p class="lead">パチンコに特化した確率統計の理論や計算をまとめたカテゴリです。回転数・出玉・トータル確率といったパチンコ固有のデータを使った期待値計算やその考え方を、実際の数値例を交えながら解説していきます。</p>
+  </div>
+</div>
+
+<div class="main">
+  <div>
+    <h2>記事一覧</h2>
+    <div class="article-list">
+      <!--
+      記事公開時はここにカードを追加（新着順・先頭に挿入）
+      <a class="article-card" href="/pachinko/スラッグ.html">
+        <div class="article-date">2026.06.20</div>
+        <div class="article-title">記事タイトル</div>
+        <p class="article-excerpt">記事の要約（2〜3行）</p>
+        <div class="article-tags"><span class="tag">タグ</span></div>
+      </a>
+      -->
+      <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <div class="empty-title">準備中です</div>
+        <div class="empty-desc">パチンコ理論に関する記事は現在準備中です。公開され次第、この一覧に新着順で追加されます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2>このカテゴリについて</h2>
+    <div class="about-box">
+      <p>「パチンコ理論」では、パチンコに固有の指標――回転数・出玉・トータル確率――を使った確率統計の話を扱います。「今日の回転数は台の実力を判断するのに十分なサンプルか」「同じ台を打ち続けた場合の収支はどう分散するか」といった、実戦に直結する統計的な見方を解説します。</p>
+      <p><a href="/boheikin/" style="color:var(--accent)">母平均（回転数・TY）記録・区間推定アプリ</a>で実際に計算しながら読むと、理解が深まります。パチンコ・スロット共通の確率論的な土台は「基礎・用語集」カテゴリもあわせてご覧ください。</p>
+    </div>
+        <div class="related-cats">
+      <a class="related-cat-link" href="/kiso/">基礎・用語集 ›</a>
+      <a class="related-cat-link" href="/slot/">スロット理論 ›</a>
+      <a class="related-cat-link" href="/kyoshitsu/">統計の教室 ›</a>
+      <a class="related-cat-link" href="/column/">コラム・時事 ›</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a class="footer-link" href="/">TOP</a>
+    <a class="footer-link" href="/about/">水丸教授とは</a>
+    <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© <span id="copyYear"></span> パチスロ期待値算出補助アプリ集〜確率統計〜 / mizumaru-apps.com</div>
+</footer>
+<script>document.getElementById('copyYear').textContent=new Date().getFullYear();</script>
+</body>
+</html>

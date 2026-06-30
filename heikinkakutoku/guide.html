@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-01E4RXEDFT");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AT平均獲得枚数（TY）計算・記録アプリの使い方｜mizumaru-apps.com</title>
+<link rel="canonical" href="https://mizumaru-apps.com/heikinkakutoku/guide.html">
+  <meta name="description" content="スロットのスペック表からボーナス出現率を入力するだけで、設定1〜6のAT平均獲得枚数（TY）を算出する方法を解説。book保存機能やローカルストレージの注意点も紹介。">
+<meta property="og:title" content="AT平均獲得枚数（TY）計算・記録アプリの使い方">
+<meta property="og:description" content="スペック表に載っていないAT平均獲得枚数（TY）を、設定1〜6まで一括算出する手順を解説します。">
+<meta property="og:image" content="https://mizumaru-apps.com/heikinkakutoku/og-image-guide.png">
+<meta property="og:url" content="https://mizumaru-apps.com/heikinkakutoku/guide.html">
+<meta property="og:type" content="article">
+<link rel="apple-touch-icon" href="/heikinkakutoku/logo.png">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8753924001045572" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AT平均獲得枚数（TY）計算・記録アプリの使い方",
+  "description": "スロットのスペック表からボーナス出現率を入力するだけで、設定1〜6のAT平均獲得枚数（TY）を算出する方法を解説。",
+  "author": {
+    "@type": "Person",
+    "name": "水丸教授",
+    "url": "https://x.com/Mizumarukyoju"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+    "url": "https://mizumaru-apps.com"
+  },
+  "datePublished": "2026-06-22",
+  "dateModified": "2026-06-22",
+  "mainEntityOfPage": "https://mizumaru-apps.com/heikinkakutoku/guide.html"
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+:root {
+  --bg:#0e0900;
+  --panel:#1a1100;
+  --panel2:#211800;
+  --border:#332200;
+  --border2:#4a3300;
+  --accent:#ffaa00;
+  --accent2:#ff6600;
+  --text:#f0ddb0;
+  --muted:#5a4422;
+  --muted2:#886633;
+  --glow:0 0 14px rgba(255,170,0,0.45);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:1.85;max-width:680px;margin:0 auto;padding:0 18px 60px}
+
+.topbar{padding:18px 0 14px;border-bottom:2px solid var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.topbar img{height:26px;width:26px;border-radius:6px;flex-shrink:0}
+.topbar-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--accent);text-shadow:var(--glow)}
+
+h1{font-size:21px;color:var(--accent);text-shadow:var(--glow);line-height:1.5;margin-bottom:14px;letter-spacing:0.5px}
+h2{font-size:16px;color:var(--accent);border-left:3px solid var(--accent);padding-left:10px;margin:34px 0 14px}
+h3{font-size:14px;color:var(--text);margin:20px 0 8px}
+p{margin-bottom:14px;color:var(--text)}
+strong{color:var(--accent);font-weight:500}
+ol,ul{margin:0 0 16px 1.3em}
+li{margin-bottom:8px}
+
+.lead{background:var(--panel);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:8px;font-size:13.5px;color:var(--text)}
+
+.term{background:var(--panel2);border-left:2px solid var(--accent2);padding:8px 12px;font-size:12.5px;color:var(--muted2);border-radius:0 6px 6px 0;margin:10px 0}
+
+.note-box{background:var(--panel);border:1px solid var(--border2);border-radius:10px;padding:16px;margin:16px 0;font-size:13px}
+.note-box.warn{border-color:var(--accent2)}
+.note-box .label{font-size:11px;color:var(--accent2);letter-spacing:1px;margin-bottom:6px;display:block}
+
+.step{display:flex;gap:12px;margin-bottom:18px}
+.step-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--panel2);border:1px solid var(--accent);color:var(--accent);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+a{color:var(--accent2)}
+
+.related{margin-top:40px;border-top:1px solid var(--border);padding-top:18px}
+.related a{display:block;font-size:13px;margin-bottom:8px;text-decoration:none;color:var(--text)}
+.related a:hover{color:var(--accent)}
+
+.cta{display:block;text-align:center;background:linear-gradient(135deg, var(--accent), var(--accent2));color:#000;font-family:'Orbitron',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-decoration:none;border-radius:10px;padding:16px;margin:40px 0 20px}
+.site-footer{text-align:center;padding:24px 0 10px;border-top:1px solid var(--border);margin-top:30px}
+.site-footer a{font-size:11px;color:var(--muted2);text-decoration:none;letter-spacing:1px;margin:0 6px}
+.site-footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="/heikinkakutoku/logo.png" alt="">
+  <span class="topbar-label">HEIKINKAKUTOKU GUIDE</span>
+</div>
+
+<h1>AT平均獲得枚数（TY）計算・記録アプリの使い方</h1>
+
+<div class="lead">
+<strong>このアプリは、スペック表に書かれている数値（ボーナス出現率・機械割・純増枚数など）を入力するだけで、表には載っていない「AT平均獲得枚数（TY）」を設定1〜6まで一括計算する無料Webアプリです。</strong>計算結果はタイトルを付けて「book」として保存でき、ハンバーガーメニューからいつでも見返せます。
+</div>
+
+<h2>そもそもTYとは何か</h2>
+<p>
+スロットにおいてTYとは、<strong>基本的に初当たり1回あたりの平均獲得枚数</strong>を指す用語です。スペック表には「初当り確率」や「AT純増枚数」は書かれていても、AT1回でどれくらいのメダル・コインを獲得できるかという「TY」は書かれていないことがほとんどです。このアプリは、その未公開の数値を統計的に逆算します。
+</p>
+<p>
+AT機のみではなく、厳密にはAタイプやART機に対しても使う用語ではありますが、現在は主流となっているAT機に対して使用することが多いです。
+</p>
+
+<h2>使い方の手順</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div>
+    <strong>スペック紹介サイトで対象機種の数値を調べる</strong>
+    <p style="margin-top:6px">P-WORLDやP-TOWNのような機種スペック紹介サイトには、設定1〜6ごとの初当り確率・AT出現率・機械割・ベースとなる消化G数などがまとめられています。これらの数値をメモしておきます。</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div>
+    <strong>該当する項目にスペック数値を入力する</strong>
+    <p style="margin-top:6px">入力欄に、調べた数値を設定1〜6まで入力します。一部の設定だけしか分からない場合は、分かる範囲だけで構いません。</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div>
+    <strong>「▶ 計算する」をタップする</strong>
+    <p style="margin-top:6px">設定差グラフとともに、各設定のTY（平均獲得枚数）が表示されます。バーの高さで設定差の大きさを視覚的に把握できます。</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div>
+    <strong>必要であれば「book」として保存する</strong>
+    <p style="margin-top:6px">機種名などのタイトルを付けて保存すると、ハンバーガーメニューの一覧からいつでも呼び出せます。複数の機種・異なる通常時ベース条件での数値を見比べたい場合に便利です。</p>
+  </div>
+</div>
+
+<div class="note-box">
+  <span class="label">入力をリセットしたいときは</span>
+  「▶ 計算する」タップ後、TY設定差グラフの下に<strong>「入力をリセット」ボタン</strong>が表示されます。これをタップすると、入力欄をまとめてクリアできます。
+</div>
+
+<h2>計算結果の見方</h2>
+<p>
+グラフの設定差は、<strong>σ（シグマ。データのばらつきの大きさを表す統計用語）</strong>を基準に色分け・表示しています。差が小さい場合は「誤差の範囲内かもしれない」、大きい場合は「設定差として意味のある違いの可能性が高い」という目安としてご覧ください。
+</p>
+<div class="term">
+本アプリが算出するTYは、入力された確率・機械割などのスペック数値から導かれる<strong>統計的な期待値（理論上の平均値）</strong>です。実際の遊技結果は確率的なばらつきにより、この数値と一致しない場合があります。
+</div>
+
+<h2>ご利用にあたっての注意事項</h2>
+
+<div class="note-box warn">
+  <span class="label">保存データについて</span>
+  入力内容や保存したbookは、お使いのブラウザの<strong>localStorage（端末のブラウザ内に保存される領域）</strong>に保存されます。サーバーには送信・保存されません。そのため、以下の点にご注意ください。
+  <ul style="margin-top:10px">
+    <li>ブラウザの履歴・キャッシュ・サイトデータを削除すると、保存したbookも消去されます</li>
+    <li>別の端末やブラウザでは、保存したデータを引き継げません</li>
+    <li>プライベートブラウジング（シークレットモード）では、タブを閉じると保存内容が失われます</li>
+  </ul>
+</div>
+
+<div class="note-box warn">
+  <span class="label">計算式の前提について</span>
+  本アプリは、通常時・AT中を含むすべてのG数において<strong>3枚掛け</strong>で消化する機種を前提に計算式を組んでいます。ジャグラー等のAタイプに対しても、初当たり合算確率・機械割・AT純増にボーナス中の1Gあたりの純増枚数・ベースの4つを入力すればおおよその値は出ますが、ボーナス中に2枚掛けや1枚掛けで消化する機種では、僅かながら正確な計算結果とズレが生じます。その点に留意してご使用ください。
+</div>
+
+<div class="note-box">
+  <span class="label">計算結果の利用について</span>
+  本アプリが示すTYや設定差はあくまで統計上の推定値であり、実際の遊技結果や勝敗を保証するものではありません。遊技は適度な範囲で、計画的にお楽しみください。
+</div>
+
+<a class="cta" href="/heikinkakutoku/">▶ アプリに戻って使ってみる</a>
+
+<footer class="site-footer">
+  <a href="/" target="_blank" rel="noopener noreferrer">TOP</a>
+  <a href="/heikinkakutoku/">アプリに戻る</a>
+  <a href="/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+</footer>
+
+</body>
+</html>
