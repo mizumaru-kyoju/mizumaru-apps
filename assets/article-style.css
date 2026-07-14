@@ -275,8 +275,10 @@ img { max-width: 100%; height: auto; }
    10. formula-box（数式・計算式）
 ═══════════════════════════════════════ */
 .formula-box {
-  background: #0f2057;
-  border-radius: 8px;
+  background: #eef4ff;
+  border: 1px solid #d6e4fb;
+  border-left: 4px solid #1a56db;
+  border-radius: 0 8px 8px 0;
   padding: 20px 22px;
   margin: 24px 0;
   overflow-x: auto;
@@ -284,20 +286,21 @@ img { max-width: 100%; height: auto; }
 .formula-box .formula-label {
   font-size: 10px;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.4);
+  color: #1a56db;
   margin-bottom: 10px;
   display: block;
+  font-weight: 700;
 }
 .formula-box .formula-content {
   font-family: 'Courier New', Courier, monospace;
   font-size: 15px;
-  color: #7dd3fc;
+  color: #0f2057;
   line-height: 1.8;
   white-space: pre-wrap;
 }
 .formula-box .formula-note {
   font-size: 12px;
-  color: rgba(255,255,255,0.5);
+  color: #64748b;
   margin-top: 10px;
   line-height: 1.7;
 }
