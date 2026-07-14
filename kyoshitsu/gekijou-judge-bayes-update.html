@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>劇場ジャッジ1〜3G中に激情目判別打ちで「激情目」が止まらなかった場合のリプレイ・3枚ベルの期待度14.1%はどういう意味なのか？ベイズ更新で読み解く、からくりサーカス2の解析情報｜mizumaru-apps.com</title>
+<meta name="description" content="からくりサーカス2の解析サイトに追記された「激情目を除くと14.1%」という注記。前作の約40%から下げられたと誤解されがちだが、実は同じ確率をより詳しく観測できるようになっただけ。ベイズ更新の考え方で数理的に検証する。">
+<meta property="og:title" content="劇場ジャッジ「14.1%」の意味は？ベイズ更新で読み解く、からくりサーカス2の解析情報">
+<meta property="og:description" content="激情目が止まらなかった場合のリプレイ・3枚ベル期待度14.1%は、確率が下げられたわけではない。ベイズ更新の考え方で数理的に検証する。">
+<meta property="og:image" content="/kyoshitsu/og-image-gekijou-judge-mosaic-only.png">
+<meta property="og:url" content="https://mizumaru-apps.com/kyoshitsu/gekijou-judge-bayes-update.html">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://mizumaru-apps.com/kyoshitsu/gekijou-judge-bayes-update.html">
+<link rel="stylesheet" href="/assets/article-style.css">
+
+<!-- Article JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "劇場ジャッジ「14.1%」はどういう意味なのか？ベイズ更新で読み解く、からくりサーカス2の解析情報",
+  "description": "からくりサーカス2の解析サイトに追記された「激情目を除くと14.1%」という注記を、ベイズ更新の考え方で数理的に検証する。",
+  "author": {
+    "@type": "Person",
+    "name": "水丸教授",
+    "url": "https://x.com/Mizumarukyoju"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+    "url": "https://mizumaru-apps.com"
+  },
+  "datePublished": "2026-07-15",
+  "dateModified": "2026-07-15",
+  "mainEntityOfPage": "https://mizumaru-apps.com/kyoshitsu/gekijou-judge-bayes-update.html"
+}
+</script>
+
+<!-- BreadcrumbList JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "TOP", "item": "https://mizumaru-apps.com/"},
+    {"@type": "ListItem", "position": 2, "name": "統計の教室", "item": "https://mizumaru-apps.com/kyoshitsu/"},
+    {"@type": "ListItem", "position": 3, "name": "劇場ジャッジ「14.1%」はどういう意味なのか？", "item": "https://mizumaru-apps.com/kyoshitsu/gekijou-judge-bayes-update.html"}
+  ]
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-01E4RXEDFT");
+</script>
+</head>
+<body>
+
+<header class="article-header">
+  <div class="article-header-inner">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">TOP</a><span class="sep">/</span>
+      <a href="/kyoshitsu/">統計の教室</a><span class="sep">/</span>
+      <span class="current">劇場ジャッジ「14.1%」はどういう意味なのか？</span>
+    </nav>
+
+    <span class="category-badge">統計の教室</span>
+
+    <h1 class="article-title">劇場ジャッジ1〜3G中に激情目判別打ちで「激情目」が止まらなかった場合のリプレイ・3枚ベルの期待度14.1%はどういう意味なのか？ベイズ更新で読み解く、からくりサーカス2の解析情報</h1>
+
+    <div class="meta-row">
+      <time datetime="2026-07-15">2026年7月15日</time>
+      <span class="meta-author">水丸教授</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-body">
+  <article>
+
+    <div class="lead-box">
+      <p><strong>「劇場ジャッジの1〜3G目のリプレイ・3枚ベル1回あたりのCZ突破抽選率が約40%から14.1%に下げられた」という言説は誤解です。</strong> 14.1%は「激情目が停止しなかった場合」という条件付きの数字であり、全体の確率（約40%）自体はもともと変わっていません。今回は、なぜこの誤解が生まれるのか、そしてこの構造が統計学の「ベイズ更新」という考え方そのものであることを、実際の解析数値を使って検証します。</p>
+    </div>
+
+    <h2>きっかけ ― 解析サイトに加わった、あの一文</h2>
+    <p>2026年7月6日に導入されたスマスロ「からくりサーカス2」。導入から1週間ほど経った7月13日、大手解析サイト「ちょんぼりすた」の公式アカウントが、劇場ジャッジ・激情ジャッジに関する新しい解析情報を追記しました。</p>
+    <p>そこに記載されていたのが、次のような内容です（要旨）。</p>
+    <ul>
+      <li>1〜3G目のリプレイ・3枚ベルでの成功抽選は約40%</li>
+      <li>ただし「激情目」という出目が停止しなかった場合、その期待度は14.1%に下がる（目押しが正確な場合）</li>
+    </ul>
+    <p>この「14.1%に下がる」という一文が、SNS上で大きな話題になりました。「あの普通のリプレイ・ベルの40%が醍醐味だったのに、実は14.1%しかなかったのか」という受け止め方が広がり、中には「前作より確率を落とされたのでは」という誤解に発展しているケースも見られます。</p>
+
+    <div class="disclaimer">
+      ※この記事では特定の投稿や個人を対象にした議論は行いません。あくまで「解析情報の読み方」というテーマとして、一般化して扱います。
+    </div>
+
+    <h2>「下がる」という言葉に潜む誤解の構造</h2>
+    <p>まず整理しておきたいのは、パチスロの抽選には性質の異なる2つの層があるということです。</p>
+
+    <div class="term-box">
+      <dl>
+        <dt>フラグ（内部抽選の結果）</dt>
+        <dd>RNG（疑似乱数生成器）によって、レバーオンの瞬間に決定される内部的な当落そのもの。「リプレイ・3枚ベルを引いたら、このゲームは成功か失敗か」という結果は、この時点ですでに決まっています。</dd>
+        <dt>出目・停止形（観測手段）</dt>
+        <dd>そのフラグの中身を、プレイヤーが目で確認できる形。からくりサーカス2では、2連激情図柄を狙ってビタ押しすることで、「激情目」という、成功が確定した出目を判別できます。</dd>
+      </dl>
+    </div>
+
+    <p>この2つを区別すると、「40%→14.1%」という数字の意味がはっきりします。</p>
+    <ul>
+      <li>1〜3G目のリプレイ・3枚ベルというフラグ全体の成功率は、<strong>約40%のまま変わっていません</strong></li>
+      <li>その約40%の中には、「激情目という出目で判別できる、成功確定の当たり方」と「出目で判別できない、成功率14.1%の当たり方」の2種類が混ざっています</li>
+      <li>前作には、この2種類を見分ける出目（観測手段）そのものが存在しませんでした。だから前作では「約40%」という1つの数字しか、プレイヤー側には見えていなかったのです</li>
+    </ul>
+    <p>つまり今回の一件は、<strong>確率が下げられた話ではなく、もともとあった約40%の中身を、初めて覗けるようになった話</strong>です。実際、導入初日の実践者の間でも「前作より良くなったのは出目で判別できる劇場リプレイ・ベルだな。判別できなかったらデキレでリプベル当選率0%とかできるわけだからな」というように、前作にはこの判別手段自体がなかったことを踏まえた好意的な受け止め方も見られました。</p>
+
+    <h2>「40%」と「14.1%」、それぞれ何の確率なのか</h2>
+    <p>ここで一度、数式で正確に整理しておきます。「激情目である確率」をqとすると、40%という数字は次のように分解できます。</p>
+
+    <div class="formula-box">
+      <div class="formula-label">激情目である確率qの逆算</div>
+      <div class="formula-content">0.40 ≈ q × 1.00 ＋ (1－q) × 0.141</div>
+      <div class="formula-note">激情目（出目で判別できる、成功確定の当たり方）である確率：q／激情目でない（成功率14.1%の当たり方）確率：1－q</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">qについて解く</div>
+      <div class="formula-content">q = (0.40 － 0.141) ÷ (1 － 0.141) ≈ 0.259 ÷ 0.859 ≈ 0.302（約30.2%）</div>
+    </div>
+
+    <p>つまり、リプレイ・3枚ベルを引いた100回のうち、約30回程度（正確には約30.2%）は「激情目」という出目で最初から成功が見えており、残りの約70回は、出目で判別できないぶん、14.1%という数字だけを頼りにするしかない――という内訳になっていた、ということです。</p>
+
+    <div class="example-box">
+      <p><strong>黒バー狙いなどの場合</strong>：出目を見ないので、常に「約40%」という数字のまま情報が更新されません。これは前作までの状態とまったく同じです。</p>
+      <p><strong>激情目狙いの場合</strong>：出目という新しい情報が手に入るので、「激情目が止まった→ほぼ確定」「止まらなかった→14.1%」というように、約40%という出発点から、より速く・より正確な着地点にたどり着けます。</p>
+    </div>
+    <p>損得はどちらも同じです。得られる情報の解像度が変わっただけ、というのが正確な言い方になります。</p>
+
+    <h2>「劇場ジャッジはガチ抽選なのか？」を数理的に検証する</h2>
+    <p>もう一つ、SNS上でよく見かける疑問に「劇場・激情ジャッジ自体が本当にその数字通りに動いているのか、都合よく操作されているのではないか」というものがあります。しかし、抽選にRNG自体を組み込んだゲーム性の為その疑いはこの機種においては実際に検算することで解決出来ます。</p>
+    <p>劇場ジャッジは、1〜3G目の成立役による抽選と、4G目の抽選（小役以上で成功濃厚）で構成されています。各役の公表確率から、1ゲームあたりの成功率を計算します。</p>
+
+    <div class="formula-box">
+      <div class="formula-label">各役の出現率と、1ゲームあたりの成功率</div>
+      <div class="formula-content">
+        小役：リプレイ 1/7.3、3枚ベル 1/24<br>
+        弱レア役：弱チェリー 1/98、スイカ 1/100、チャンスベル 1/150<br>
+        強レア役：チャンス目 1/175、強チェリー 1/327<br><br>
+        1ゲームあたりの成功率 ＝ (リプレイ＋3枚ベルの出現率)×40% ＋ (弱レア役の出現率)×50% ＋ (強レア役の出現率)×100%<br>
+        ≈ 0.0715 ＋ 0.0134 ＋ 0.0088 ≈ 9.37%
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">G1〜4を通した成功率の積み上げ</div>
+      <div class="formula-content">
+        G1〜3のどこかで成功：1－(1－9.37%)<sup>3</sup> ≈ 25.55%<br>
+        4G目まで残り、そこで成功：74.45% × 21.43% ≈ 15.96%<br>
+        G1〜4通算：25.55% ＋ 15.96% ≈ 41.51%<br>
+        突入時抽選9.8%を合成した総合成功率：9.8% ＋ (1－9.8%)×41.51% ≈ 47.24%
+      </div>
+      <div class="formula-note">公表値46.6%との誤差は約0.6ポイント。各役の確率が小数点以下で丸めて公表されていることを踏まえれば、当然生まれる範囲の誤差です。</div>
+    </div>
+
+    <p><strong>公表されている各役の確率だけから、外部の計算でほぼ同じ数字を再現できる</strong>ということは、この抽選が恣意的な後付けではなく、機械的な数理構造どおりに動いていることの裏付けになります。</p>
+
+    <h2>なぜAT中の激情ジャッジは、約50%と高いのか</h2>
+    <p>もう一つ、解析情報を見ていて気になるのが、AT中の「激情ジャッジ」の成功期待度が約50%と、通常時の劇場ジャッジ（46.6%）より数ポイント高いという点です。これも偶然ではなく、理由を説明できます。</p>
+    <p>AT中には、1〜3G目のフラグ抽選を経由せず、<strong>最初から成功が保証された状態</strong>で激情ジャッジに突入するルートが複数存在します。</p>
+    <ul>
+      <li><strong>スルー天井</strong>：「機械仕掛けの女神」を4連続失敗後、5回目がAT書き換え＋成功濃厚の激情ジャッジを1個獲得</li>
+      <li><strong>AT間天井</strong>：AT間の実ゲーム数2500G到達で、AT直撃＋成功濃厚の激情ジャッジを獲得</li>
+      <li><strong>CZ「機械仕掛けの女神」のHOLD中のレア役</strong>：弱レア役で50%、強レア役で100%、成功濃厚の激情ジャッジを獲得</li>
+      <li><strong>激情ジャッジ本前兆中の昇格抽選</strong>：レア役成立時に、弱レアで5.1%、強レアで20.3%の確率で、成功濃厚への昇格</li>
+    </ul>
+    <p>これらはすべて「フラグの抽選そのもの」ではなく、<strong>あらかじめ成功が保証された状態</strong>で母数に加わります。「成功率100%のジャッジ」が一定数混ざり込むことで、通常時の46.6%より平均が押し上げられ、約50%という数字になる――という説明が数理的に成立します。</p>
+    <p>複数の異なる確率を持つ経路が混ざり合った結果、1つの平均値として公表されている、という構造は、実は今回のテーマである「ベイズ更新」の考え方とも地続きです。次の章で、この考え方そのものを整理します。</p>
+
+    <h2>ベイズ更新とは何か</h2>
+    <div class="term-box">
+      <dl>
+        <dt>ベイズ更新</dt>
+        <dd>新しい情報が手に入るたびに、確率の見積もりを修正していく考え方。何も情報がない状態での見積もり（事前確率）に、新しい情報を得て、その情報をもとに見積もりを修正する（事後確率）、という一連の流れを指します。</dd>
+      </dl>
+    </div>
+
+    <div class="voice-box">
+      <p>例えば、出会った異性に対して「この人と交際に発展する可能性があるかどうか」を、まだ何も確かめていない段階で漠然と見積もるとします。仮にこの見積もりを10%だとしましょう（事前確率）。</p>
+      <p>ここで、相手の左手の薬指に指輪をしているかどうかという、たった1つの情報が視界に入ったとします。</p>
+      <ul>
+        <li>指輪をしていた場合：交際に発展する可能性がある人が指輪をしている確率はかなり低い（1%程度）一方、可能性が低い人（既婚者等）が指輪をしている確率はそれなりに高い（50%程度）と考えられます。この2つの数字をベイズの定理に当てはめると、10%だった見積もりは、わずか約0.2%まで落ち込みます。</li>
+        <li>指輪をしていなかった場合：逆に見積もりは約18%まで、じわりと押し上げられます。</li>
+      </ul>
+      <p>「その情報はあえて確認せず、まっさらな気持ちで接すればいいのに」と言われたところで、人はこの手の確認を無意識のうちにやってしまいます。指輪を見てしまった瞬間、見なかったことにはできず、見積もりは強制的に更新されてしまう。これもまた、私たちが無意識のうちに、あらゆる情報から確率の見積もりを更新し続けている、という一つの証拠なのだと思います。</p>
+      <p>劇場ジャッジの「激情目が止まったかどうか」も、これとまったく同じ構造です。</p>
+    </div>
+
+    <h3>具体例：劇場ジャッジ、リプレイ・3枚ベルを1回引いた場合</h3>
+
+    <!-- gekijou_judge_mosaic_v2.svg（内容確認済み・本文の数値と一致） -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="760" height="640" viewBox="0 0 760 640" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" role="img" aria-labelledby="mosaicTitle mosaicDesc">
+      <title id="mosaicTitle">激情ジャッジ 前半1〜3G「リプレイ・3枚共通ベル」1回時の突破期待度</title>
+      <desc id="mosaicDesc">横軸は前作・黒バー狙い等で見える世界（非突破60%／突破40%）、縦軸は激情図柄狙いで見える世界（激情目30.15%／非激情目9.85%）を示すモザイク図</desc>
+      <rect width="760" height="640" fill="#0d0d12"/>
+      <text x="380" y="40" text-anchor="middle" fill="#f2e9d8" font-size="20" font-weight="bold">激情ジャッジ 前半1〜3G「リプレイ・3枚共通ベル」1回時の突破期待度</text>
+      <text x="380" y="62" text-anchor="middle" fill="#9a9a9a" font-size="13">横＝前作・黒バー狙い等で見える世界（突破/非突破の絶対確率）　縦＝激情図柄狙いで見える世界（激情目の判別）</text>
+      <rect x="100" y="96" width="336" height="360" fill="#2b2f36" stroke="#555" stroke-width="1.5"/>
+      <text x="268" y="250" text-anchor="middle" fill="#cfcfcf" font-size="19" font-weight="bold">非突破</text>
+      <text x="268" y="278" text-anchor="middle" fill="#e0e0e0" font-size="26" font-weight="bold">60%</text>
+      <text x="268" y="308" text-anchor="middle" fill="#8f8f8f" font-size="13">（激情目なら必ず突破するため</text>
+      <text x="268" y="326" text-anchor="middle" fill="#8f8f8f" font-size="13">非突破は全て非激情目の停止系）</text>
+      <rect x="436" y="96" width="224" height="271" fill="#c9a24b" stroke="#7a5f26" stroke-width="1.5"/>
+      <text x="548" y="200" text-anchor="middle" fill="#241a05" font-size="16" font-weight="bold">激情目の停止系</text>
+      <text x="548" y="222" text-anchor="middle" fill="#241a05" font-size="13">（100%突破）</text>
+      <text x="548" y="252" text-anchor="middle" fill="#241a05" font-size="24" font-weight="bold">30.15%</text>
+      <rect x="436" y="367" width="224" height="89" fill="#5a86c7" stroke="#2e4d80" stroke-width="1.5"/>
+      <text x="548" y="397" text-anchor="middle" fill="#0a1a30" font-size="14" font-weight="bold">非激情目の停止系</text>
+      <text x="548" y="417" text-anchor="middle" fill="#0a1a30" font-size="12">（条件付き突破率14.1%）</text>
+      <text x="548" y="440" text-anchor="middle" fill="#0a1a30" font-size="20" font-weight="bold">9.85%</text>
+      <rect x="436" y="96" width="224" height="360" fill="none" stroke="#f2e9d8" stroke-width="2"/>
+      <text x="548" y="82" text-anchor="middle" fill="#f2e9d8" font-size="15" font-weight="bold">突破 40%</text>
+      <text x="268" y="82" text-anchor="middle" fill="#f2e9d8" font-size="15" font-weight="bold">非突破 60%</text>
+      <rect x="100" y="486" width="560" height="120" fill="#15151a" stroke="#333" stroke-width="1"/>
+      <text x="118" y="510" fill="#e0e0e0" font-size="13" font-weight="bold">激情目である確率 q の逆算</text>
+      <text x="118" y="534" fill="#9a9a9a" font-size="12">全体の突破率 0.4 ＝ q×100%（激情目） ＋ (1−q)×14.1%（非激情目）</text>
+      <text x="118" y="554" fill="#9a9a9a" font-size="12">0.4 = q + 0.141(1−q) → 0.859q = 0.259 → q ≈ 30.15%</text>
+      <text x="118" y="578" fill="#9a9a9a" font-size="12">よって突破40%の内訳：激情目30.15%（面積そのまま）＋非激情目 (1−0.3015)×0.141≈9.85%</text>
+    </svg>
+
+    <p>図を見てください。横軸は、前作までのリール制御や、今作での激情目判別をしない打ち方（黒バー狙いなど）で見える世界です。1〜3G目でリプレイ・3枚ベルを1回引いた場合、その時点での<strong>事前確率</strong>は</p>
+    <ul>
+      <li>非突破：0.6（60%）</li>
+      <li>突破：0.4（40%）</li>
+    </ul>
+    <p>という、2つの結果しかない世界です。ここまでは黒バー狙いも激情目狙いも、持っている情報は同じです。</p>
+    <p>ここに「激情目が停止したか、しなかったか」という新しい観測（証拠）が加わります。図の縦軸がこれにあたります。突破40%の中には、</p>
+    <ul>
+      <li>激情目の停止系（100%突破が保証されている）：30.15%</li>
+      <li>非激情目の停止系（条件付き突破率14.1%）：9.85%</li>
+    </ul>
+    <p>という2種類が混ざっていました（先ほど計算したq≈30.15%の内訳です）。</p>
+    <p>ここでもし「激情目は停止しなかった」という観測が得られたとします。これは「激情目の停止系（30.15%）ではなかった」という情報そのものです。この情報を得た時点で、もともとの確率の世界から、<strong>激情目の30.15%というマスをまるごと除外</strong>しなければなりません。</p>
+
+    <div class="formula-box">
+      <div class="formula-label">残る世界（全体）</div>
+      <div class="formula-content">非突破（60%）＋ 非激情目の停止系・突破（9.85%）＝ 69.85%</div>
+    </div>
+
+    <p>この69.85%が、「激情目が停止しなかった」と分かった後の、新しい確率の世界（全体）です。この中で「突破」に該当するのは9.85%の部分だけなので、</p>
+
+    <p>（一点補足しておくと、確率は必ず合計が1＝100%になる、という「正規化条件」を思い出してください。「激情目は停止しなかった」と分かった時点で、世界全体はもう100%ではなく69.85%に狭まっています。この狭まった69.85%を、あらためて100%とみなし直して比率を取り直す――それが今回の割り算の正体です。）</p>
+
+    <div class="formula-box">
+      <div class="formula-label">事後確率（激情目が停止しなかった場合の突破率）</div>
+      <div class="formula-content">9.85 ÷ 69.85 ≈ 0.141（14.1%）</div>
+    </div>
+
+    <p>これが、あの「14.1%」という数字の正体です。<strong>事前確率0.4という数字が、「激情目は停止しなかった」という新しい証拠によって、14.1%まで更新された</strong>――これがベイズ更新の実例です。</p>
+    <p>ここでフラグ全体（100%）に立ち返ってみると、もう一つ見えてくることがあります。「激情目ではない停止系でありながら、劇場ジャッジ突破抽選に当選するリプレイ・3枚ベル」は、フラグ全体で見るとわずか9.85%しか割り当てられていません。つまり、激情目を狙ったのに止まらなかった場合、その時点で残されている「成功のマス」はフラグ全体のうちたったの9.85%だけです。「止まらなかった」と分かった瞬間にかなりの絶望感を覚えてしまうのも、無理のない数字だと言えます。</p>
+    <p>パチスロのCZ・AT演出の多くは、実はこのベイズ更新の連続で成り立っています。前兆が来た、レア役を引いた――そのたびにプレイヤーは無意識に「これは期待できそうだ」「そうでもなさそうだ」と確率の見積もりを更新しています。今回の劇場ジャッジも、成立役という情報を得るたびに「このゲームで成功する確率」がその都度切り替わっている、という点でまったく同じ構造です。</p>
+
+    <h2>それでも「下げられた」ように感じてしまう理由</h2>
+    <div class="voice-box">
+      <p>ここまでの説明で「確率は変わっていない」ということは分かっても、それでもなお「なんだか損した気分になる」という感覚は残るのではないでしょうか。これは無理のないことだと思っています。</p>
+      <p>40%という一つの数字を漠然と信じてハラハラしていた体験は、内訳が「100%か14.1%か」だと知った瞬間に、その手触りを失います。黒バー狙いなどを選べば、以前とまったく同じ体験を維持できるはずなのに、「本当は数秒前に白黒ついていたかもしれない情報を、自分から手放している」という自覚がつきまとってしまう――これは損得の問題ではなく、不確実性そのものを娯楽として楽しんでいた人にとって、その不確実性を減らす手段の「存在」自体が、居心地の悪さにつながっている、ということだと思います。</p>
+    </div>
+
+    <h2>まとめ</h2>
+    <ul>
+      <li>劇場ジャッジの1〜3G目でのリプレイ・3枚ベルによる成功率は「40%から14.1%に下げられた」わけではない。14.1%は「激情目が停止しなかった場合」という条件付きの数字であり、フラグ全体の確率（約40%）はもともと変わっていない</li>
+      <li>46.6%という公表値は、各役の公表確率から数理的にほぼ再現でき、恣意的な数字ではないことを検算で確認できる</li>
+      <li>AT中の激情ジャッジが約50%と高いのは、成功が保証された複数のルート（天井到達・レア役でのHOLD成功等）が混ざり込んでいるため</li>
+      <li>この「情報が増えるほど見積もりが更新される」という構造そのものが、統計学でいう「ベイズ更新」である</li>
+    </ul>
+
+    <!-- TODO-KOYAKU-CTA: koyaku-suitei公開時、このまとめセクションに
+         対応アプリへの誘導CTAを追加する（事前確率・設定判別との親和性高） -->
+
+    <div class="disclaimer">
+      本記事の解析数値は各解析サイトの公表情報に基づく独自集計・検算です。抽選結果は個体差・実戦上のブレを含むため、本記事の数値は目安としてご利用ください。
+    </div>
+
+    <div class="related-section">
+      <!-- TODO: 6-2の優先順位（同一テーマの兄弟記事→同カテゴリ新着順→関連アプリ）に基づき、
+           統計の教室の公開状況を見て確定する。二項分布シリーズ公開後にここへ追加 -->
+    </div>
+
+  </article>
+</div>
+
+<footer class="article-footer">
+  <div class="article-footer-links">
+    <a class="article-footer-link" href="/" target="_blank" rel="noopener noreferrer">TOP</a>
+    <a class="article-footer-link" href="/kyoshitsu/">統計の教室</a>
+    <a class="article-footer-link" href="/contact/">お問い合わせ</a>
+    <a class="article-footer-link" href="/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+  </div>
+  <div class="article-footer-copy">© 2026 パチスロ期待値算出補助アプリ集〜確率統計〜 / mizumaru-apps.com</div>
+</footer>
+
+</body>
+</html>
