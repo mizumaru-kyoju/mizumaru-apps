@@ -1,0 +1,37 @@
+{
+  "name": "Hit & Blow Analyzer",
+  "short_name": "HB Analyzer",
+  "description": "6色から4色を選ぶHit & Blowルールに対応した解析補助ツール。入力した回答とHit/Blow数から、条件を満たす残り候補をリアルタイムで計算します。",
+  "start_url": "/hb-analyzer/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "ja",
+  "background_color": "#eafcf9",
+  "theme_color": "#0b7276",
+  "icons": [
+    {
+      "src": "/hb-analyzer/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/hb-analyzer/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/hb-analyzer/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/hb-analyzer/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

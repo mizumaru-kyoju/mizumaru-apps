@@ -13,9 +13,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>アプリの使い方ガイド｜mizumaru-apps.com</title>
 <link rel="canonical" href="https://mizumaru-apps.com/guides/">
-  <meta name="description" content="母平均（回転数・TY）記録・区間推定アプリとAT平均獲得枚数計算・記録アプリ、それぞれの使い方をまとめたガイドページです。サンプルデータからの区間推定や、スペックから設定差を算出する統計計算など、各アプリの入力項目と見方を解説します。">
+  <meta name="description" content="母平均（回転数・TY）記録・区間推定アプリ、AT平均獲得枚数計算・記録アプリ、ヒット＆ブロー解析補助アプリ、それぞれの使い方をまとめたガイドページです。サンプルデータからの区間推定や、スペックから設定差を算出する統計計算、Hit & Blowの残候補絞り込みなど、各アプリの入力項目と見方を解説します。">
 <meta property="og:title" content="アプリの使い方ガイド｜mizumaru-apps.com">
-<meta property="og:description" content="母平均（回転数・TY）記録・区間推定アプリとAT平均獲得枚数計算・記録アプリ、それぞれの使い方をまとめたガイドページです。サンプルデータからの区間推定や、スペックから設定差を算出する統計計算など、各アプリの入力項目と見方を解説します。">
+<meta property="og:description" content="母平均（回転数・TY）記録・区間推定アプリ、AT平均獲得枚数計算・記録アプリ、ヒット＆ブロー解析補助アプリ、それぞれの使い方をまとめたガイドページです。サンプルデータからの区間推定や、スペックから設定差を算出する統計計算、Hit & Blowの残候補絞り込みなど、各アプリの入力項目と見方を解説します。">
 <meta property="og:image" content="https://mizumaru-apps.com/logo.png">
 <meta property="og:url" content="https://mizumaru-apps.com/guides/">
 <meta property="og:type" content="article">
@@ -26,7 +26,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "アプリの使い方ガイド",
-  "description": "母平均（回転数・TY）記録・区間推定アプリとAT平均獲得枚数計算・記録アプリ、それぞれの使い方をまとめたガイドページです。サンプルデータからの区間推定や、スペックから設定差を算出する統計計算など、各アプリの入力項目と見方を解説します。",
+  "description": "母平均（回転数・TY）記録・区間推定アプリ、AT平均獲得枚数計算・記録アプリ、ヒット＆ブロー解析補助アプリ、それぞれの使い方をまとめたガイドページです。サンプルデータからの区間推定や、スペックから設定差を算出する統計計算、Hit & Blowの残候補絞り込みなど、各アプリの入力項目と見方を解説します。",
   "author": {
     "@type": "Person",
     "name": "水丸教授",
@@ -38,7 +38,7 @@
     "url": "https://mizumaru-apps.com"
   },
   "datePublished": "2026-06-22",
-  "dateModified": "2026-06-22",
+  "dateModified": "2026-07-20",
   "mainEntityOfPage": "https://mizumaru-apps.com/guides/"
 }
 </script>
@@ -120,6 +120,7 @@ h2{
 }
 .guide-card.c-blue::before{background:var(--accent)}
 .guide-card.c-teal::before{background:var(--accent2)}
+.guide-card.c-green::before{background:var(--accent3)}
 
 .guide-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
 .guide-icon{
@@ -185,7 +186,7 @@ h3{
     </div>
     <div class="header-label">GUIDES</div>
     <h1 class="page-title">アプリの使い方ガイド</h1>
-    <p class="lead">当サイトで公開中の2つの無料Webアプリ、「母平均（回転数・TY）記録・区間推定アプリ」と「AT平均獲得枚数（TY）計算・記録アプリ」の基本的な使い方をまとめています。まずは各アプリの入力項目と見方の概要を掴んでいただき、より詳しい解説は各アプリ下部の専用使い方ガイドをご参照ください。</p>
+    <p class="lead">当サイトで公開中の3つの無料Webアプリ、「母平均（回転数・TY）記録・区間推定アプリ」「AT平均獲得枚数（TY）計算・記録アプリ」「ヒット＆ブロー解析補助アプリ」の基本的な使い方をまとめています。まずは各アプリの入力項目と見方の概要を掴んでいただき、より詳しい解説は各アプリ下部の専用使い方ガイドをご参照ください。</p>
   </div>
 </div>
 
@@ -245,6 +246,34 @@ h3{
       <p>算出されるTYはあくまでスペック表記から逆算した理論値です（大当たり中を含む全ゲームで3枚掛け消化を前提とした計算式を使用しています）。実機の挙動とは個体差・試行回数による誤差が生じる点にご注意ください。</p>
 
       <div class="note-box">さらに詳しい操作手順・画面ごとの解説は、<a href="/heikinkakutoku/guide.html">AT平均獲得枚数計算・記録アプリの使い方ガイド</a>で解説しています。</div>
+    </div>
+  </div>
+
+  <!-- ③ ヒット＆ブロー解析補助アプリ -->
+  <div class="guide-section">
+    <h2>ヒット＆ブロー解析補助アプリの使い方</h2>
+    <div class="guide-card c-green">
+      <div class="guide-top">
+        <div class="guide-icon"><img src="/hb-analyzer/icon-192.png" alt="ヒット＆ブロー解析補助アプリ" style="width:100%;height:100%;object-fit:cover;border-radius:9px"></div>
+        <div class="guide-title-wrap">
+          <div class="guide-title">ヒット＆ブロー解析補助アプリ（Hit & Blow Analyzer）</div>
+          <a class="guide-link" href="/hb-analyzer/">アプリを開く ›</a>
+        </div>
+      </div>
+      <p>『世界のアソビ大全51』のHit & Blowの形式に対応した解析補助ツールです。自分が回答した色の組み合わせと、ゲームから返ってきたHit数・Blow数をターンごとに入力すると、その時点で残っている候補数を計算します。アプリ自体が正解を生成・保持することはなく、入力された情報から候補を絞り込む電卓のようなツールです。</p>
+
+      <h3>基本的な使い方の流れ</h3>
+      <ol>
+        <li>ルール（色の重複あり／なし）を切り替える。</li>
+        <li>1ターンごとに、実際に回答した4色とゲーム画面のHit数・Blow数を入力して確定する。</li>
+        <li>確定するたびに、その時点での残候補数が更新表示される。</li>
+        <li>候補数が少なくなると残候補の一覧も表示され、1件になると「唯一解になりました」と表示される。</li>
+      </ol>
+
+      <h3>見方のポイント</h3>
+      <p>入力内容に矛盾があり残候補が0件になると、「矛盾があります。入力を確認してください」と警告が表示されます。色やHit数・Blow数の入力ミスに気づく目安として活用してください。最大8ターンまで入力できます。</p>
+
+      <div class="note-box">さらに詳しい操作手順・画面ごとの解説は、<a href="/hb-analyzer/guide.html">ヒット＆ブロー解析補助アプリの使い方ガイド</a>で解説しています。</div>
     </div>
   </div>
 

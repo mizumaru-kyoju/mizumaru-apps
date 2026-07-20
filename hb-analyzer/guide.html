@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-01E4RXEDFT");
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使い方ガイド | Hit &amp; Blow Analyzer</title>
+  <link rel="manifest" href="/hb-analyzer/manifest.json">
+  <link rel="apple-touch-icon" href="/hb-analyzer/icon-192.png">
+  <meta name="description" content="Hit &amp; Blow Analyzerの使い方ガイドです。色の選択方法・Hit/Blow数の入力・残候補数の見方・リセット操作など、すべての機能を画面の順番に沿って解説します。">
+  <meta name="theme-color" content="#0b7276">
+  <meta property="og:title" content="使い方ガイド | Hit &amp; Blow Analyzer">
+  <meta property="og:description" content="Hit &amp; Blow Analyzerの使い方ガイドです。色の選択方法・Hit/Blow数の入力・残候補数の見方など、すべての機能を画面の順番に沿って解説します。">
+  <meta property="og:image" content="https://mizumaru-apps.com/hb-analyzer/og-image-guide.png">
+  <meta property="og:url" content="https://mizumaru-apps.com/hb-analyzer/guide.html">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/article-style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Hit & Blow Analyzer 使い方ガイド",
+    "description": "Hit & Blow Analyzerの使い方ガイドです。色の選択方法・Hit/Blow数の入力・残候補数の見方・リセット操作など、すべての機能を画面の順番に沿って解説します。",
+    "author": {
+      "@type": "Person",
+      "name": "水丸教授",
+      "url": "https://x.com/Mizumarukyoju"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+      "url": "https://mizumaru-apps.com"
+    },
+    "datePublished": "2026-07-20",
+    "dateModified": "2026-07-20",
+    "mainEntityOfPage": "https://mizumaru-apps.com/hb-analyzer/guide.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "TOP", "item": "https://mizumaru-apps.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Hit & Blow Analyzer", "item": "https://mizumaru-apps.com/hb-analyzer/" },
+      { "@type": "ListItem", "position": 3, "name": "使い方ガイド", "item": "https://mizumaru-apps.com/hb-analyzer/guide.html" }
+    ]
+  }
+  </script>
+  <style>
+    /* ガイド専用の補足スタイル（article-style.cssを上書きしない範囲で） */
+    .step-block {
+      border: 1.5px solid #dbe8ef;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      background: #f9fcfe;
+    }
+    .step-block .step-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0b7276;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .step-block h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .color-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 10px 3px 6px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      margin: 2px;
+    }
+    .color-chip .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+    }
+    .color-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0;
+    }
+    .result-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #1b2a4a;
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      margin: 8px 0;
+    }
+    .result-box .hit { color: #ff6b5b; }
+    .result-box .blow { color: #c8d3dc; }
+    .notice-box {
+      background: #fff8e1;
+      border-left: 4px solid #f5c518;
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      margin: 14px 0;
+    }
+    .caution-box {
+      background: #fdeceb;
+      border-left: 4px solid #e6483c;
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      margin: 14px 0;
+    }
+    .success-box {
+      background: #e6faf1;
+      border-left: 4px solid #1fb37a;
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      margin: 14px 0;
+    }
+    .qa-item {
+      border-bottom: 1px solid #e8f0f5;
+      padding: 14px 0;
+    }
+    .qa-item:last-child { border-bottom: none; }
+    .qa-q {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .qa-q::before { content: "Q. "; color: #0b7276; }
+    .qa-a {
+      font-size: 13.5px;
+      color: #3a4a60;
+      line-height: 1.7;
+    }
+    .qa-a::before { content: "A. "; font-weight: 700; color: #5b6b8c; }
+
+    .back-to-app {
+      display: block;
+      text-align: center;
+      background: linear-gradient(135deg, #0f9aa0 0%, #0b7276 55%, #ef5da8 130%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 16px;
+      margin: 36px 0 8px;
+      box-shadow: 0 6px 18px rgba(11,114,118,0.28);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .back-to-app:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(11,114,118,0.35);
+    }
+  </style>
+</head>
+<body>
+
+<header class="article-header">
+  <div class="article-header-inner">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">TOP</a><span class="sep">/</span>
+      <a href="/hb-analyzer/">Hit &amp; Blow Analyzer</a><span class="sep">/</span>
+      <span class="current">使い方ガイド</span>
+    </nav>
+
+    <span class="category-badge">ゲーム補助</span>
+
+    <h1 class="article-title">Hit &amp; Blow Analyzer　使い方ガイド</h1>
+
+    <div class="meta-row">
+      <time datetime="2026-07-20">2026年7月20日</time>
+      <span class="meta-author">水丸教授</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-body">
+  <article>
+
+    <div class="lead-box">
+      <p>Hit &amp; Blow Analyzerは、6色から4色を選ぶHit &amp; Blowルールに対応した<strong>解析ツール</strong>です。『世界のアソビ大全51』をはじめ、同ルールを採用したゲームのプレイ結果の振り返りや考察、検証などに利用できます。入力した回答とHit/Blow数から、条件を満たす残り候補をリアルタイムで計算します。</p>
+      <p>このガイドでは、アプリの基本的な使い方を画面の順番に沿って解説します。</p>
+    </div>
+
+    <h2>このアプリでできること</h2>
+
+    <p>Hit &amp; Blow Analyzerは<strong>解析補助ツール</strong>です。正解を生成したり、コンピューターと対戦する機能はありません。入力した回答とHit/Blow数をもとに、次の内容を計算します。</p>
+
+    <ul>
+      <li>現時点で条件を満たす残り候補数</li>
+      <li>残候補が少なくなったときの候補一覧の表示</li>
+      <li>候補が1通りに確定したときの「唯一解」通知</li>
+      <li>入力に矛盾があるときの警告</li>
+    </ul>
+
+    <h2>基本的な使い方</h2>
+
+    <div class="step-block">
+      <div class="step-num">STEP 1</div>
+      <h3>ルールを選ぶ</h3>
+      <p>画面上部のトグルで、ルールを選択します。</p>
+      <ul>
+        <li><strong>重複なし</strong>：4色すべて異なる色を使うルール</li>
+        <li><strong>重複あり</strong>：同じ色を複数回使えるルール</li>
+      </ul>
+      <p>切り替えると、0ターン目の残候補数が自動的に変わります。</p>
+      <div class="notice-box">
+        重複なし：360通り（6色から4色を順番に並べる場合の数）<br>
+        重複あり：1,296通り（6色から4色を重複を許して並べる場合の数）
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">STEP 2</div>
+      <h3>1ターン目の色を選ぶ</h3>
+      <p>入力テーブルの1行目（ターン1）で、実際に回答した4色を左から順番にタップして選択します。選択できる色は以下の6色です。</p>
+      <div class="color-grid">
+        <span class="color-chip"><span class="dot" style="background:#2f6fed"></span>青</span>
+        <span class="color-chip"><span class="dot" style="background:#e6483c"></span>赤</span>
+        <span class="color-chip"><span class="dot" style="background:#2fae60"></span>緑</span>
+        <span class="color-chip"><span class="dot" style="background:#f5c518; border-color:rgba(0,0,0,0.15)"></span>黄</span>
+        <span class="color-chip"><span class="dot" style="background:#ef5da8"></span>ピンク</span>
+        <span class="color-chip"><span class="dot" style="background:#e0e0e0; border-color:rgba(0,0,0,0.15)"></span>白</span>
+      </div>
+      <p>各マスをタップするたびに、<strong>青→赤→緑→黄→ピンク→白→青…</strong>の順に色が切り替わります（画面上部の入力欄の見出し横にも、この色順のガイドを表示しています）。</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">STEP 3</div>
+      <h3>Hit数・Blow数を入力する</h3>
+      <p>ゲームの判定結果をそのまま入力します。</p>
+      <div class="result-box">
+        <span class="hit">● Hit：色も場所も正解</span>
+        <span class="blow">○ Blow：色だけ正解</span>
+      </div>
+      <p>Hit数とBlow数はどちらも初期値が「0」になっています。ゲームの判定結果に合わせて数字を変更してください（0〜4の整数）。</p>
+      <div class="notice-box">
+        例：ゲームから「0Hit 2Blow」と表示されたら、Blowの数字だけを「2」に変更すればOKです（Hitは初期値の0のままで構いません）。
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">STEP 4</div>
+      <h3>「確定」ボタンを押す</h3>
+      <p>色の選択とHit/Blow数の入力が終わったら、行右端の「確定」ボタンを押します。その時点の残候補数や候補一覧などの解析結果が更新されます。</p>
+      <div class="success-box">
+        候補が1通りになると「唯一解になりました！」と表示されます。
+      </div>
+      <div class="caution-box">
+        残候補が0件になると「矛盾があります。入力を確認してください」と警告が表示されます。色の選択やHit/Blow数の入力に誤りがないか確認してください。
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">STEP 5</div>
+      <h3>2ターン目以降も繰り返す</h3>
+      <p>同じ手順でターンを重ねていきます。最大8ターンまで入力できます。確定した行のHit数・Blow数は変更できませんが、<strong>色の組み合わせは確定後もいつでも修正できます</strong>。Hit数・Blow数の入力ミスに気づいた場合は、「入力をリセット」ボタンで最初からやり直してください。</p>
+    </div>
+
+    <h2>候補一覧の表示について</h2>
+
+    <p>残候補数が50件以下になると、残候補の色の並びが一覧で表示されます。50件を超えている場合は件数のみ表示されます。</p>
+
+    <h2>よくある質問</h2>
+
+    <div class="qa-item">
+      <div class="qa-q">このツールは『世界のアソビ大全51』でも使えますか？</div>
+      <div class="qa-a">はい。『世界のアソビ大全51』のHit &amp; Blowをはじめ、6色から4色を選ぶ同ルールのゲームのプレイ結果の振り返りや考察、検証などに利用できます。本アプリは非公式の解析ツールであり、任天堂株式会社とは関係ありません。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">「重複なし」と「重複あり」はどう使い分ければいいですか？</div>
+      <div class="qa-a">プレイしているゲームのルールに合わせて選択してください。ゲーム開始前や対戦ルール説明の際に、同じ色を複数使えるかどうかが案内されます。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">色をタップで選ぶのが難しいです</div>
+      <div class="qa-a">各マスは1回タップするごとに次の色に切り替わります。目的の色を通り過ぎた場合は、そのまま何度かタップして一周させてください。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">入力した途中のターンだけ修正できますか？</div>
+      <div class="qa-a">色の組み合わせであれば、確定後のターンでもいつでも修正できます。修正できないのはHit数・Blow数のみです。Hit数・Blow数の入力ミスに気づいた場合は、「入力をリセット」ボタンで最初からやり直してください。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">「矛盾があります」と表示されました。なぜですか？</div>
+      <div class="qa-a">入力された色の並びとHit/Blow数の組み合わせを満たす候補が1件も存在しない状態です。最もよくある原因は、色の選択ミスかHit/Blow数の入力ミスです。「入力をリセット」して最初からやり直してください。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">重複ありのルールで同じ色を回答に使えますか？</div>
+      <div class="qa-a">はい。「重複あり」モードでは、同じ色を複数のマスに選択することができます。その場合でも、Hit/Blowの判定は通常の計算方法（同色が複数ある場合は重なり分だけ対応する）で行われます。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">このアプリはオフラインでも使えますか？</div>
+      <div class="qa-a">一度読み込んだ後はオフラインでも動作します（PWA対応）。ホーム画面に追加しておくと便利です。</div>
+    </div>
+
+    <h2>免責事項・ご注意</h2>
+
+    <div class="disclaimer">
+      <p>本アプリはHit &amp; Blowルールに対応した非公式の解析補助ツールです。任天堂株式会社その他各ゲームメーカーとは関係ありません。ゲーム画像・名称などの権利は各権利者に帰属します。</p>
+      <p>本アプリの計算結果の正確性について保証するものではありません。解析結果はあくまでも参考としてご利用ください。</p>
+    </div>
+
+    <a class="back-to-app" href="index.html">▶ アプリに戻って使ってみる</a>
+
+  </article>
+</div>
+
+<footer class="article-footer">
+  <div class="article-footer-links">
+    <a class="article-footer-link" href="https://mizumaru-apps.com/" target="_blank" rel="noopener noreferrer">TOP</a>
+    <a class="article-footer-link" href="https://mizumaru-apps.com/contact/" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+    <a class="article-footer-link" href="https://mizumaru-apps.com/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+  </div>
+  <div class="article-footer-copy">© 2026 パチスロ期待値算出補助アプリ集〜確率統計〜 / mizumaru-apps.com</div>
+</footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/hb-analyzer/sw.js')
+      .catch((err) => console.warn('SW registration failed:', err));
+  });
+}
+</script>
+</body>
+</html>
