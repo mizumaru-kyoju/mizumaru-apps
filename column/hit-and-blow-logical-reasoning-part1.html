@@ -127,6 +127,11 @@
 
 <p>この大会は「エンジョイ！」と銘打たれている通り、実力者だけを集めた競技大会ではありません。ほぼ初めてHit &amp; Blowをプレイするタレントも参加していました。</p>
 
+<div class="voice-box">
+<span class="voice-label">水丸教授より</span>
+配信を見ていて印象的だったのは、答えを論理的に絞り込みながらも、みなさん終始笑顔で会話やリアクションを楽しんでいたことです。静かに黙々と考える対局ではなく、あくまで「エンジョイ」する場としての空気が保たれていたのが、この大会らしいところだと思います。
+</div>
+
 <p>ゲーム自体には持ち時間の制限はありませんが、配信では司会のお二人から「1分以内くらいを目安にターンを進めていただけると」という進行上のお願いもありました。</p>
 
 <p>さらに、数万人の視聴者が見守る配信の中では、プレイヤーは考え続けるだけではなく、会話やリアクションも求められます。</p>
@@ -149,28 +154,27 @@
 
 <p>プレイヤーが4色を予想すると、次の2種類の判定が返されます。</p>
 
-<ul>
-<li><strong>Hit</strong>：色も位置も一致しているマスの数</li>
-<li><strong>Blow</strong>：色は一致しているが、位置だけが異なるマスの数</li>
-</ul>
+<div class="term-box">
+<span class="term-label">用語</span>
+<dl>
+<dt>Hit</dt>
+<dd>色も位置も一致しているマスの数</dd>
+<dt>Blow</dt>
+<dd>色は一致しているが、位置だけが異なるマスの数</dd>
+</dl>
+</div>
 
-<p>例えば、</p>
-
-<p>予想：赤・青・黄・白</p>
-
-<p>という回答に対して</p>
-
-<p>1Hit 2Blow</p>
-
-<p>と返ってきた場合、</p>
-
+<div class="example-box">
+<span class="example-label">具体例</span>
+<p>予想：<span class="color-seq"><span class="chip c-red">赤</span><span class="chip c-blue">青</span><span class="chip c-yellow">黄</span><span class="chip c-white">白</span></span></p>
+<p>という回答に対して「<strong>1Hit 2Blow</strong>」と返ってきた場合、</p>
 <ul>
 <li>4色のうち3色は使われている</li>
 <li>そのうち1色は位置まで正しい</li>
 <li>残り2色は位置だけが違う</li>
 </ul>
-
 <p>ということだけが分かります。</p>
+</div>
 
 <p>逆に言えば、「どの色がHitなのか」「どの色がBlowなのか」は教えてもらえません。</p>
 
@@ -196,15 +200,26 @@
 
 <p>例えば、この大会で採用された「6色から4色を選び、色の重複なし」というルールでは、この条件ならではの推論ができます。</p>
 
+<div class="example-box">
+<span class="example-label">具体例</span>
 <p>最初のターンで異なる4色を試し、その結果が<strong>0Hit・2Blow</strong>だったとします。</p>
-
 <p>この時点で、試さなかった残り2色は、正解に含まれることが確定します。</p>
-
 <p>なぜなら、正解は全部で4色しかなく、そのうち試した4色の中で正解だったのは2色だけだからです。残り2色は、試していない2色で埋まるしかありません。</p>
+</div>
 
 <p>このように、Hit・Blowという判定だけでなく、「全部で6色から4色を選ぶ」というゲームのルールそのものも情報になります。プレイヤーは、それらを組み合わせながら少しずつ答えを絞り込んでいきます。</p>
 
 <p>つまりプレイヤーは、Hit・Blowの判定結果やゲームのルールから新たな条件を導き出し（演繹推論）、その条件をすべて満たす候補を少しずつ絞り込んでいきます（制約充足問題）。</p>
+
+<div class="term-box">
+<span class="term-label">用語</span>
+<dl>
+<dt>演繹推論</dt>
+<dd>すでに分かっている情報やルールから、必ず成り立つ新しい条件を導き出す考え方</dd>
+<dt>制約充足問題</dt>
+<dd>複数の条件（制約）をすべて満たす答えを、候補の中から絞り込んでいく問題のこと</dd>
+</dl>
+</div>
 
 <p>Hit &amp; Blowとは、この2つの考え方を繰り返しながら、唯一の答えへ近づいていくゲームなのです。</p>
 
@@ -244,13 +259,13 @@
 <tr><th>ターン</th><th>手番</th><th>回答</th><th>Hit</th><th>Blow</th></tr>
 </thead>
 <tbody>
-<tr><td>1</td><td>先手</td><td>ピンク・赤・青・黄</td><td>0</td><td>3</td></tr>
-<tr><td>2</td><td>後手</td><td>赤・ピンク・黄・緑</td><td>2</td><td>1</td></tr>
-<tr><td>3</td><td>先手</td><td>赤・緑・黄・白</td><td>1</td><td>1</td></tr>
-<tr><td>4</td><td>後手</td><td>赤・ピンク・緑・青</td><td>1</td><td>3</td></tr>
-<tr><td>5</td><td>先手</td><td>赤・ピンク・青・緑</td><td>2</td><td>2</td></tr>
-<tr><td>6</td><td>後手</td><td>緑・ピンク・青・赤</td><td>0</td><td>4</td></tr>
-<tr><td>7</td><td>先手</td><td>赤・青・ピンク・緑</td><td>4</td><td>0</td></tr>
+<tr><td>1</td><td>先手</td><td><div class="color-seq"><span class="chip c-pink">ピンク</span><span class="chip c-red">赤</span><span class="chip c-blue">青</span><span class="chip c-yellow">黄</span></div></td><td>0</td><td>3</td></tr>
+<tr><td>2</td><td>後手</td><td><div class="color-seq"><span class="chip c-red">赤</span><span class="chip c-pink">ピンク</span><span class="chip c-yellow">黄</span><span class="chip c-green">緑</span></div></td><td>2</td><td>1</td></tr>
+<tr><td>3</td><td>先手</td><td><div class="color-seq"><span class="chip c-red">赤</span><span class="chip c-green">緑</span><span class="chip c-yellow">黄</span><span class="chip c-white">白</span></div></td><td>1</td><td>1</td></tr>
+<tr><td>4</td><td>後手</td><td><div class="color-seq"><span class="chip c-red">赤</span><span class="chip c-pink">ピンク</span><span class="chip c-green">緑</span><span class="chip c-blue">青</span></div></td><td>1</td><td>3</td></tr>
+<tr><td>5</td><td>先手</td><td><div class="color-seq"><span class="chip c-red">赤</span><span class="chip c-pink">ピンク</span><span class="chip c-blue">青</span><span class="chip c-green">緑</span></div></td><td>2</td><td>2</td></tr>
+<tr><td>6</td><td>後手</td><td><div class="color-seq"><span class="chip c-green">緑</span><span class="chip c-pink">ピンク</span><span class="chip c-blue">青</span><span class="chip c-red">赤</span></div></td><td>0</td><td>4</td></tr>
+<tr><td>7</td><td>先手</td><td><div class="color-seq"><span class="chip c-red">赤</span><span class="chip c-blue">青</span><span class="chip c-pink">ピンク</span><span class="chip c-green">緑</span></div></td><td>4</td><td>0</td></tr>
 </tbody>
 </table>
 
@@ -343,11 +358,11 @@
 <tr><th>ターン</th><th>手番</th><th>回答</th><th>Hit</th><th>Blow</th></tr>
 </thead>
 <tbody>
-<tr><td>1</td><td>先手</td><td>赤・ピンク・緑・白</td><td>0</td><td>3</td></tr>
-<tr><td>2</td><td>後手</td><td>ピンク・緑・白・青</td><td>1</td><td>2</td></tr>
-<tr><td>3</td><td>先手</td><td>白・ピンク・白・黄</td><td>1</td><td>1</td></tr>
-<tr><td>4</td><td>後手</td><td>緑・青・白・赤</td><td>1</td><td>2</td></tr>
-<tr><td>5</td><td>先手</td><td>青・赤・白・ピンク</td><td>4</td><td>0</td></tr>
+<tr><td>1</td><td>先手</td><td><div class="color-seq"><span class="chip c-red">赤</span><span class="chip c-pink">ピンク</span><span class="chip c-green">緑</span><span class="chip c-white">白</span></div></td><td>0</td><td>3</td></tr>
+<tr><td>2</td><td>後手</td><td><div class="color-seq"><span class="chip c-pink">ピンク</span><span class="chip c-green">緑</span><span class="chip c-white">白</span><span class="chip c-blue">青</span></div></td><td>1</td><td>2</td></tr>
+<tr><td>3</td><td>先手</td><td><div class="color-seq"><span class="chip c-white">白</span><span class="chip c-pink">ピンク</span><span class="chip c-white">白</span><span class="chip c-yellow">黄</span></div></td><td>1</td><td>1</td></tr>
+<tr><td>4</td><td>後手</td><td><div class="color-seq"><span class="chip c-green">緑</span><span class="chip c-blue">青</span><span class="chip c-white">白</span><span class="chip c-red">赤</span></div></td><td>1</td><td>2</td></tr>
+<tr><td>5</td><td>先手</td><td><div class="color-seq"><span class="chip c-blue">青</span><span class="chip c-red">赤</span><span class="chip c-white">白</span><span class="chip c-pink">ピンク</span></div></td><td>4</td><td>0</td></tr>
 </tbody>
 </table>
 
@@ -417,9 +432,9 @@
 <tr><th>ターン</th><th>手番</th><th>回答</th><th>Hit</th><th>Blow</th></tr>
 </thead>
 <tbody>
-<tr><td>1</td><td>先手</td><td>ピンク・青・白・赤</td><td>0</td><td>3</td></tr>
-<tr><td>2</td><td>後手</td><td>黄・ピンク・青・白</td><td>1</td><td>3</td></tr>
-<tr><td>3</td><td>先手</td><td>黄・白・ピンク・青</td><td>4</td><td>0</td></tr>
+<tr><td>1</td><td>先手</td><td><div class="color-seq"><span class="chip c-pink">ピンク</span><span class="chip c-blue">青</span><span class="chip c-white">白</span><span class="chip c-red">赤</span></div></td><td>0</td><td>3</td></tr>
+<tr><td>2</td><td>後手</td><td><div class="color-seq"><span class="chip c-yellow">黄</span><span class="chip c-pink">ピンク</span><span class="chip c-blue">青</span><span class="chip c-white">白</span></div></td><td>1</td><td>3</td></tr>
+<tr><td>3</td><td>先手</td><td><div class="color-seq"><span class="chip c-yellow">黄</span><span class="chip c-white">白</span><span class="chip c-pink">ピンク</span><span class="chip c-blue">青</span></div></td><td>4</td><td>0</td></tr>
 </tbody>
 </table>
 
@@ -472,10 +487,10 @@
 <tr><th>Hitだったと仮定した色</th><th>成立する候補</th></tr>
 </thead>
 <tbody>
-<tr><td>黄色</td><td><strong>黄・白・ピンク・青</strong>（実際の正解）</td></tr>
-<tr><td>ピンク</td><td>白・ピンク・黄・青</td></tr>
-<tr><td>青</td><td>白・黄・青・ピンク</td></tr>
-<tr><td>白</td><td>青・黄・ピンク・白</td></tr>
+<tr><td>黄色</td><td><div class="color-seq"><span class="chip c-yellow">黄</span><span class="chip c-white">白</span><span class="chip c-pink">ピンク</span><span class="chip c-blue">青</span></div>（実際の正解）</td></tr>
+<tr><td>ピンク</td><td><div class="color-seq"><span class="chip c-white">白</span><span class="chip c-pink">ピンク</span><span class="chip c-yellow">黄</span><span class="chip c-blue">青</span></div></td></tr>
+<tr><td>青</td><td><div class="color-seq"><span class="chip c-white">白</span><span class="chip c-yellow">黄</span><span class="chip c-blue">青</span><span class="chip c-pink">ピンク</span></div></td></tr>
+<tr><td>白</td><td><div class="color-seq"><span class="chip c-blue">青</span><span class="chip c-yellow">黄</span><span class="chip c-pink">ピンク</span><span class="chip c-white">白</span></div></td></tr>
 </tbody>
 </table>
 
@@ -546,9 +561,18 @@
 
 <div class="related-section">
   <div class="related-list">
-    <a class="related-card" href="/column/hit-and-blow-logical-reasoning-part2.html">【後編】重複ありルールで見る、Hit &amp; BlowとHit &amp; Blow Analyzerの使い方</a>
-    <a class="related-card" href="/column/hostage-justice-stats.html">人質司法と統計｜コラム・時事</a>
-    <a class="related-card" href="/hb-analyzer/">Hit &amp; Blow Analyzer（解析補助アプリ）</a>
+    <a class="related-card" href="/column/hit-and-blow-logical-reasoning-part2.html">
+      <span class="related-card-cat">コラム・時事</span>
+      <span class="related-card-title">【後編】「色の重複あり」でも変わらないもの――ホロヒット＆ブロー準決勝・決勝をHit &amp; Blow Analyzerで解析する</span>
+    </a>
+    <a class="related-card" href="/column/hostage-justice-stats.html">
+      <span class="related-card-cat">コラム・時事</span>
+      <span class="related-card-title">逮捕されたら勾留は「当たり前」なのか？全国50地検データで「人質司法」の実態を検証した</span>
+    </a>
+    <a class="related-card" href="/hb-analyzer/">
+      <span class="related-card-cat">アプリ</span>
+      <span class="related-card-title">Hit &amp; Blow Analyzer（解析補助アプリ）</span>
+    </a>
   </div>
 </div>
 

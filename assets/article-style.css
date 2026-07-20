@@ -2,12 +2,13 @@
  * article-style.css
  * mizumaru-apps.com 記事ページ共通スタイル
  * 対象：kiso / pachinko / slot / kyoshitsu / column 配下の記事ページ
- * 最終更新：2026-07-20
+ * 最終更新：2026-07-21
  *
  * 含まれるコンポーネント：
  *   リセット・ベース / ヘッダー / パンくず / 記事メタ情報 / カテゴリバッジ
  *   lead-box / term-box / voice-box / formula-box / example-box /
  *   cta-box / reference-section / image-caption / disclaimer
+ *   table（記事本文内の表） / chip（色チップ・color-seq）
  *   related-section / フッター
  */
 
@@ -199,6 +200,81 @@ img { max-width: 100%; height: auto; }
   color: #374151;
   line-height: 1.85;
 }
+
+/* 表（対局のターン一覧など） */
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 28px;
+  font-size: 13px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.article-body th,
+.article-body td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  line-height: 1.5;
+}
+.article-body th {
+  background: #f8fafc;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.article-body td:first-child,
+.article-body th:first-child {
+  text-align: center;
+  white-space: nowrap;
+}
+.article-body tbody tr:last-child td { border-bottom: none; }
+.article-body tbody tr:nth-child(even) { background: #fafbfc; }
+
+/* 表を横スクロール可能なラッパーで囲む場合用（任意） */
+.table-scroll {
+  overflow-x: auto;
+  margin: 20px 0 28px;
+}
+.table-scroll table { margin: 0; }
+
+/* 色チップ（回答の色並びを視覚的に見せる） */
+.color-seq {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.chip::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: currentColor;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+}
+.chip.c-red    { background:#fee2e2; color:#dc2626; }
+.chip.c-blue   { background:#dbeafe; color:#2563eb; }
+.chip.c-green  { background:#dcfce7; color:#16a34a; }
+.chip.c-yellow { background:#fef9c3; color:#ca8a04; }
+.chip.c-pink   { background:#fce7f3; color:#db2777; }
+.chip.c-white  { background:#f8fafc; color:#64748b; border-color: var(--border2); }
 
 /* ═══════════════════════════════════════
    7. lead-box（結論ファースト）
@@ -431,23 +507,47 @@ img { max-width: 100%; height: auto; }
 .related-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 18px;
 }
 .related-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 16px;
-  text-decoration: none;
-  display: block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 16px 30px;
+  text-decoration: none !important;
   box-shadow: var(--shadow);
   transition: all .2s;
 }
 .related-card:hover {
-  border-color: var(--border2);
+  filter: brightness(1.08);
   box-shadow: var(--shadow-hover);
   transform: translateY(-1px);
-  text-decoration: none;
+}
+.related-card-title {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 0;
+}
+.related-card-cat {
+  position: absolute;
+  top: -11px;
+  left: 22px;
+  background: #ffffff;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  white-space: nowrap;
 }
 .related-card-title {
   font-size: 13px;
