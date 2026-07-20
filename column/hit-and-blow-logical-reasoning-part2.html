@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-01E4RXEDFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-01E4RXEDFT');
+</script>
+
+<title>【後編】「色の重複あり」でも変わらないもの――ホロヒット＆ブロー準決勝・決勝をHit &amp; Blow Analyzerで解析する</title>
+<meta name="description" content="ホロライブ「エンジョイ！ホロヒット＆ブロー最強決定戦」準決勝・決勝の実戦データを題材に、色の重複ありルールでもHit &amp; Blowの論理的推論が通用することを、Hit &amp; Blow Analyzerによる解析とともに解説します。">
+
+<link rel="canonical" href="https://mizumaru-apps.com/column/hit-and-blow-logical-reasoning-part2.html">
+<link rel="stylesheet" href="/assets/article-style.css">
+
+<!-- OGP -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="【後編】「色の重複あり」でも変わらないもの――ホロヒット＆ブロー準決勝・決勝をHit &amp; Blow Analyzerで解析する">
+<meta property="og:description" content="ホロライブ「エンジョイ！ホロヒット＆ブロー最強決定戦」準決勝・決勝の実戦データを題材に、色の重複ありルールでもHit &amp; Blowの論理的推論が通用することを、Hit &amp; Blow Analyzerによる解析とともに解説します。">
+<meta property="og:image" content="https://mizumaru-apps.com/column/images/og-image-hit-and-blow-part2.png">
+<meta property="og:url" content="https://mizumaru-apps.com/column/hit-and-blow-logical-reasoning-part2.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mizumaru-apps.com/column/images/og-image-hit-and-blow-part2.png">
+
+<!-- JSON-LD: Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "【後編】「色の重複あり」でも変わらないもの――ホロヒット＆ブロー準決勝・決勝をHit & Blow Analyzerで解析する",
+  "description": "ホロライブ「エンジョイ！ホロヒット＆ブロー最強決定戦」準決勝・決勝の実戦データを題材に、色の重複ありルールでもHit & Blowの論理的推論が通用することを、Hit & Blow Analyzerによる解析とともに解説します。",
+  "author": {
+    "@type": "Person",
+    "name": "水丸教授",
+    "url": "https://x.com/Mizumarukyoju"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "パチスロ期待値算出補助アプリ集〜確率統計〜",
+    "url": "https://mizumaru-apps.com"
+  },
+  "datePublished": "2026-07-20",
+  "dateModified": "2026-07-20",
+  "mainEntityOfPage": "https://mizumaru-apps.com/column/hit-and-blow-logical-reasoning-part2.html"
+}
+</script>
+
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "TOP",
+      "item": "https://mizumaru-apps.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "コラム・時事",
+      "item": "https://mizumaru-apps.com/column/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "「色の重複あり」でも変わらないもの【後編】",
+      "item": "https://mizumaru-apps.com/column/hit-and-blow-logical-reasoning-part2.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="article-header">
+  <div class="article-header-inner">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">TOP</a><span class="sep">/</span>
+      <a href="/column/">コラム・時事</a><span class="sep">/</span>
+      <span class="current">「色の重複あり」でも変わらないもの【後編】</span>
+    </nav>
+
+    <span class="category-badge">コラム・時事</span>
+
+    <h1 class="article-title">【後編】「色の重複あり」でも変わらないもの――ホロヒット＆ブロー準決勝・決勝をHit &amp; Blow Analyzerで解析する</h1>
+
+    <div class="meta-row">
+      <time datetime="2026-07-20">2026年7月20日</time>
+      <span class="meta-author">水丸教授</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-body">
+<article>
+
+<div class="lead-box">
+本記事は、鷹嶺ルイさんのYouTubeチャンネルで配信された<a href="https://www.youtube.com/watch?v=qACbRJSpxXw" target="_blank" rel="noopener noreferrer">「エンジョイ！ホロヒット＆ブロー最強決定戦」</a>（2026年7月18日）をもとに、<a href="https://mizumaru-apps.com/hb-analyzer/">ヒット＆ブロー解析補助アプリ（Hit &amp; Blow Analyzer）</a>で対局を再現・解析したものです。
+</div>
+
+<h2>1章：準決勝からルールが変わる――「重複あり」でも考え方は変わるのか</h2>
+
+<p>前編では、ホロライブ「エンジョイ！ホロヒット＆ブロー最強決定戦」の1回戦・2回戦を題材に、「色の重複なし」ルールで行われた対局を紹介しました。題材となっているのは、任天堂『世界のアソビ大全51』に収録されている「Hit &amp; Blow」（ヒットアンドブロー）です。</p>
+
+<p>Hit &amp; Blowは一見すると色当てゲームのように見えますが、実際にはHit・Blowという確実な情報を積み重ねながら、あり得る答えを少しずつ絞り込んでいく論理的推論のゲームです。</p>
+
+<p>しかし、準決勝からはルールが一つだけ変わります。</p>
+
+<p>それが<strong>「色の重複あり」</strong>です。</p>
+
+<p>例えば、前編で扱ったルールでは「赤・赤・青・黄」のように同じ色を2回使うことはできませんでした。一方、準決勝以降では、このような並びも正解として現れる可能性があります。</p>
+
+<p>一見すると、この変更によってゲームの考え方まで大きく変わるように感じるかもしれません。</p>
+
+<p>実際、正解の候補数は重複なしルールの360通りから、重複ありルールでは1,296通りへと大きく増加します。序盤は候補が非常に多く、人間だけで全てを管理することは簡単ではありません。</p>
+
+<p>では、「重複あり」になると、これまで紹介してきた論理的推論は通用しなくなるのでしょうか。</p>
+
+<p>答えは<strong>「いいえ」です。</strong></p>
+
+<p>もちろん、同じ色が複数含まれる可能性を考慮する必要はあります。しかし、HitとBlowという情報を手掛かりに候補を一つずつ絞り込んでいくという基本的な考え方は、重複ありルールでも変わりません。</p>
+
+<p>そこで今回は、実際に大会で行われた準決勝・決勝の対局を題材に、私が公開しているPWAアプリ「<a href="https://mizumaru-apps.com/hb-analyzer/">ヒット＆ブロー解析補助アプリ（Hit &amp; Blow Analyzer）</a>」を使って盤面を解析していきます。</p>
+
+<p>このアプリは、回答した色の並びとHit・Blowの結果を入力すると、その時点で残っている候補数を計算できる解析補助ツールです。ゲームの正解を生成したり、自動で答えを導き出したりするものではなく、プレイヤーが得た情報を整理し、論理的推論を補助することを目的としています。</p>
+
+<p>この記事では、大会で実際に公開された対局をHit &amp; Blow Analyzerで再現しながら、「このターンでは候補が何通り残っていたのか」「いつ唯一の正解まで絞り込めていたのか」といった視点で対局を見ていきます。</p>
+
+<p>大会を観戦した方は、試合を別の角度から振り返る楽しみ方として。Hit &amp; Blowをこれから遊ぶ方は、遊び方や攻略のコツを学べる教材として読んでいただければ幸いです。</p>
+
+<h2>2章：重複ありルールでも、論理的推論の考え方は変わらない</h2>
+
+<p>前章では、準決勝から「色の重複あり」ルールへ変更されることを紹介しました。</p>
+
+<p>重複が認められることで、「赤・赤・青・黄」のように同じ色が複数含まれる並びも正解となるため、一見するとゲームの難易度が大きく上がったように感じられます。</p>
+
+<p>実際、候補数は重複なしルールの360通りから、重複ありルールでは1,296通りまで増加します。</p>
+
+<p>しかし、プレイヤーが行うこと自体は前編と変わりません。</p>
+
+<p>毎ターン返ってくるHit・Blowの結果をもとに、「あり得る候補」と「あり得ない候補」を少しずつ整理し、正解を絞り込んでいくことが、このゲームの基本です。</p>
+
+<p>変わるのは、「同じ色が2回以上使われている可能性も考慮しなければならない」という点だけです。</p>
+
+<p>例えば、「赤が1つ含まれている」と思っていた候補が、「実は赤が2つ含まれている可能性もある」と分かれば、候補の絞り込み方は少し複雑になります。</p>
+
+<p>それでも、Hit・Blowという判定そのものが変わるわけではありません。</p>
+
+<p>得られた情報を積み重ねながら、候補を減らしていくという論理的推論の流れは、重複ありルールでも変わらないのです。</p>
+
+<p>とはいえ、候補数が1,296通りもある序盤では、人間が頭の中だけで全ての候補を管理するのは簡単ではありません。</p>
+
+<p>そこで役立つのが、<a href="https://mizumaru-apps.com/hb-analyzer/">ヒット＆ブロー解析補助アプリ（Hit &amp; Blow Analyzer）</a>です。</p>
+
+<p>Hit &amp; Blow Analyzerでは、自分が回答した色の並びと、ゲームから返ってきたHit・Blowの結果を入力するだけで、その条件を満たす候補が何通り残っているのかを計算できます。</p>
+
+<p>重要なのは、このアプリが<strong>「答えを教えてくれるツール」ではない</strong>ということです。</p>
+
+<p>Hit &amp; Blow Analyzerは正解を生成したり、次に入力すべき回答を指示したりするものではありません。</p>
+
+<p>あくまで、プレイヤー自身がゲーム中に得た情報を整理し、「現在どれくらい候補が残っているのか」を客観的に確認するための解析補助ツールです。</p>
+
+<p>候補が数百通り残る序盤ではHit &amp; Blow Analyzerが大きな助けになりますが、候補が数通りまで減ってくる終盤では、人間の論理的推論だけでも十分に考えられる場面が増えてきます。</p>
+
+<p>つまり、Hit &amp; Blow Analyzerは人間の代わりに考えるためのものではなく、論理的推論をより分かりやすく可視化するための道具と言えるでしょう。</p>
+
+<p>それでは実際に、大会で行われた対局をHit &amp; Blow Analyzerで再現しながら、候補数がどのように変化していくのかを見ていきます。</p>
+
+<h2>3章：9試合を俯瞰する――候補数の推移で見る大会</h2>
+
+<p>準決勝以降は、準決勝第1試合・準決勝第2試合・決勝と、それぞれ3本先取（BO3）の形式で行われ、全部で9ゲームが指されました。</p>
+
+<p>まず、この9ゲームすべてをHit &amp; Blow Analyzerにかけた結果を一覧にまとめます。</p>
+
+<table>
+<thead>
+<tr><th>試合</th><th>決着ターン</th><th>候補が1つに絞れたターン</th><th>理論上の最短決着ターン</th><th>超過ターン数</th><th>傾向</th></tr>
+</thead>
+<tbody>
+<tr><td>準決勝1 第1ゲーム</td><td>5</td><td>5</td><td>6</td><td>-1</td><td>確定前の的中（2択）</td></tr>
+<tr><td>準決勝1 第2ゲーム</td><td>6</td><td>6</td><td>7</td><td>-1</td><td>確定前の的中（3択）</td></tr>
+<tr><td>準決勝1 第3ゲーム</td><td>8</td><td>7</td><td>8</td><td>0</td><td>無駄なしの決着</td></tr>
+<tr><td>準決勝2 第1ゲーム</td><td>5</td><td>3</td><td>4</td><td>+1</td><td>確定後も余分に1手</td></tr>
+<tr><td>準決勝2 第2ゲーム</td><td>5</td><td>5</td><td>6</td><td>-1</td><td>確定前の的中（3択・白×2）</td></tr>
+<tr><td>準決勝2 第3ゲーム</td><td>6</td><td>4</td><td>5</td><td>+1</td><td>確定後も余分に1手</td></tr>
+<tr><td>決勝 第1ゲーム</td><td>3</td><td>3</td><td>4</td><td>-1</td><td>確定前の的中（2択）</td></tr>
+<tr><td>決勝 第2ゲーム</td><td>3</td><td>2</td><td>3</td><td>0</td><td>無駄なしの決着</td></tr>
+<tr><td>決勝 第3ゲーム</td><td>4</td><td>4</td><td>5</td><td>-1</td><td>確定前の的中（2択）</td></tr>
+</tbody>
+</table>
+
+<p>ここでいう「候補が1つに絞れたターン」とは、そのターンまでに得られたHit・Blowの情報だけを用いて、矛盾なく成り立つ正解が1通りに確定した時点のことです。実際に4Hitを入力できるのは、理論上でもその次のターン以降になります（この次のターンが「理論上の最短決着ターン」です）。そして、</p>
+
+<p><strong>超過ターン数＝実際の決着ターン − 理論上の最短決着ターン</strong></p>
+
+<p>がこの表の「超過ターン数」で、0なら「確定した直後に無駄なく決着した」ことを、マイナスなら「まだ候補が複数残っている状態で、その中から正解を選び当てて決着した」ことを意味します。</p>
+
+<p>こうして並べてみると、9ゲームの決着の仕方は決して一様ではないことが分かります。多くの試合で、実は候補が1つに絞られる<strong>前</strong>に決着がついています。重複ありルールで候補数がもともと多いこともあり、「絞り切る前に踏み込む」場面が前編以上に目立つ大会でした。</p>
+
+<p>以下では、この中から特に対照的な3試合を取り上げ、Hit &amp; Blow Analyzerでどのように候補が絞られていったのかを見ていきます。</p>
+
+<h2>4章：実戦解説パート</h2>
+
+<h3>4-1．決勝 第2ゲーム――大きなBlowが一気に候補を絞る</h3>
+
+<p>先手は一条莉々華さん、後手はアーニャ・メルフィッサさんです。</p>
+
+<table>
+<thead>
+<tr><th>ターン</th><th>手番</th><th>回答</th><th>Hit</th><th>Blow</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>先手</td><td>ピンク・白・緑・赤</td><td>2</td><td>2</td></tr>
+<tr><td>2</td><td>後手</td><td>ピンク・緑・白・赤</td><td>0</td><td>4</td></tr>
+<tr><td>3</td><td>先手</td><td>赤・白・緑・ピンク</td><td>4</td><td>0</td></tr>
+</tbody>
+</table>
+
+<img src="/column/images/match-final2.webp" alt="決勝第2ゲーム、一条莉々華さん vs アーニャ・メルフィッサさんの対局、3ターン目に4Hitで決着した時点の盤面" width="1200" height="555" loading="lazy">
+<p class="image-caption">※画像は「エンジョイ！ホロヒット＆ブロー最強決定戦」（ホロライブ公式配信）より引用しています。著作権は各権利者に帰属します。</p>
+
+<img src="/column/images/analyzer-final2.webp" alt="決勝第2ゲーム、Hit & Blow Analyzerの解析結果。1ターン目終了時点で候補が6通りまで絞り込まれている" width="800" height="586" loading="lazy">
+
+<p>この試合を最初に取り上げるのは、たった2ターンで候補が1,296通りからほぼ1通りまで落ちる、情報量の大きさが際立つ試合だからです。</p>
+
+<p>Hit &amp; Blow Analyzerに1ターン目の結果（2Hit・2Blow）を入力すると、候補は1,296通りから<strong>6通り</strong>まで絞り込まれます。1ターン目の回答「ピンク・白・緑・赤」はHit+Blowの合計がちょうど4、つまり4色すべてが正解と一致しています。これは、正解に使われている4色が「ピンク・白・緑・赤」で確定したことを意味します。ただし、この時点では<strong>どの2色がHitで、どの2色がBlowなのか</strong>までは分かりません。4色の並びとしてあり得るのは、4色のうち2色だけが元の位置のまま、残り2色が入れ替わっている並び方――これがちょうど6通り存在し、Hit &amp; Blow Analyzerが返す候補数とも一致します。</p>
+
+<p>続けて2ターン目の結果を入力すると、候補はさらに<strong>1通り</strong>まで絞り込まれます。2ターン目の回答「ピンク・緑・白・赤」に対する判定は<strong>0Hit・4Blow</strong>、つまり「4色ともすべて使われているのに、1つも正しい位置に置けていない」という結果でした。1ターン目の情報とあわせると、これを満たす並びは「赤・白・緑・ピンク」しか残りません。</p>
+
+<p>つまり、2ターン目が終わった時点で、論理的には答えは1つに定まっていたことになります。そして3ターン目、一条莉々華さんはその並びをそのまま入力し、4Hitで決着させました。</p>
+
+<p><strong>確定した直後のターンで、無駄なく決着した試合</strong>です。0Hit・4Blowという、一見すると「何も当たっていない」ように見える判定が、実は最も強力な絞り込み材料になり得る――重複ありルールを扱う上で象徴的な一局でした。</p>
+
+<h3>4-2．準決勝第2試合 第2ゲーム――重複ありルールならではの曖昧さ</h3>
+
+<p>先手はさくらみこさん、後手は一条莉々華さんです。</p>
+
+<table>
+<thead>
+<tr><th>ターン</th><th>手番</th><th>回答</th><th>Hit</th><th>Blow</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>先手</td><td>青・赤・緑・黄</td><td>0</td><td>1</td></tr>
+<tr><td>2</td><td>後手</td><td>ピンク・白・赤・赤</td><td>1</td><td>1</td></tr>
+<tr><td>3</td><td>先手</td><td>緑・白・青・青</td><td>0</td><td>2</td></tr>
+<tr><td>4</td><td>後手</td><td>ピンク・青・白・白</td><td>3</td><td>0</td></tr>
+<tr><td>5</td><td>先手</td><td>ピンク・緑・白・白</td><td>4</td><td>0</td></tr>
+</tbody>
+</table>
+
+<img src="/column/images/match-semi2-2.webp" alt="準決勝第2試合第2ゲーム、さくらみこさん vs 一条莉々華さんの対局、5ターン目に4Hitで決着した時点の盤面" width="1200" height="555" loading="lazy">
+<p class="image-caption">※画像は「エンジョイ！ホロヒット＆ブロー最強決定戦」（ホロライブ公式配信）より引用しています。著作権は各権利者に帰属します。</p>
+
+<img src="/column/images/analyzer-semi2-2.webp" alt="準決勝第2試合第2ゲーム、Hit & Blow Analyzerの解析結果。4ターン目終了時点で候補が3通りまで絞り込まれている" width="800" height="882" loading="lazy">
+
+<p>正解は「ピンク・緑・白・白」――白が2つ含まれる並びです。この試合を取り上げるのは、重複ありルールだからこそ生まれる「絞り切れない曖昧さ」が、はっきり表れているからです。</p>
+
+<p>Hit &amp; Blow Analyzerで1〜4ターン目までの結果を順に入力していくと、候補数は</p>
+
+<p><strong>1,296通り → 152通り → 30通り → 8通り → 3通り</strong></p>
+
+<p>と減っていきます。それぞれのターンで何が確定していくのかを、Hit &amp; Blow Analyzerの候補リストを見ながら追ってみます。</p>
+
+<p><strong>1ターン目</strong>：「青・赤・緑・黄」に対して<strong>0Hit・1Blow</strong>。この4色はいずれも正解では未使用の「ピンク・白」以外の色ですが、Hit+Blowの合計が1ということは、この4色のうち<strong>ちょうど1色だけ</strong>が正解に含まれていることになります。逆に言えば、残る3色は完全に不使用です。ただし、この時点では「含まれている1色が何回使われているか」までは分からないため、ピンクと白を合わせた個数はまだ確定しません（候補152通り）。</p>
+
+<p><strong>2ターン目</strong>：「ピンク・白・赤・赤」に対して<strong>1Hit・1Blow</strong>。ここで候補は一気に30通りまで絞られます。この30通りを実際に見てみると、面白い構造が浮かび上がります。<strong>「1枠目がピンク」か「2枠目が白」か、そのどちらか一方だけが必ず成り立ち、両方同時に成り立つことはない</strong>のです。</p>
+
+<p>また、1ターン目で残っていた「赤が使われている可能性」も、この段階でほぼ消えます。回答側に赤を2つ使っているため、もし正解にも赤が2つ含まれていたら、それだけでHit＋Blowの合計（今回は2）を使い切ってしまい、ピンクや白が入る余地がゼロになってしまいます。しかし赤は4マス中2マスしか占めておらず、残り2マスを埋められる色が他にありません（青・緑・黄はすでに1ターン目の結果から除外済み、ピンク・白も入れると合計が2を超えて矛盾するため）。つまり<strong>「赤が2つ」という並びはこの時点で完全に成立不可能</strong>です。成立の余地が残るのは「赤が1つだけ」のケースに限られ、実際に候補として残っているのも「赤・白・白・白」の1通りだけです。</p>
+
+<p><strong>3ターン目</strong>：「緑・白・青・青」に対して<strong>0Hit・2Blow</strong>。2ターン目と同じく2枠目に「白」を置いたまま試したにもかかわらず、Hitが0だったことで、「2枠目が白」という可能性はここで完全に消えます。つまり<strong>「1枠目はピンク」で確定</strong>です。同時に、1ターン目から残っていた「赤を含む候補」も、この結果と矛盾するためここで脱落し、<strong>赤は完全に不使用と確定</strong>します。さらに合計2Blowという結果と組み合わせると、ピンク・白以外に使われているもう1色は「青」か「緑」のどちらかまで絞り込めます（候補8通り）。</p>
+
+<p><strong>4ターン目</strong>：「ピンク・青・白・白」に対して<strong>3Hit・0Blow</strong>。1枠目のピンクはすでに確定しているため、この3Hitのうち1つはそこから来ています。残り3枠で2つHitしている計算です。ここで「もう1色」が青か緑かで場合分けしてみます。</p>
+
+<ul>
+<li><strong>青だった場合</strong>：3ターン目で青を3枠目・4枠目に試して0Hitだったため、青が使われているとすれば2枠目に限られます。残る2枠（3枠目・4枠目）は白とピンクが1個ずつ入る並びで、2通りの可能性が残ります。</li>
+<li><strong>緑だった場合</strong>：4ターン目の回答「ピンク・青・白・白」の「青」を「緑」に置き換えた並びだけが、この結果と矛盾しません。</li>
+</ul>
+
+<p>これを合わせると、残る候補はちょうど<strong>3通り</strong>――「ピンク・青・ピンク・白」「ピンク・青・白・ピンク」「ピンク・緑・白・白」です。</p>
+
+<p>正解は「ピンク・緑・白・白」――白が2つ含まれる並びです。3つの候補のうち2つは「ピンク」が2回登場する並びで、残り1つ（実際の正解）だけが「白」が2回登場する並びでした。同じHit・Blowの履歴を満たしながら、どの色が重複しているかまで割れている――これは、色の重複が認められていない前編のルールでは起こり得なかった種類の曖昧さです。</p>
+
+<p>5ターン目、さくらみこさんはこの3択の中から実際の正解である「ピンク・緑・白・白」を選び、4Hitを決めました。<strong>論理的にはまだ3通りの候補が残っている状態で、その1/3を引き当てた試合</strong>であり、なおかつ、絞り込みが最後まで割り切れなかった原因が「重複」そのものにある、という点で、この記事のテーマを象徴する一局と言えます。</p>
+
+<h3>4-3．準決勝第1試合 第3ゲーム――終盤は人間の論理が効いてくる</h3>
+
+<p>先手はロボ子さん、後手はアーニャ・メルフィッサさんです。</p>
+
+<table>
+<thead>
+<tr><th>ターン</th><th>手番</th><th>回答</th><th>Hit</th><th>Blow</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>先手</td><td>黄・ピンク・ピンク・赤</td><td>1</td><td>0</td></tr>
+<tr><td>2</td><td>後手</td><td>緑・白・ピンク・青</td><td>1</td><td>1</td></tr>
+<tr><td>3</td><td>先手</td><td>黄・緑・青・黄</td><td>1</td><td>1</td></tr>
+<tr><td>4</td><td>後手</td><td>黄・ピンク・黄・白</td><td>1</td><td>1</td></tr>
+<tr><td>5</td><td>先手</td><td>白・黄・ピンク・緑</td><td>1</td><td>2</td></tr>
+<tr><td>6</td><td>後手</td><td>黄・白・赤・ピンク</td><td>2</td><td>0</td></tr>
+<tr><td>7</td><td>先手</td><td>ピンク・白・緑・青</td><td>2</td><td>0</td></tr>
+<tr><td>8</td><td>後手</td><td>黄・白・緑・緑</td><td>4</td><td>0</td></tr>
+</tbody>
+</table>
+
+<img src="/column/images/match-semi1-3.webp" alt="準決勝第1試合第3ゲーム、ロボ子さん vs アーニャ・メルフィッサさんの対局、8ターン目に4Hitで決着した時点の盤面" width="1200" height="555" loading="lazy">
+<p class="image-caption">※画像は「エンジョイ！ホロヒット＆ブロー最強決定戦」（ホロライブ公式配信）より引用しています。著作権は各権利者に帰属します。</p>
+
+<img src="/column/images/analyzer-semi1-3.webp" alt="準決勝第1試合第3ゲーム、Hit & Blow Analyzerの解析結果。5ターン目終了時点で候補が2通りまで絞り込まれている" width="800" height="990" loading="lazy">
+
+<p>正解は「黄・白・緑・緑」――こちらも緑が2つ含まれる、重複ルールならではの並びです。9ゲームの中で最長となる8ターンを費やしたこの試合を最後に取り上げるのは、Hit &amp; Blow Analyzerと人間、それぞれの役割分担がもっとも分かりやすく表れているからです。</p>
+
+<p>Hit &amp; Blow Analyzerで各ターンの結果を順に入力していくと、候補数は</p>
+
+<p><strong>182通り → 30通り → 6通り → 3通り → 2通り → 2通り → 1通り → 1通り</strong></p>
+
+<p>と推移します。1〜3ターン目にかけて候補が182通りから6通りまで一気に落ちる序盤は、まさにHit &amp; Blow Analyzerの独壇場です。人間が頭の中だけでこの規模の候補を管理するのは現実的ではありません。</p>
+
+<p>しかし4ターン目以降、候補は3通り、2通り、2通りと、減り方が緩やかになります。この段階まで来ると、残っている候補を1つずつ具体的に思い浮かべ、「この回答をしたらどちらのケースでもHit・Blowはどうなるか」を頭の中で比較する――という、将棋の終盤戦にも似た読み合いが可能になってきます。事実、6ターン目の回答では候補が2通りのまま変化しておらず、この一手では2つの候補を区別しきれなかったことが分かります。続く7ターン目でようやく候補が1通りに絞られ、8ターン目、アーニャ・メルフィッサさんはその唯一解をそのまま入力して4Hitを決めました。</p>
+
+<p><strong>確定した7ターン目の直後、8ターン目に無駄なく決着した試合</strong>であり、同時に「序盤はHit &amp; Blow Analyzerに頼り、候補が数通りまで減った終盤は人間の読みで詰める」という理想的な役割分担が体現された一局でもありました。</p>
+
+<h2>5章：Hit &amp; Blow Analyzerというツールの立ち位置</h2>
+
+<p>3試合を見てきて分かる通り、Hit &amp; Blow Analyzerが力を発揮するのは、候補が数百通りある序盤です。人間が頭の中だけで管理しきれない情報量を、Hit・Blowの条件に沿って正確に計算し、可視化してくれます。</p>
+
+<p>一方で、候補が数通りまで絞られた終盤は、人間の論理的推論だけでも十分に対応できる場面が増えてきます。4-3で見た準決勝第1試合第3ゲームのように、候補が2〜3通りまで減った状態は、将棋でいえば終盤の詰み筋を読むのに近い感覚です。ここから先は、Hit &amp; Blow Analyzerに頼りきるよりも、自分の頭で候補を1つずつ検討しながら最適解を導き出す方が、ゲームそのものを楽しめるはずです。実際、この「終盤は自分で読み切る」という感覚こそが、Hit &amp; Blowの勝ち方を身につける近道でもあります。</p>
+
+<p>繰り返しになりますが、Hit &amp; Blow Analyzerは「答えを教えてくれるツール」ではありません。正解を生成したり、次の一手を指示したりすることはなく、あくまでプレイヤーが得た情報を整理し、論理的推論を補助するための道具です。序盤の膨大な候補整理はHit &amp; Blow Analyzerに任せ、終盤の絞り込みは自分の頭で――そんな使い分けをしていただければ、このアプリを作った意図が伝わるのではないかと思います。</p>
+
+<p>本記事で扱うHit &amp; Blowは、『世界のアソビ大全51』に収録されているルールに対応しています。そのため、実際にゲームをプレイしている方にとっても、ここで紹介した考え方は攻略の教材としてそのまま役立つはずです。</p>
+
+<h2>エピローグ：決勝までもつれた末に</h2>
+
+<p>最後に、少しだけ試合内容から離れた話をさせてください。</p>
+
+<p>決勝は3ゲーム目までもつれ込み、優勝を決めたのは一条莉々華さんでした。その最終ゲームの最終ターン、候補はすでに2通りにまで絞られていました。</p>
+
+<p>このとき一条莉々華さんが口にしたのが、「これってニブイチなんすよね」という一言です。理論上まだ答えが1つに定まっていないことを自覚した上で、その2択を自ら選び取り、そのまま4Hitで大会を制しました。</p>
+
+<p>この試合単体を見ると、重複ありルールならではの曖昧さが際立つ一局ではありません。ですが、決勝という大舞台の、しかも最終局面で「これは五分五分の勝負だ」と自覚しながら踏み込む――その姿は、ここまで紹介してきた「候補を論理的に絞り込んでいく過程」とはまた違う、対戦ゲームならではの面白さを教えてくれます。</p>
+
+<p>3ゲーム目までもつれ込んだ末に、最後は1/2を引き当てて掴んだ優勝。決勝を戦った一条莉々華さん、アーニャ・メルフィッサさん、両者の熱戦に敬意を表して、この一局を記事の締めくくりに添えておきます。</p>
+
+<h2>6章：まとめ・次回予告</h2>
+
+<p>前編では「6色から4色を選ぶ・色の重複なし」というルールのもと、Hit・Blowという確実な情報だけを積み重ねて答えを絞り込んでいく論理的推論のゲームとしてHit &amp; Blowを紹介しました。</p>
+
+<p>後編となる今回は、準決勝以降で採用された「色の重複あり」というルール変更を題材に、候補数が360通りから1,296通りへと増えても、Hit・Blowを手掛かりに答えを絞り込んでいくという基本的な考え方そのものは変わらないことを、実際の大会データとHit &amp; Blow Analyzerの解析結果を通じて確認しました。</p>
+
+<p>9ゲームを俯瞰すると、確定した直後に無駄なく決着した試合もあれば、複数の候補が残ったまま正解を選び当てた試合、確定後も余分にターンを使った試合まで、決着の仕方は実にさまざまでした。同じ「4Hitで勝利」という結果だけを見ても、そこに至るまでの道のりは一つとして同じではありません。</p>
+
+<p>また、Hit &amp; Blow Analyzerというツールの役割についても、序盤の膨大な候補整理と、終盤の人間による読み――この2つがうまく噛み合うことで、論理的推論というゲームの面白さがより見えやすくなることを紹介しました。</p>
+
+<p>一見すると「色当てゲーム」に見えるHit &amp; Blowですが、前編・後編を通じて見てきた通り、その中身は勘や運任せの当てずっぽうではなく、確実な情報を積み重ねて答えを絞り込んでいく論理ゲームでした。ルールが変わっても、その本質は変わりません。</p>
+
+<p>次回以降は、この記事で扱いきれなかった話題――「論理的推論」と「確率的推論」の違いや、順列・組合せ・パスカルの三角形といった基礎知識、さらにはベイズ推定・設定判別への応用まで、Hit &amp; Blowを入口にした発展的な記事を予定しています。ぜひそちらもお楽しみに。</p>
+
+<div class="voice-box">
+<span class="voice-label">水丸教授より</span>
+Hit & Blow Analyzerを使ってある程度候補を絞り込むという手法は、人間の思考をかなり助けてくれることが分かりました。また、Analyzerで局面を検証しながら記事を書くことで、自分の中で整理しきれていなかった論理を、改めて言葉として組み立て直すこともできました。
+</div>
+
+<div class="cta-box">
+<strong>▶ この記事で使った解析ツール</strong><br>
+<a href="https://mizumaru-apps.com/hb-analyzer/">ヒット＆ブロー解析補助アプリ（Hit &amp; Blow Analyzer）を使ってみる</a><br>
+回答した色の並びとHit・Blowの結果を入力するだけで、残っている候補数をその場で確認できます。
+</div>
+
+<div class="reference-section">
+  <h2>参考資料</h2>
+  <ul>
+    <li>ホロライブ公式YouTube「<a href="https://www.youtube.com/watch?v=qACbRJSpxXw" target="_blank" rel="noopener noreferrer">エンジョイ！ホロヒット＆ブロー最強決定戦</a>」（2026年7月18日、鷹嶺ルイ ch.）</li>
+    <li>Nintendo Switch『世界のアソビ大全51』（Hit &amp; Blow収録タイトル）</li>
+  </ul>
+</div>
+
+<div class="related-section">
+  <div class="related-list">
+    <a class="related-card" href="/column/hit-and-blow-logical-reasoning-part1.html">【前編】Hit &amp; Blowは論理的推論のゲーム｜『世界のアソビ大全51』をホロヒット＆ブロー決定戦から学ぶ</a>
+    <a class="related-card" href="/hb-analyzer/">Hit &amp; Blow Analyzerの使い方ガイド</a>
+    <!-- TODO: 公開後に追加 -->
+    <!-- <a class="related-card" href="">順列・組合せ・場合の数</a> -->
+    <!-- <a class="related-card" href="">論理的推論と確率的推論の違い</a> -->
+  </div>
+</div>
+
+<div class="disclaimer">
+※本記事では、解説・考察を目的として、ホロライブ公式YouTubeチャンネルで公開されている配信のスクリーンショットを引用しています。掲載画像の著作権は各権利者に帰属します。
+</div>
+
+</article>
+</div>
+
+<footer class="article-footer">
+  <div class="article-footer-links">
+    <a class="article-footer-link" href="/" target="_blank" rel="noopener noreferrer">TOP</a>
+    <a class="article-footer-link" href="/column/">コラム・時事</a>
+    <a class="article-footer-link" href="/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+  </div>
+  <div class="article-footer-copy">© 2026 パチスロ期待値算出補助アプリ集〜確率統計〜 / mizumaru-apps.com</div>
+</footer>
+
+</body>
+</html>

@@ -109,7 +109,7 @@
 
   <url>
     <loc>https://mizumaru-apps.com/column/</loc>
-    <lastmod>2026-06-30</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -118,6 +118,21 @@
   <url>
     <loc>https://mizumaru-apps.com/column/hostage-justice-stats.html</loc>
     <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- コラム：ホロヒット＆ブロー記事（前編・後編、Hit & Blow Analyzerとの連動記事） -->
+  <url>
+    <loc>https://mizumaru-apps.com/column/hit-and-blow-logical-reasoning-part1.html</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mizumaru-apps.com/column/hit-and-blow-logical-reasoning-part2.html</loc>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
