@@ -1,6 +1,6 @@
 {
-  "name": "Hit & Blow Analyzer",
-  "short_name": "HB Analyzer",
+  "name": "ヒット＆ブロー解析補助アプリ（Hit & Blow Analyzer）",
+  "short_name": "ヒット&ブロー",
   "description": "6色から4色を選ぶHit & Blowルールに対応した解析補助ツール。入力した回答とHit/Blow数から、条件を満たす残り候補をリアルタイムで計算します。",
   "start_url": "/hb-analyzer/",
   "display": "standalone",
