@@ -229,12 +229,26 @@
     background:rgba(255,255,255,0.55);
   }
 
-  .hb-inputs{ display:flex; gap:5px; margin-left:auto; }
+  .hb-inputs{ display:flex; gap:8px; margin-left:auto; }
   .hb-box{ display:flex; flex-direction:column; align-items:center; gap:2px; }
   .hb-box label{ font-size:9.5px; color:var(--ink-soft); }
-  .hb-box input{
-    width:34px; height:30px; text-align:center; border-radius:8px;
-    border:1.5px solid #dbe4ee; font-size:14px; font-family:'Noto Sans JP';
+  .stepper{
+    display:flex; align-items:center; gap:0;
+    border:1.5px solid #dbe4ee; border-radius:8px; overflow:hidden;
+    background:#fff;
+  }
+  .step-btn{
+    width:26px; height:30px; border:none; background:#f1f5f8; color:var(--teal-dark);
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:900; font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; user-select:none; touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .step-btn:active{ background:var(--teal); color:#fff; }
+  .step-btn:disabled{ color:#c8d3dc; background:#f5f5f5; cursor:default; }
+  .step-value{
+    width:22px; text-align:center; font-size:14px; font-family:'Noto Sans JP';
+    font-weight:700; color:var(--ink);
   }
   .confirm-btn{
     font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:12px;
@@ -428,8 +442,22 @@ function render(){
       <div class="turn-no">${i+1}</div>
       <div class="slots">${slotsHtml}</div>
       <div class="hb-inputs">
-        <div class="hb-box"><label>Hit</label><input type="number" min="0" max="4" value="${row.hit}" data-row="${i}" data-field="hit" ${row.confirmed?'disabled':''}></div>
-        <div class="hb-box"><label>Blow</label><input type="number" min="0" max="4" value="${row.blow}" data-row="${i}" data-field="blow" ${row.confirmed?'disabled':''}></div>
+        <div class="hb-box">
+          <label>Hit</label>
+          <div class="stepper" data-row="${i}" data-field="hit">
+            <button class="step-btn minus" type="button" data-row="${i}" data-field="hit" data-dir="-1" ${row.confirmed?'disabled':''} aria-label="Hitを減らす">−</button>
+            <span class="step-value">${row.hit}</span>
+            <button class="step-btn plus" type="button" data-row="${i}" data-field="hit" data-dir="1" ${row.confirmed?'disabled':''} aria-label="Hitを増やす">＋</button>
+          </div>
+        </div>
+        <div class="hb-box">
+          <label>Blow</label>
+          <div class="stepper" data-row="${i}" data-field="blow">
+            <button class="step-btn minus" type="button" data-row="${i}" data-field="blow" data-dir="-1" ${row.confirmed?'disabled':''} aria-label="Blowを減らす">−</button>
+            <span class="step-value">${row.blow}</span>
+            <button class="step-btn plus" type="button" data-row="${i}" data-field="blow" data-dir="1" ${row.confirmed?'disabled':''} aria-label="Blowを増やす">＋</button>
+          </div>
+        </div>
       </div>
       <button class="confirm-btn" data-row="${i}" ${row.confirmed?'disabled':''}>${row.confirmed?'確定済':'確定'}</button>
     `;
@@ -445,11 +473,12 @@ function render(){
       render();
     });
   });
-  rowsEl.querySelectorAll('input').forEach(inp => {
-    inp.addEventListener('input', () => {
-      const r = +inp.dataset.row, f = inp.dataset.field;
-      const v = inp.value === '' ? 0 : Math.max(0, Math.min(4, parseInt(inp.value)||0));
-      rows[r][f] = v;
+  rowsEl.querySelectorAll('.step-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const r = +btn.dataset.row, f = btn.dataset.field, dir = +btn.dataset.dir;
+      const next = Math.max(0, Math.min(4, rows[r][f] + dir));
+      rows[r][f] = next;
+      render();
     });
   });
   rowsEl.querySelectorAll('.confirm-btn').forEach(btn => {

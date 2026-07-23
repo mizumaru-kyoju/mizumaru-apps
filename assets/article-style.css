@@ -2,10 +2,16 @@
  * article-style.css
  * mizumaru-apps.com 記事ページ共通スタイル
  * 対象：kiso / pachinko / slot / kyoshitsu / column 配下の記事ページ
- * 最終更新：2026-07-21
+ * 最終更新：2026-07-23（v2デザイン改修：資格教材・参考書の文法を参考に、
+ *   lead-box/term-box/voice-box/formula-box/example-box/cta-box/related-cardを
+ *   全面改修。既存ページ（kyoshitsu・column）は旧マークアップのままでも大きくは
+ *   崩れないよう配慮しているが、新デザインの恩恵（タグ・番号バッジ等）を得るには
+ *   本文HTML側の追記が必要。h2のchapter-head（章番号タブ）は完全な追加コンポー
+ *   ネントのため、既存の<h2>単体使用には影響しない）
  *
  * 含まれるコンポーネント：
  *   リセット・ベース / ヘッダー / パンくず / 記事メタ情報 / カテゴリバッジ
+ *   chapter-head（章番号タブ・新設） /
  *   lead-box / term-box / voice-box / formula-box / example-box /
  *   cta-box / reference-section / image-caption / disclaimer
  *   table（記事本文内の表） / chip（色チップ・color-seq）
@@ -165,6 +171,41 @@ img { max-width: 100%; height: auto; }
 }
 .article-body h2:first-child { margin-top: 0; }
 
+/* 章番号タブ付き見出し（新設・オプション）
+   使い方：<div class="chapter-head"><span class="chapter-num">第1章</span><h2 class="chapter-title">見出し</h2></div>
+   通常の <h2>見出し</h2> 単体で使う場合は、上のh2ルールがそのまま適用され、
+   このコンポーネントを使わなくても問題なく表示される（後方互換） */
+.chapter-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 52px 0 18px;
+}
+.chapter-head:first-child { margin-top: 0; }
+.chapter-num {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--header-bg);
+  padding: 5px 12px 5px 10px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+}
+.chapter-head .chapter-title,
+.article-body .chapter-head h2.chapter-title {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--header-bg);
+  line-height: 1.45;
+  border-bottom: 2px solid var(--border2);
+  padding-bottom: 10px;
+  margin: 0;
+  flex: 1;
+}
+
 .article-body h3 {
   font-family: var(--font-serif);
   font-size: 16px;
@@ -280,32 +321,43 @@ img { max-width: 100%; height: auto; }
    7. lead-box（結論ファースト）
 ═══════════════════════════════════════ */
 .lead-box {
-  background: var(--accent-light);
-  border: 1px solid #bfdbfe;
-  border-left: 4px solid var(--accent);
-  border-radius: 0 8px 8px 0;
-  padding: 18px 20px;
+  position: relative;
+  background: var(--white);
+  border: none;
+  border-top: 3px solid var(--header-bg);
+  border-bottom: 1px solid var(--border2);
+  border-radius: 0;
+  padding: 26px 22px 20px;
   margin: 0 0 36px;
-  font-size: 14px;
-  line-height: 1.9;
-  color: #1e3a8a;
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: #1e293b;
 }
-.lead-box strong {
-  display: block;
+.lead-box .lead-tag {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  display: inline-block;
+  background: var(--header-bg);
+  color: #fff;
+  font-family: var(--font-serif);
   font-size: 12px;
-  letter-spacing: 1px;
-  color: var(--accent);
-  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 5px 16px;
+  margin-bottom: 0;
 }
 
 /* ═══════════════════════════════════════
    8. term-box（専門用語の定義）
 ═══════════════════════════════════════ */
 .term-box {
-  background: #f8fafc;
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 16px 18px;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  border-radius: 0;
+  padding: 16px 4px;
   margin: 20px 0;
   font-size: 13.5px;
   line-height: 1.85;
@@ -313,23 +365,39 @@ img { max-width: 100%; height: auto; }
 }
 .term-box .term-label {
   display: inline-block;
-  font-size: 10px;
+  font-family: var(--font-serif);
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--muted2);
-  border: 1px solid var(--border2);
-  border-radius: 4px;
-  padding: 1px 7px;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 14px;
 }
 .term-box dt {
+  font-family: var(--font-serif);
   font-weight: 700;
+  font-size: 15px;
   color: var(--text);
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.term-box dt::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 .term-box dd {
   margin-left: 0;
-  margin-bottom: 10px;
+  padding-left: 14px;
+  border-left: 2px solid var(--border);
+  margin-bottom: 12px;
 }
 .term-box dd:last-child { margin-bottom: 0; }
 
@@ -337,106 +405,196 @@ img { max-width: 100%; height: auto; }
    9. voice-box（運営者の見解・コメント）
 ═══════════════════════════════════════ */
 .voice-box {
-  background: #fefce8;
-  border: 1px solid #fde68a;
-  border-left: 4px solid #f59e0b;
-  border-radius: 0 8px 8px 0;
-  padding: 16px 18px;
+  position: relative;
+  background: #fffaf0;
+  border: 1px solid #f0dcb0;
+  border-left: none;
+  border-radius: 0;
+  padding: 20px 20px 18px 22px;
   margin: 24px 0;
   font-size: 13.5px;
   line-height: 1.9;
-  color: #78350f;
+  color: #5c4111;
+}
+.voice-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 16px 16px 0 0;
+  border-color: #d9a441 transparent transparent transparent;
 }
 .voice-box .voice-label {
-  display: block;
-  font-size: 11px;
+  font-family: var(--font-serif);
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #b45309;
+  letter-spacing: 1px;
+  color: #a5670f;
   margin-bottom: 8px;
+  display: block;
 }
+.voice-box p { margin: 0 0 12px; }
+.voice-box p:last-child { margin-bottom: 0; }
 
 /* ═══════════════════════════════════════
    10. formula-box（数式・計算式）
 ═══════════════════════════════════════ */
 .formula-box {
-  background: #eef4ff;
+  position: relative;
+  background:
+    linear-gradient(var(--white), var(--white)),
+    repeating-linear-gradient(0deg, #eef2fb 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(90deg, #eef2fb 0 1px, transparent 1px 22px);
   border: 1px solid #d6e4fb;
-  border-left: 4px solid #1a56db;
-  border-radius: 0 8px 8px 0;
-  padding: 20px 22px;
+  border-left: none;
+  border-radius: 0;
+  padding: 24px 22px 20px;
   margin: 24px 0;
   overflow-x: auto;
 }
 .formula-box .formula-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #1a56db;
-  margin-bottom: 10px;
-  display: block;
+  position: absolute;
+  top: -13px;
+  left: 30px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 6px 22px;
+  margin-bottom: 0;
+  display: inline-block;
 }
 .formula-box .formula-content {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 15px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 15.5px;
   color: #0f2057;
-  line-height: 1.8;
+  line-height: 2.1;
+  letter-spacing: 0.2px;
   white-space: pre-wrap;
+}
+.formula-box .formula-content strong {
+  font-weight: 700;
+  color: var(--accent);
 }
 .formula-box .formula-note {
   font-size: 12px;
   color: #64748b;
-  margin-top: 10px;
+  margin-top: 14px;
   line-height: 1.7;
 }
 
 /* ═══════════════════════════════════════
    11. example-box（具体例）
 ═══════════════════════════════════════ */
+/* 使い方：
+   <div class="example-box">
+     <div class="example-num">1</div>
+     <div class="example-content">
+       <span class="example-label">モデル</span>（「例題」「ケース」「具体例」等に差し替え可）
+       <p>本文</p>
+     </div>
+   </div>
+*/
 .example-box {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-left: 4px solid #16a34a;
-  border-radius: 0 8px 8px 0;
-  padding: 16px 18px;
+  display: flex;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid var(--border2);
+  border-left: none;
+  border-radius: 4px;
+  padding: 18px 20px;
   margin: 24px 0;
+}
+.example-box .example-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--header-bg);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.example-box .example-content p {
   font-size: 13.5px;
-  line-height: 1.9;
-  color: #14532d;
+  color: #374151;
+  margin: 0;
+  line-height: 1.85;
+}
+/* 安全策：旧仕様（.example-num/.example-contentのラッパーなしで<p>を直接入れる形）で
+   使われていた場合、flexの横並びで崩れないよう縦積みにフォールバックする */
+.example-box:not(:has(.example-num)) {
+  display: block;
+}
+.example-box:not(:has(.example-num)) p {
+  margin: 0 0 10px;
+}
+.example-box:not(:has(.example-num)) p:last-child {
+  margin-bottom: 0;
 }
 .example-box .example-label {
   display: block;
-  font-size: 11px;
+  font-family: var(--font-serif);
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #16a34a;
-  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  color: var(--muted2);
+  margin-bottom: 4px;
 }
 
 /* ═══════════════════════════════════════
    12. cta-box（アプリ等への誘導・行動喚起）
 ═══════════════════════════════════════ */
+/* 使い方：
+   <div class="cta-box">
+     <span class="cta-arrow">→</span>
+     <span class="cta-text"><strong>ラベル</strong>本文＋<a href="...">リンク</a></span>
+   </div>
+*/
 .cta-box {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-left: 4px solid #10b981;
-  border-radius: 0 8px 8px 0;
-  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--header-bg);
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  padding: 18px 22px;
   margin: 36px 0;
   font-size: 13.5px;
   line-height: 1.9;
-  color: #065f46;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 3% 100%);
 }
-.cta-box strong {
+.cta-box .cta-arrow {
+  font-size: 22px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: #93c5fd;
+}
+.cta-box .cta-text strong {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 1px;
-  color: #059669;
-  margin-bottom: 8px;
+  color: #93c5fd;
+  margin-bottom: 4px;
 }
 .cta-box a {
   font-weight: 700;
-  color: #059669;
+  color: #fff;
+  text-decoration: underline;
+}
+/* 安全策：旧仕様（.cta-arrowのラッパーなしで<strong>+<br>+<a>+テキストを直接入れる形）で
+   使われていた場合、flexの横並びで崩れないよう縦積み（従来のブロック表示）にフォールバックする */
+.cta-box:not(:has(.cta-arrow)) {
+  display: block;
 }
 
 /* ═══════════════════════════════════════
@@ -504,50 +662,70 @@ img { max-width: 100%; height: auto; }
   padding-bottom: 0;
   margin-top: 0;
 }
+/* 使い方：
+   <div class="related-section">
+     <div class="related-list">
+       <a class="related-card" href="...">
+         <span class="related-card-arrow">→</span>
+         <span class="related-card-cat">カテゴリ名</span>
+         <span class="related-card-title">記事タイトル</span>
+       </a>
+     </div>
+   </div>
+*/
 .related-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 .related-card {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 54px;
-  background: var(--accent);
-  border-radius: 999px;
-  padding: 16px 30px;
+  gap: 14px;
+  min-height: 0;
+  background: var(--header-bg);
+  border-radius: 0;
+  padding: 14px 20px;
   text-decoration: none !important;
-  box-shadow: var(--shadow);
-  transition: all .2s;
+  box-shadow: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5% 100%);
+  transition: filter .15s;
 }
 .related-card:hover {
-  filter: brightness(1.08);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-1px);
+  filter: brightness(1.15);
+  box-shadow: none;
+  transform: none;
+}
+.related-card-arrow {
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: #93c5fd;
 }
 .related-card-title {
   color: #ffffff;
   font-size: 14px;
   font-weight: 700;
-  line-height: 1.6;
-  text-align: center;
+  line-height: 1.5;
+  text-align: left;
   margin-bottom: 0;
 }
 .related-card-cat {
-  position: absolute;
-  top: -11px;
-  left: 22px;
+  position: static;
+  top: auto;
+  left: auto;
+  display: inline-block;
   background: #ffffff;
-  color: var(--accent);
+  color: #0284c7;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  padding: 4px 13px;
-  border-radius: 999px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  box-shadow: none;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .related-card-excerpt {
   font-size: 11.5px;

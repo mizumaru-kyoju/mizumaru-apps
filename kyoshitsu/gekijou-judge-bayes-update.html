@@ -7,9 +7,9 @@
 <meta name="description" content="からくりサーカス2の解析サイトに追記された「激情目を除くと14.1%」という注記。前作の約40%から下げられたと誤解されがちだが、実は同じ確率をより詳しく観測できるようになっただけ。ベイズ更新の考え方で数理的に検証する。">
 <meta property="og:title" content="劇場ジャッジ「14.1%」の意味は？ベイズ更新で読み解く、からくりサーカス2の解析情報">
 <meta property="og:description" content="激情目が止まらなかった場合のリプレイ・3枚ベル期待度14.1%は、確率が下げられたわけではない。ベイズ更新の考え方で数理的に検証する。">
-<meta property="og:image" content="https://mizumaru-apps.com/kyoshitsu/og-image-gekijou-judge-mosaic-only.png">
+<meta property="og:image" content="https://mizumaru-apps.com/kyoshitsu/images/og-image-gekijou-judge-mosaic-only.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mizumaru-apps.com/kyoshitsu/og-image-gekijou-judge-mosaic-only.png">
+<meta name="twitter:image" content="https://mizumaru-apps.com/kyoshitsu/images/og-image-gekijou-judge-mosaic-only.png">
 <meta property="og:url" content="https://mizumaru-apps.com/kyoshitsu/gekijou-judge-bayes-update.html">
 <meta property="og:type" content="article">
 <link rel="canonical" href="https://mizumaru-apps.com/kyoshitsu/gekijou-judge-bayes-update.html">
@@ -138,8 +138,18 @@
     <p>つまり、リプレイ・3枚ベルを引いた100回のうち、約30回程度（正確には約30.2%）は「激情目」という出目で最初から成功が見えており、残りの約70回は、出目で判別できないぶん、14.1%という数字だけを頼りにするしかない――という内訳になっていた、ということです。</p>
 
     <div class="example-box">
-      <p><strong>黒バー狙いなどの場合</strong>：出目を見ないので、常に「約40%」という数字のまま情報が更新されません。これは前作までの状態とまったく同じです。</p>
-      <p><strong>激情目狙いの場合</strong>：出目という新しい情報が手に入るので、「激情目が止まった→ほぼ確定」「止まらなかった→14.1%」というように、約40%という出発点から、より速く・より正確な着地点にたどり着けます。</p>
+      <div class="example-num">1</div>
+      <div class="example-content">
+        <span class="example-label">ケース</span>
+        <p><strong>黒バー狙いなどの場合</strong>：出目を見ないので、常に「約40%」という数字のまま情報が更新されません。これは前作までの状態とまったく同じです。</p>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-num">2</div>
+      <div class="example-content">
+        <span class="example-label">ケース</span>
+        <p><strong>激情目狙いの場合</strong>：出目という新しい情報が手に入るので、「激情目が止まった→ほぼ確定」「止まらなかった→14.1%」というように、約40%という出発点から、より速く・より正確な着地点にたどり着けます。</p>
+      </div>
     </div>
     <p>損得はどちらも同じです。得られる情報の解像度が変わっただけ、というのが正確な言い方になります。</p>
 
