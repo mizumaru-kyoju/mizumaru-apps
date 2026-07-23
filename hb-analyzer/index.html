@@ -205,11 +205,13 @@
   }
   .turn-row{
     background:var(--card); border-radius:16px; padding:12px 12px;
-    display:flex; align-items:center; gap:10px; margin-bottom:10px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:10px;
     box-shadow:0 2px 8px rgba(15,42,74,0.06);
     transition:opacity .2s;
   }
   .turn-row.disabled{ opacity:0.45; pointer-events:none; }
+  .turn-main{ display:flex; align-items:center; gap:10px; }
+  .turn-controls{ display:flex; align-items:center; gap:8px; margin-left:auto; }
   .turn-no{
     font-family:'Zen Maru Gothic', sans-serif; font-weight:900; font-size:13px;
     color:#fff; background:var(--ink-soft); width:26px; height:26px; border-radius:50%;
@@ -229,7 +231,7 @@
     background:rgba(255,255,255,0.55);
   }
 
-  .hb-inputs{ display:flex; gap:8px; margin-left:auto; }
+  .hb-inputs{ display:flex; gap:8px; }
   .hb-box{ display:flex; flex-direction:column; align-items:center; gap:2px; }
   .hb-box label{ font-size:9.5px; color:var(--ink-soft); }
   .stepper{
@@ -257,6 +259,15 @@
   }
   .confirm-btn:disabled{ background:#c8d3dc; cursor:default; }
   .turn-row.confirmed .confirm-btn{ background:var(--success); }
+
+  /* スマホ幅：1行に収まりきらない場合は色スロット行の下にHit/Blow/確定を2段目として折り返す */
+  @media (max-width:480px){
+    .turn-controls{
+      flex-basis:100%; margin-left:0; margin-top:2px;
+      justify-content:space-between;
+    }
+  }
+
 
   .reset-bar{ text-align:center; margin-top:16px; }
   .reset-btn{
@@ -439,27 +450,31 @@ function render(){
       `<div class="slot" style="background:${COLORS[ci].hex}" data-row="${i}" data-slot="${si}"></div>`
     ).join('');
     el.innerHTML = `
-      <div class="turn-no">${i+1}</div>
-      <div class="slots">${slotsHtml}</div>
-      <div class="hb-inputs">
-        <div class="hb-box">
-          <label>Hit</label>
-          <div class="stepper" data-row="${i}" data-field="hit">
-            <button class="step-btn minus" type="button" data-row="${i}" data-field="hit" data-dir="-1" ${row.confirmed?'disabled':''} aria-label="Hitを減らす">−</button>
-            <span class="step-value">${row.hit}</span>
-            <button class="step-btn plus" type="button" data-row="${i}" data-field="hit" data-dir="1" ${row.confirmed?'disabled':''} aria-label="Hitを増やす">＋</button>
-          </div>
-        </div>
-        <div class="hb-box">
-          <label>Blow</label>
-          <div class="stepper" data-row="${i}" data-field="blow">
-            <button class="step-btn minus" type="button" data-row="${i}" data-field="blow" data-dir="-1" ${row.confirmed?'disabled':''} aria-label="Blowを減らす">−</button>
-            <span class="step-value">${row.blow}</span>
-            <button class="step-btn plus" type="button" data-row="${i}" data-field="blow" data-dir="1" ${row.confirmed?'disabled':''} aria-label="Blowを増やす">＋</button>
-          </div>
-        </div>
+      <div class="turn-main">
+        <div class="turn-no">${i+1}</div>
+        <div class="slots">${slotsHtml}</div>
       </div>
-      <button class="confirm-btn" data-row="${i}" ${row.confirmed?'disabled':''}>${row.confirmed?'確定済':'確定'}</button>
+      <div class="turn-controls">
+        <div class="hb-inputs">
+          <div class="hb-box">
+            <label>Hit</label>
+            <div class="stepper" data-row="${i}" data-field="hit">
+              <button class="step-btn minus" type="button" data-row="${i}" data-field="hit" data-dir="-1" ${row.confirmed?'disabled':''} aria-label="Hitを減らす">−</button>
+              <span class="step-value">${row.hit}</span>
+              <button class="step-btn plus" type="button" data-row="${i}" data-field="hit" data-dir="1" ${row.confirmed?'disabled':''} aria-label="Hitを増やす">＋</button>
+            </div>
+          </div>
+          <div class="hb-box">
+            <label>Blow</label>
+            <div class="stepper" data-row="${i}" data-field="blow">
+              <button class="step-btn minus" type="button" data-row="${i}" data-field="blow" data-dir="-1" ${row.confirmed?'disabled':''} aria-label="Blowを減らす">−</button>
+              <span class="step-value">${row.blow}</span>
+              <button class="step-btn plus" type="button" data-row="${i}" data-field="blow" data-dir="1" ${row.confirmed?'disabled':''} aria-label="Blowを増やす">＋</button>
+            </div>
+          </div>
+        </div>
+        <button class="confirm-btn" data-row="${i}" ${row.confirmed?'disabled':''}>${row.confirmed?'確定済':'確定'}</button>
+      </div>
     `;
     rowsEl.appendChild(el);
     if(!row.confirmed) locked = true; // 未確定行より下はロック

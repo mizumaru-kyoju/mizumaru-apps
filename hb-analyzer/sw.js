@@ -1,7 +1,7 @@
 // Hit & Blow Analyzer - Service Worker
 // 既存アプリ（/boheikin/, /heikinkakutoku/）と同じ設計方針に準拠
 
-const CACHE_VERSION = 'hb-analyzer-v2';
+const CACHE_VERSION = 'hb-analyzer-v3';
 const CACHE_NAME = CACHE_VERSION;
 
 // キャッシュ対象ファイル（インストール時に事前キャッシュ）

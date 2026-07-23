@@ -451,7 +451,6 @@ img { max-width: 100%; height: auto; }
   border-radius: 0;
   padding: 24px 22px 20px;
   margin: 24px 0;
-  overflow-x: auto;
 }
 .formula-box .formula-label {
   position: absolute;
